@@ -1,0 +1,96 @@
+{
+  "version": "0.1.0",
+  "note": "Discriminating probes. Each record exists because two defensible readings of SPEC.md produce DIFFERENT derive() output on it, and ideally on nothing else.",
+  "probes": [
+    {
+      "id": "p01-ancestry-vs-class",
+      "ambiguity": "§5.1 'class precedence is absolute ... even when the witness is a descendant' vs §5.2 'descendant wins' within a class. Does an override that is an ANCESTOR beat a task that is its DESCENDANT?",
+      "records": [
+        {"id":"o","kind":"override","parents":[],"effects":{"x":"override"},"reason":null},
+        {"id":"t","kind":"task","parents":["o"],"effects":{"x":"task"},"reason":null}
+      ],
+      "split": "class-absolute -> x=override ; ancestry-first -> x=task"
+    },
+    {
+      "id": "p02-witness-descendant-of-task",
+      "ambiguity": "Same question, the other direction: a witness that DESCENDS from the task. The spec's parenthetical suggests task wins; a naive reading of 'descendant wins' gives the witness.",
+      "records": [
+        {"id":"t","kind":"task","parents":[],"effects":{"x":"task"},"reason":null},
+        {"id":"w","kind":"witness","parents":["t"],"effects":{"x":"witness"},"reason":null}
+      ],
+      "split": "class-absolute -> x=task ; ancestry-first -> x=witness"
+    },
+    {
+      "id": "p03-sibling-tiebreak",
+      "ambiguity": "§5.2 tie-break order is stated as 'most intent ancestors, fewest witness ancestors, smallest id'. Are these applied in that ORDER (lexicographic) or weighted?",
+      "records": [
+        {"id":"a","kind":"task","parents":[],"effects":{"x":"a"},"reason":null},
+        {"id":"b","kind":"task","parents":[],"effects":{"x":"b"},"reason":null}
+      ],
+      "split": "smallest-id -> x=a ; reverse order would also give a here, so this probe needs a wider net"
+    },
+    {
+      "id": "p04-intent-count-overrides-witness-count",
+      "ambiguity": "Two same-class candidates where the 'most intent ancestors' criterion and the 'fewest witness ancestors' criterion point at DIFFERENT records.",
+      "records": [
+        {"id":"base","kind":"witness","parents":[],"effects":{},"reason":null},
+        {"id":"ov","kind":"override","parents":["base"],"effects":{},"reason":null},
+        {"id":"cand1","kind":"task","parents":["base"],"effects":{"x":1},"reason":null},
+        {"id":"cand2","kind":"task","parents":["ov"],"effects":{"x":2},"reason":null}
+      ],
+      "split": "most-intent -> cand2 (descends an override) ; fewest-witness -> cand1"
+    },
+    {
+      "id": "p05-conflict-same-value",
+      "ambiguity": "§5.3 'If 2+ DISTINCT values exist'. Do two records agreeing on a value produce a conflict entry anyway?",
+      "records": [
+        {"id":"a","kind":"task","parents":[],"effects":{"x":5},"reason":null},
+        {"id":"b","kind":"task","parents":["a"],"effects":{"x":5},"reason":null}
+      ],
+      "split": "distinct-required -> no conflict ; every-contender-loses -> conflict"
+    },
+    {
+      "id": "p06-order-and-cycles",
+      "ambiguity": "§5.4 Kahn 'smallest-id-first'. Do cycle-affected records appear in `order` at all, or are they dropped?",
+      "records": [
+        {"id":"a","kind":"task","parents":["b"],"effects":{"x":1},"reason":null},
+        {"id":"b","kind":"task","parents":["a"],"effects":{"x":2},"reason":null},
+        {"id":"ok","kind":"task","parents":[],"effects":{"y":1},"reason":null}
+      ],
+      "split": "drop-from-order vs leave-in-order"
+    },
+    {
+      "id": "p07-orphan-descendant",
+      "ambiguity": "§5.5 'the orphan's descendants are NOT auto-orphaned'. Does the descendant's OWN effects then apply, or is it excluded because its ancestor is missing?",
+      "records": [
+        {"id":"orph","kind":"task","parents":["ghost"],"effects":{"x":"from-orphan"},"reason":null},
+        {"id":"kid","kind":"task","parents":["orph"],"effects":{"y":"from-kid"},"reason":null}
+      ],
+      "split": "kid-applies -> y present ; whole-branch-excluded -> y absent"
+    },
+    {
+      "id": "p08-boolean-vs-number-key-order",
+      "ambiguity": "§2 canonical form sorts object keys by code point. Are `true` and `1` distinct KEYS or does a port coerce?",
+      "records": [
+        {"id":"a","kind":"task","parents":[],"effects":{"1":"one","true":"bool"},"reason":null}
+      ],
+      "split": "sort-by-code-point -> '1' before 'true' ; other orderings differ"
+    },
+    {
+      "id": "p09-nested-effects-order",
+      "ambiguity": "Does §2's key sorting apply RECURSIVELY into nested objects, or only at the top level of a record?",
+      "records": [
+        {"id":"a","kind":"task","parents":[],"effects":{"n":{"z":1,"a":2}},"reason":null}
+      ],
+      "split": "recursive -> {\"a\":2,\"z\":1} ; top-level-only -> {\"z\":1,\"a\":2}"
+    },
+    {
+      "id": "p10-id-whitespace-and-separators",
+      "ambiguity": "§1 says ids must be free of \\n and :. Is that enforced (reject) or merely documented? The corpus cannot tell, but a port that rejects and a port that accepts will diverge on a hostile input.",
+      "records": [
+        {"id":"a:b","kind":"task","parents":[],"effects":{"x":1},"reason":null}
+      ],
+      "split": "reject vs accept"
+    }
+  ]
+}
