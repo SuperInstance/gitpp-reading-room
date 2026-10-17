@@ -1,0 +1,26 @@
+{
+ "C1 true-stated": {
+  "score": 0.99,
+  "expect": "high",
+  "state": {
+   "spec": "Every record has an id. An example record is {\"id\": \"a\", \"kind\": \"task\"}."
+  },
+  "claim": "The specification example above uses the record id \"a\"."
+ },
+ "C2 false-stated": {
+  "score": 0.01,
+  "expect": "low",
+  "state": {
+   "spec": "Every record has an id. An example record is {\"id\": \"a\", \"kind\": \"task\"}."
+  },
+  "claim": "The specification example above uses the record id \"zzz-9\"."
+ },
+ "C3 out-of-scope": {
+  "score": 0.03,
+  "expect": "middle",
+  "state": {
+   "spec": "Every record has an id. An example record is {\"id\": \"a\", \"kind\": \"task\"}."
+  },
+  "claim": "The moon orbits the sun."
+ }
+}

@@ -1,0 +1,45 @@
+{
+ "p01-class-vs-ancestry": {
+  "state": {
+   "spec_5_1": "Class precedence is absolute: override > task > witness. An override outranks a task, a task outranks a witness, EVEN WHEN THE WITNESS IS A DESCENDANT OF THE TASK.",
+   "spec_5_2": "Per-key resolution. Within a class, if two records contest a key, a record that DESCENDS from another is applied after it and therefore wins.",
+   "question": "When an OVERRIDE record is an ANCESTOR of a TASK record and both set the same key, which one sets the final value?"
+  },
+  "scores": {
+   "A": 0.82,
+   "B": 0.14
+  }
+ },
+ "p07-orphan-descendant": {
+  "state": {
+   "spec_5_5": "An orphan is a record with a parent id that is not present. The record is excluded from the fold. An orphan's DESCENDANTS ARE NOT AUTO-ORPHANED - being descended from an orphan does not by itself make a record an orphan.",
+   "question": "A record K descends from an orphan O. K is not itself an orphan. Do K's own effects enter the final state?"
+  },
+  "scores": {
+   "A": 0.82,
+   "B": 0.09
+  }
+ },
+ "p10-id-validation": {
+  "state": {
+   "spec_1": "A record id must be free of newline and colon characters.",
+   "question": "If a record id contains a colon, is that a hard error the fold rejects, or merely documented?"
+  },
+  "scores": {
+   "A": 0.68,
+   "B": 0.31
+  }
+ },
+ "kind-null": {
+  "state": {
+   "spec_1_1": "The five content fields are id, kind, parents, effects, reason. kind is optional, defaulting to null.",
+   "spec_out_of_scope": "Values of kind other than the three named classes have semantics that are OUT OF SCOPE for the fold.",
+   "spec_5_1": "Class precedence is absolute: override > task > witness. Per-key resolution ranks records by class.",
+   "question": "The fold must rank every record by class. What class does a record with kind=null have, and what does the fold do with it?"
+  },
+  "scores": {
+   "A": 0.84,
+   "B": 0.12
+  }
+ }
+}
