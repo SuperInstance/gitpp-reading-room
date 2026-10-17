@@ -81,6 +81,24 @@ sub looks_numeric {
 sub canon {
     my ($v) = @_;
     return 'null' if !defined $v;
+
+    # JSON::PP::Boolean is a BLESSED REF, so a JSON bool fails the !ref
+    # test below and fell through to die "unencodable". The single-record
+    # case survived because the conflict-ledger path -- the only one that
+    # calls canon() on a stored effect -- was never reached. Two records
+    # contesting a key DID reach it, and crashed.
+    #
+    # Found by a generated corpus: 67 of 165 record sets died this way.
+    # The class is general: any language whose JSON decoder represents a
+    # bool as a distinct type needs that type handled before the
+    # scalar/number/string branches.
+    if (ref($v) eq 'JSON::PP::Boolean') {
+        return $$v ? 'true' : 'false';
+    }
+    if (ref($v) eq 'SCALAR' && ref(\$v) eq 'JSON::PP::Boolean') {
+        return $v ? 'true' : 'false';
+    }
+
     if (!ref $v) {
         return 'true'  if $v eq 'true';
         return 'false' if $v eq 'false';

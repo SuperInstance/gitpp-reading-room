@@ -32,11 +32,34 @@ def esc(s):
     return "".join(o)
 
 def sci(v):
+    """Shortest round-trip decimal in SCIENTIFIC form.
+
+    The subtlety: "%.*g" does not always render an exponent. For
+    1.0000000000000002e16 the 17-significant-digit rendering is
+    "10000000000000002" -- no 'e' at all -- so partition("e") yields an
+    EMPTY exponent and int("") raises ValueError.
+
+    That value is legal, is >= 1e16, and per spec 3 must be encoded in
+    scientific form. So when the round-trip form carries no exponent but
+    the value is in the scientific band, the exponent is recovered from
+    the magnitude and the form is forced.
+
+    Found by a generated corpus: a record set containing this value
+    crashed the reader. 18 of 165 sets died this way.
+    """
     for d in (15, 16, 17):
         s = "%.*g" % (d, v)
         if float(s) == v:
             m, _, e = s.partition("e")
             if "." in m: m = m.rstrip("0").rstrip(".")
+            if not e:
+                # No exponent rendered, but the value is in the scientific
+                # band, so recover the exponent and emit scientific form.
+                import math
+                exp = int(math.floor(math.log10(abs(v)))) if v else 0
+                # strip trailing zeros the integer rendering left behind
+                if "." in m: m = m.rstrip("0").rstrip(".")
+                return f"{m}e{'+' if exp >= 0 else '-'}{abs(exp):02d}"
             return f"{m}e{'+' if not e.startswith('-') else '-'}{abs(int(e)):02d}"
     raise ValueError("no round-trip")
 
