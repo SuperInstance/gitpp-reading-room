@@ -14,7 +14,7 @@ Each reader is a subprocess emitting one JSON object:
 Normalisation is deliberately MINIMAL. We compare semantics, not bytes --
 byte-level agreement is a separate (and already separately-tested) question.
 """
-import json, subprocess, sys, os, collections
+import json, subprocess, sys, os, collections, shutil
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 PROBES = json.load(open(f"{HERE}/corpus/probes.json"))["probes"]
@@ -23,6 +23,12 @@ PROBES = json.load(open(f"{HERE}/corpus/probes.json"))["probes"]
 READERS = json.load(open(f"{HERE}/readers.json"))
 
 def run_reader(cmd, records):
+    # Resolve the reader's own path to absolute. A relative program path
+    # works for python3/node (which resolve it) but NOT for a bare C
+    # binary invoked through an adapter, and the failure surfaced as
+    # ERROR on every probe -- which read as "the readers disagree" when
+    # in fact the harness could not launch one of them.
+    cmd = [os.path.abspath(c) if (os.path.sep in c and os.path.exists(c)) else c for c in cmd]
     payload = json.dumps(records, ensure_ascii=False)
     try:
         r = subprocess.run(cmd, input=payload, capture_output=True, text=True, timeout=60)
@@ -55,8 +61,22 @@ def fingerprint(res):
 
 def main():
     names = sorted(READERS)
-    present = [n for n in names if READERS[n].get("available", True)]
-    print(f"  readers: {', '.join(present)}")
+    present, absent = [], []
+    for n in names:
+        cmd = READERS[n]["cmd"]
+        exe = cmd[0] if not os.path.isabs(cmd[0]) else cmd[0]
+        if READERS[n].get("available", True) and (shutil.which(exe) or os.path.exists(exe)):
+            present.append(n)
+        else:
+            absent.append(n)
+    print(f"  readers present: {', '.join(present) or '(none)'}")
+    if absent:
+        # An absent reader is NOT agreement. Counting a missing port as a
+        # pass is the false-green class this whole repo exists to kill:
+        # /tmp is ephemeral, so a reader can vanish between runs and a
+        # naive harness reports unanimity. Absence is reported as absence.
+        print(f"  readers ABSENT : {', '.join(absent)}")
+        print(f"  -> NOT counted as agreement. A missing reader is missing, not passing.")
     if len(present) < 2:
         print("  need at least two readers to compare"); return
 
@@ -81,7 +101,8 @@ def main():
                            for f, g in groups.items()],
             }
 
-    print(f"\n  {agree}/{total} probes: all readers agree")
+    print(f"\n  {agree}/{total} probes: all PRESENT readers agree"
+          + (f"  ({len(present)}/{len(names)} readers present)" if len(present)!=len(names) else ""))
     if disagreements:
         print(f"  {len(disagreements)} probe(s) DISAGREE — these are the underspecified clauses\n")
         for pid, d in disagreements.items():

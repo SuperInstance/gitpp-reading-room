@@ -2,26 +2,29 @@
  "reader1-py": {
   "cmd": [
    "python3",
-   "/tmp/rr-reader1/fold_cli.py"
+   "readers/py/cli.py"
   ],
   "lang": "Python",
-  "lens": "neutral"
+  "lens": "neutral",
+  "author": "spec author (NOT independent)"
  },
  "reader2-js": {
   "cmd": [
    "node",
-   "/tmp/rr-reader2/fold_cli.mjs"
+   "readers/js/cli.mjs"
   ],
   "lang": "JavaScript",
-  "lens": "ancestry-first"
+  "lens": "ancestry-first (assigned)",
+  "author": "spec author (NOT independent)"
  },
  "reader3-c": {
   "cmd": [
    "python3",
-   "/tmp/rr3/cli.py"
+   "/tmp/rr-src/readers/c/cli.py"
   ],
-  "lang": "C99 (independent)",
-  "lens": "type-system-forced",
-  "available": true
+  "lang": "C99",
+  "lens": "unassigned",
+  "author": "independent agent",
+  "note": "adapter runs ./readers/c/fold <tmpfile>; the binary takes a file arg, not stdin"
  }
 }

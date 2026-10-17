@@ -1,6 +1,6 @@
 {
- "agree": 6,
- "total": 10,
+ "agree": 7,
+ "total": 13,
  "disagreements": {
   "p01-ancestry-vs-class": {
    "ambiguity": "\u00a75.1 'class precedence is absolute ... even when the witness is a descendant' vs \u00a75.2 'descendant wins' within a class. Does an override that is an ANCESTOR beat a task that is its DESCENDANT?",
@@ -75,6 +75,44 @@
       "reader3-c"
      ],
      "output": "{\"conflicts\": [], \"order\": [], \"orphans\": [], \"state\": {}}"
+    }
+   ]
+  },
+  "p12-kind-null": {
+   "ambiguity": "1.1 says kind defaults to null and other values are 'out of scope for the fold'; 5.1 ranks every record by class. What class does a null-kind record have?",
+   "declared_split": "null ranks last -> x=from-override ; null throws ; null inherits witness -> x=from-null",
+   "groups": [
+    {
+     "readers": [
+      "reader1-py",
+      "reader3-c"
+     ],
+     "output": "{\"conflicts\": [{\"key\": \"x\", \"losers\": [\"b\"], \"winner\": \"a\"}], \"order\": [\"a\", \"b\"], \"orphans\": [], \"state\": {\"x\": \"from-override\"}}"
+    },
+    {
+     "readers": [
+      "reader2-js"
+     ],
+     "output": "{\"conflicts\": [{\"key\": \"x\", \"losers\": [\"a\"], \"winner\": \"b\"}], \"order\": [\"a\", \"b\"], \"orphans\": [], \"state\": {\"x\": \"from-null\"}}"
+    }
+   ]
+  },
+  "p13-class-vs-ancestry-inversion": {
+   "ambiguity": "5.1's parenthetical mentions ancestry as an exception. Does that generalise to 'class beats ancestry' everywhere, or is ancestry only a tie-break within a class?",
+   "declared_split": "class-absolute -> x=1 (witness loses despite descending) ; ancestry-first -> x=2",
+   "groups": [
+    {
+     "readers": [
+      "reader1-py",
+      "reader3-c"
+     ],
+     "output": "{\"conflicts\": [{\"key\": \"x\", \"losers\": [\"b\"], \"winner\": \"a\"}], \"order\": [\"a\", \"b\"], \"orphans\": [], \"state\": {\"x\": 1}}"
+    },
+    {
+     "readers": [
+      "reader2-js"
+     ],
+     "output": "{\"conflicts\": [{\"key\": \"x\", \"losers\": [\"a\"], \"winner\": \"b\"}], \"order\": [\"a\", \"b\"], \"orphans\": [], \"state\": {\"x\": 2}}"
     }
    ]
   }

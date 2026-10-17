@@ -1,8 +1,8 @@
 ========================================================================
   gitpp-reading-room — cross-reading report
 ========================================================================
-  determined by the spec : 6 / 10 probes
-  UNDERDETERMINED        : 4 / 10 probes
+  determined by the spec : 7 / 13 probes
+  UNDERDETERMINED        : 6 / 13 probes
 
   p01-ancestry-vs-class
     clause    : §5.1 'class precedence is absolute ... even when the witness is a descendant' vs §5.2 'descendant wins' within a class. Does an override that is an ANCESTOR beat a task that is its DESCENDANT?
@@ -35,6 +35,22 @@
        {"conflicts": [], "order": ["a:b"], "orphans": [], "state": {"x": 1}}
     [reader3-c]
        {"conflicts": [], "order": [], "orphans": [], "state": {}}
+
+  p12-kind-null
+    clause    : 1.1 says kind defaults to null and other values are 'out of scope for the fold'; 5.1 ranks every record by class. What class does a null-kind record have?
+    expected  : null ranks last -> x=from-override ; null throws ; null inherits witness -> x=from-null
+    [reader1-py, reader3-c]
+       {"conflicts": [{"key": "x", "losers": ["b"], "winner": "a"}], "order": ["a", "b"], "orphans": [], "state": {"x": "from-override"}}
+    [reader2-js]
+       {"conflicts": [{"key": "x", "losers": ["a"], "winner": "b"}], "order": ["a", "b"], "orphans": [], "state": {"x": "from-null"}}
+
+  p13-class-vs-ancestry-inversion
+    clause    : 5.1's parenthetical mentions ancestry as an exception. Does that generalise to 'class beats ancestry' everywhere, or is ancestry only a tie-break within a class?
+    expected  : class-absolute -> x=1 (witness loses despite descending) ; ancestry-first -> x=2
+    [reader1-py, reader3-c]
+       {"conflicts": [{"key": "x", "losers": ["b"], "winner": "a"}], "order": ["a", "b"], "orphans": [], "state": {"x": 1}}
+    [reader2-js]
+       {"conflicts": [{"key": "x", "losers": ["a"], "winner": "b"}], "order": ["a", "b"], "orphans": [], "state": {"x": 2}}
 
 ========================================================================
   A disagreement here is not a bug report. It is a clause the text
