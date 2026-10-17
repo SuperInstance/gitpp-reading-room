@@ -1,0 +1,54 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Three green lights — short-form</title>
+<style>
+  :root { color-scheme: dark; }
+  body { background:#0f1115; color:#e6e8ec; font:15px/1.6 ui-monospace,Menlo,monospace; margin:0; padding:32px; }
+  main { max-width: 860px; margin:0 auto; }
+  h1 { font-size:22px; color:#7fd6a2; margin:0 0 4px; }
+  .sub { color:#8b93a1; margin:0 0 34px; }
+  section { border:1px solid #232733; border-radius:10px; padding:20px 22px; margin:0 0 26px; background:#14171d; }
+  h2 { font-size:15px; color:#f5a623; margin:0 0 3px; letter-spacing:.02em; }
+  .claim { color:#c8ccd4; margin:0 0 14px; }
+  .why { color:#8b93a1; font-size:13px; margin:0 0 16px; }
+  video { width:100%; border-radius:7px; display:block; background:#000; }
+  .row { display:flex; gap:10px; margin-top:12px; flex-wrap:wrap; }
+  .tag { font-size:11px; color:#8b93a1; border:1px solid #2a2f3a; border-radius:20px; padding:3px 11px; }
+  .tag b { color:#7fd6a2; font-weight:600; }
+  footer { color:#6b7280; font-size:12px; margin-top:34px; border-top:1px solid #232733; padding-top:16px; }
+</style>
+<main>
+<h1>Three green lights that were never connected</h1>
+<p class="sub">Short-form explainers for the git.pp conformance work &mdash; generated with MiniMax-H3-Max, verified by independent video VQA.</p>
+
+<section>
+<h2>1 &mdash; A green light that was never connected</h2>
+<p class="claim">A control panel where every lamp glows green except one. Push in on the dark one and you can see the wire behind it is cut. <b>25 of the 29 conformance cases were compared against nothing</b> &mdash; the runner's comparator was a one-argument function, so it returned a truthy string without ever inspecting the expected value.</p>
+<p class="why">The suite reported 29/29 for weeks. The bug made <i>both</i> checks constant-true, so a case that could not fail still printed PASS.</p>
+<video controls preload="metadata" src="01-a-green-light-never-connected.mp4"></video>
+<div class="row"><span class="tag"><b>45</b> lamps, one dark</span><span class="tag">severed <b>copper wire</b>, exposed</span><span class="tag">camera <b>push-in</b></span><span class="tag">ambience only, no speech</span></div>
+</section>
+
+<section>
+<h2>2 &mdash; 131,499 boxes, and not one was opened</h2>
+<p class="claim">An endless belt of identical sealed boxes. A worker walks alongside without touching one, then finally opens a single box &mdash; and it is empty. <b>The mutation pass generated 131,499 mutants and no runner ever consumed them.</b> The corpus was a generator with no verdict attached.</p>
+<p class="why">This is the failure mode that looks most like success: a lot of work, a number that grows, and nothing that can fail.</p>
+<video controls preload="metadata" src="02-131499-boxes-nobody-opened.mp4"></video>
+<div class="row"><span class="tag">voiceover renders <b>cleanly</b></span><span class="tag">sealed &rarr; <b>opened and empty</b></span><span class="tag">hard hat, hi-vis vest</span><span class="tag">warehouse dolly track</span></div>
+</section>
+
+<section>
+<h2>3 &mdash; Put something on the pan and watch the number move</h2>
+<p class="claim">A precision balance, green readout, a brass weight placed deliberately on the pan. The number shifts and the display goes amber. <b>This is the negative control.</b> Break the thing on purpose; if the number does not move, the number was never measuring anything.</p>
+<p class="why">It is the only check that tells a result from an absence of complaint &mdash; and the only one that catches a harness whose comparison cannot fail.</p>
+<video controls preload="metadata" src="03-break-it-and-watch-the-number-move.mp4"></video>
+<div class="row"><span class="tag">readout <b>73.3 &rarr; 78.5</b></span><span class="tag">green &rarr; <b>amber</b></span><span class="tag">gloved hand, macro</span><span class="tag">ambience only</span></div>
+</section>
+
+<footer>
+Every video was rendered by <b>MiniMax-H3-Max</b> (768P, 8s, native audio) and then checked by an
+independent vision-language pass that answered structured questions about the
+content &mdash; the same negative-control discipline applied to the video itself.
+No video was delivered on the strength of having been generated.
+</footer>
+</main>
