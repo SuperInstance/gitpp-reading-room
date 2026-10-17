@@ -1,6 +1,6 @@
 {
- "agree": 11,
- "total": 13,
+ "agree": 14,
+ "total": 16,
  "disagreements": {
   "p07-orphan-descendant": {
    "ambiguity": "\u00a75.5 'the orphan's descendants are NOT auto-orphaned'. Does the descendant's OWN effects then apply, or is it excluded because its ancestor is missing?",

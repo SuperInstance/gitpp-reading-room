@@ -141,3 +141,37 @@ orphan rule is wrong, and the harness correctly keeps reporting a
 disagreement it has not yet explained. A fix that had made the number
 look better without fixing the cause would have been the failure mode
 this whole repo was built to detect.
+
+---
+
+# Addendum: the fix was itself incomplete, and the harness caught it
+
+v0.4.6 shipped four clause fixes. The next question is the one a spec
+author is least inclined to ask — **is the new text better than the old?**
+
+Probing the new text found two real gaps in it (0.700 and 0.790
+undetermined, the latter a near-tie at 0.790/0.860), repaired in a
+follow-up commit: unclassifiable records are a *single class*, so a
+contest between two of them falls to §5.2 step 3 like any same-class
+pair.
+
+Three probes added: `p14` (unclassifiable vs unclassifiable), `p15`
+(unclassifiable descendant), `p16` (unrecognised kind string). All
+three are **unanimous across the three readers**, and all three match
+the repaired reading:
+
+| probe | py | js | c | unanimous |
+|---|---|---|---|---|
+| p14 | x=1 | x=1 | x=1 | yes |
+| p15 | x=2 | x=2 | x=2 | yes |
+| p16 | z=from-witness | z=from-witness | z=from-witness | yes |
+
+Not one of the three readers was told about the repair. They reached
+the repaired reading because "unclassifiable is its own class, so the
+ordinary tie-break applies" is what falls out of the code — which is
+evidence the repair is the natural reading and not an arbitrary one.
+
+Corpus is now 16 probes; 14 agree, 2 disagree. Both remaining
+disagreements are the known reader3 orphan rule
+(`gitpp-rr-reader3#1`), which is a bug in that port rather than an
+ambiguity in the text.

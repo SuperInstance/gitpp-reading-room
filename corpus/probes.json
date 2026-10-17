@@ -350,6 +350,83 @@
     }
    ],
    "split": "class-absolute -> x=1 (witness loses despite descending) ; ancestry-first -> x=2"
+  },
+  {
+   "id": "p14-unclassifiable-vs-unclassifiable",
+   "ambiguity": "v0.4.6 says an unclassifiable record 'never displaces a classifiable one' -- silent when NEITHER is classifiable. v0.4.6 follow-up: unclassifiable is a single class, so 5.2 step 3 applies (ancestry, then topo order).",
+   "records": [
+    {
+     "id": "a",
+     "kind": null,
+     "parents": [],
+     "effects": {
+      "x": 1
+     },
+     "reason": null
+    },
+    {
+     "id": "b",
+     "kind": null,
+     "parents": [],
+     "effects": {
+      "x": 2
+     },
+     "reason": null
+    }
+   ],
+   "split": "single-class + topo-first -> x=1 ; undefined -> no answer"
+  },
+  {
+   "id": "p15-unclassifiable-descendant",
+   "ambiguity": "Two unclassifiable records where one descends from the other. Ancestry is consulted 'when the two classes are EQUAL' -- and an unclassifiable record has no class, so the ORIGINAL text never said whether two are equal. Repaired: they are.",
+   "records": [
+    {
+     "id": "a",
+     "kind": null,
+     "parents": [],
+     "effects": {
+      "x": 1
+     },
+     "reason": null
+    },
+    {
+     "id": "b",
+     "kind": null,
+     "parents": [
+      "a"
+     ],
+     "effects": {
+      "x": 2
+     },
+     "reason": null
+    }
+   ],
+   "split": "equal-as-one-class -> x=2 (descendant) ; undefined"
+  },
+  {
+   "id": "p16-unrecognised-kind-string",
+   "ambiguity": "kind:'banana' -- is an unrecognised VALUE malformed, or accepted and ranked lowest? 1.1's malformed rule covers a MISSING field. Adjudicated 0.910 for 'accepted, lowest'.",
+   "records": [
+    {
+     "id": "a",
+     "kind": "banana",
+     "parents": [],
+     "effects": {
+      "z": "from-banana"
+     },
+     "reason": null
+    },
+    {
+     "id": "b",
+     "kind": "witness",
+     "parents": [],
+     "effects": {
+      "z": "from-witness"
+     },
+     "reason": null
+    }
+   ],
+   "split": "accepted-lowest -> z=from-witness ; malformed -> record excluded"
   }
  ]
 }

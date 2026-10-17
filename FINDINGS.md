@@ -1,8 +1,8 @@
 ========================================================================
   gitpp-reading-room — cross-reading report
 ========================================================================
-  determined by the spec : 11 / 13 probes
-  UNDERDETERMINED        : 2 / 13 probes
+  determined by the spec : 14 / 16 probes
+  UNDERDETERMINED        : 2 / 16 probes
 
   p07-orphan-descendant
     clause    : §5.5 'the orphan's descendants are NOT auto-orphaned'. Does the descendant's OWN effects then apply, or is it excluded because its ancestor is missing?
