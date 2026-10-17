@@ -175,3 +175,66 @@ Corpus is now 16 probes; 14 agree, 2 disagree. Both remaining
 disagreements are the known reader3 orphan rule
 (`gitpp-rr-reader3#1`), which is a bug in that port rather than an
 ambiguity in the text.
+
+---
+
+# Addendum: v0.4.6 codified existing behaviour — the ports were already right
+
+A spec change is only worth what it changes. So after shipping v0.4.6,
+the obvious question: do the ports actually diverge now, or did the spec
+catch up to code that was already correct?
+
+`gitpp-js` and `gitpp-c` were run against the seven v0.4.6-discriminating
+cases, unbuilt from the spec and unaided:
+
+| case | gitpp-js | gitpp-c |
+|---|---|---|
+| p14 unclassifiable vs unclassifiable | x=1 ✓ | x=1 ✓ |
+| p15 unclassifiable descendant | x=2 ✓ | x=2 ✓ |
+| p16 unrecognised `kind` string | z=from-witness ✓ | z=from-witness ✓ |
+| unclassifiable, uncontested key | q=solo ✓ | q=solo ✓ |
+| override ancestor vs task descendant | x=override ✓ | x=override ✓ |
+| same-class unrelated siblings | x=1 ✓ | x=1 ✓ |
+| orphan's descendant applies | y=from-kid ✓ | y=from-kid ✓ |
+
+**7/7 each. Neither port had read v0.4.6.**
+
+The reason is visible in the code and is a genuine piece of evidence:
+
+```js
+// gitpp-js/src/gitpp.js:298
+const topClass = Math.max(...candidates.map(r => CLASS_RANK[r.kind] || 0));
+const top = candidates.filter(r => (CLASS_RANK[r.kind] || 0) === topClass);
+```
+
+```c
+/* gitpp-c/gitpp.c:632 */
+static int class_rank(const char *kind) {
+    if (!kind) return 0;
+    if (strcmp(kind, "override") == 0) return CLASS_OVERRIDE;
+    if (strcmp(kind, "task") == 0) return CLASS_TASK;
+    if (strcmp(kind, "witness") == 0) return CLASS_WITNESS;
+    return 0;
+}
+```
+
+Both had been mapping an unknown kind to rank 0 — below `witness` — and
+both then treat rank-0 records as a single class, so the ordinary
+tie-break applies. That is **exactly** the repaired reading, arrived at
+independently years before the spec said it.
+
+So the value of v0.4.6 is not that it changed the fold. It is that it
+made a long-standing implicit behaviour **explicit and checkable**, and
+it did so by naming a rule three separate readers had already
+implemented by hand. A spec that only records what code does is
+worthless; a spec that predicts what independent implementations do is
+evidence the rule was the right one to state.
+
+### A harness note worth keeping
+
+`gitpp-c` first scored **0/7**, and every state came back `null`. The
+cause was my driver, not the port: `gitpp <file.json> --at <id>` returns
+a *closure root*, and `derive()` needs `--derive`. A CLI that requires a
+flag to produce the thing you asked for, with no error when you omit it,
+is a small trap — worth remembering before reporting any 0/N from a
+multi-port run.
