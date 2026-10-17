@@ -1,0 +1,50 @@
+{
+ "p01-class-vs-ancestry": {
+  "state": {
+   "spec_5_1": "Class precedence is absolute: override > task > witness. An override outranks a task, a task outranks a witness, EVEN WHEN THE WITNESS IS A DESCENDANT OF THE TASK.",
+   "spec_5_2": "Per-key resolution, streaming model. Step 2: compare the candidate's class to the current setter's class using class precedence. Step 3: IF R's class is EQUAL, then R is a descendant of the current setter iff R is reachable from the current setter via the parent chain; if so R wins, if not the current setter wins.",
+   "q": "An override record is an ANCESTOR of a task record and both set the same key. Which one sets the final value?"
+  },
+  "scores": {
+   "A_class_absolute": 0.96,
+   "B_ancestry_first": 0.03
+  },
+  "verdict": "A_class_absolute"
+ },
+ "p07-orphan-descendant": {
+  "state": {
+   "spec_5_5": "An orphan is a record with a parent id that is not present. The record is excluded from the fold. An orphan's DESCENDANTS ARE NOT AUTO-ORPHANED: being descended from an orphan does not by itself make a record an orphan.",
+   "q": "A record K descends from an orphan O. K is not itself an orphan. Do K's own effects enter the final state?"
+  },
+  "scores": {
+   "A_descendant_applies": 0.79,
+   "B_branch_excluded": 0.1
+  },
+  "verdict": "A_descendant_applies"
+ },
+ "p10-id-validation": {
+  "state": {
+   "spec_1_1": "The id field: 'The unique identifier. Must be free of \\n and : (the closure root format uses these as delimiters).'",
+   "spec_1_1_malformed": "A record missing any of id, parents, kind, effects, reason is malformed; the fold excludes malformed records from the applied set.",
+   "q": "A record's id is 'a:b' -- it contains a colon, which section 1.1 says the id must be free of. Is that record malformed and excluded from the fold?"
+  },
+  "scores": {
+   "A_malformed_excluded": 0.87,
+   "B_accepted_normally": 0.23
+  },
+  "verdict": "A_malformed_excluded"
+ },
+ "p12-kind-null": {
+  "state": {
+   "spec_1_1": "The kind field: 'One of task, witness, override. Other values are accepted; their semantics are out of scope for the fold.' kind is optional, defaulting to null.",
+   "spec_5_1": "Class precedence is absolute: override > task > witness.",
+   "spec_5_2": "Per-key resolution compares the candidate's class to the current setter's class. Every record that sets a key is a candidate.",
+   "q": "A record has kind: null and sets a key that an override record also sets. What class does the null-kind record have, and which one wins?"
+  },
+  "scores": {
+   "A_undetermined": 0.76,
+   "B_ranks_lowest": 0.28
+  },
+  "verdict": "A_undetermined"
+ }
+}
