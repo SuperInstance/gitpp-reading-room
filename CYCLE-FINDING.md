@@ -93,3 +93,70 @@ for cycles. The correct rule is their union:
 
 `gitpp-c`'s version is the union in one expression, which is why it gets
 both right. The other three implement only the first clause.
+
+---
+
+# Correction: my first proposed fix was wrong, and the second one works
+
+I proposed the "union" rule in the finding above. **It does not work**,
+and `readers/py/cyclefix.py` records why.
+
+## The first attempt
+
+> orphan(r) == some parent is missing **OR** some parent is itself an orphan
+
+A cycle member's parents are all **present** — that is what makes it a
+cycle rather than a missing parent. So the second clause never fires on a
+cycle, and the rule scores `U == A` in **11 of 12** cases. A rule that
+agrees with the rule it was meant to improve on, in 92% of cases, is not
+an improvement. I should have caught that from the number rather than
+writing it up as the fix.
+
+## The rule that works — three clauses, not two
+
+```python
+def is_orphan(rec):
+    ps = rec.parents
+    if any(p not in applied for p in ps):                  # 1. missing parent
+        return True
+    if rec not in topologically_orderable:                  # 2. cycle member
+        return True
+    if any(p not in topologically_orderable for p in ps):   # 3. cycle descendant
+        return True
+    return False
+```
+
+Clause 3 is the one that matters, and it is the clause no existing port
+has. It distinguishes a **cycle descendant** from a
+**missing-parent descendant**: the former's parent *exists but is
+unorderable*, the latter's parent *does not exist*. A rule keyed on
+existence alone cannot tell those apart — which is exactly why every port
+gets one of the two cases wrong.
+
+| case | A (missing-parent) | B (kahn) | U3 |
+|---|---|---|---|
+| desc of **missing** parent | `[orph]` ✅ | `[]` ❌ | `[orph]` ✅ |
+| desc of **2-cycle** | `[]` ❌ | `[ca,cb,down]` ✅ | `[ca,cb,down]` ✅ |
+| desc² of 2-cycle | `[]` ❌ | `[ca,cb,d1,d2]` ✅ | `[ca,cb,d1,d2]` ✅ |
+| cycle + downstream branch | `[]` ❌ | all 5 ✅ | all 5 ✅ |
+| missing **and** cycle together | `[m]` ❌ | `[ca,cb]` ❌ | `[ca,cb,m]` ✅ |
+
+`U3` matches the spec on all 13 cases. It equals A in 4/13 and B in
+10/13 — far enough from both that it is a genuinely third rule rather
+than a relabelling of either.
+
+The last row is the one no existing port can pass: a record set with
+both a cycle *and* a missing parent. Each single rule catches one and
+misses the other; only the three-clause rule catches both.
+
+## What this changes about the port fixes
+
+The two issues are **not** independent, and fixing the cycle case alone
+by switching to Kahn-based orphan detection would **regress** the
+`kind`-adjacent case in
+[gitpp-rr-reader3#1](https://github.com/SuperInstance/gitpp-rr-reader3/issues/1)
+— which is precisely the mistake `gitpp-c` makes, and precisely why
+`gitpp-c` gets cycle-descendants right and missing-parent-descendants
+wrong.
+
+A port must move to the three-clause rule, not from A to B.
