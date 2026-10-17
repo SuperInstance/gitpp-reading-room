@@ -17,10 +17,11 @@
  },
  "reader3-c": {
   "cmd": [
-   "/tmp/rr-reader3/fold"
+   "python3",
+   "/tmp/rr3/cli.py"
   ],
-  "lang": "C99",
+  "lang": "C99 (independent)",
   "lens": "type-system-forced",
-  "available": false
+  "available": true
  }
 }

@@ -1,5 +1,5 @@
 {
- "agree": 8,
+ "agree": 6,
  "total": 10,
  "disagreements": {
   "p01-ancestry-vs-class": {
@@ -8,7 +8,8 @@
    "groups": [
     {
      "readers": [
-      "reader1-py"
+      "reader1-py",
+      "reader3-c"
      ],
      "output": "{\"conflicts\": [{\"key\": \"x\", \"losers\": [\"t\"], \"winner\": \"o\"}], \"order\": [\"o\", \"t\"], \"orphans\": [], \"state\": {\"x\": \"override\"}}"
     },
@@ -26,7 +27,8 @@
    "groups": [
     {
      "readers": [
-      "reader1-py"
+      "reader1-py",
+      "reader3-c"
      ],
      "output": "{\"conflicts\": [{\"key\": \"x\", \"losers\": [\"w\"], \"winner\": \"t\"}], \"order\": [\"t\", \"w\"], \"orphans\": [], \"state\": {\"x\": \"task\"}}"
     },
@@ -35,6 +37,44 @@
       "reader2-js"
      ],
      "output": "{\"conflicts\": [{\"key\": \"x\", \"losers\": [\"t\"], \"winner\": \"w\"}], \"order\": [\"t\", \"w\"], \"orphans\": [], \"state\": {\"x\": \"witness\"}}"
+    }
+   ]
+  },
+  "p07-orphan-descendant": {
+   "ambiguity": "\u00a75.5 'the orphan's descendants are NOT auto-orphaned'. Does the descendant's OWN effects then apply, or is it excluded because its ancestor is missing?",
+   "declared_split": "kid-applies -> y present ; whole-branch-excluded -> y absent",
+   "groups": [
+    {
+     "readers": [
+      "reader1-py",
+      "reader2-js"
+     ],
+     "output": "{\"conflicts\": [], \"order\": [\"kid\"], \"orphans\": [\"orph\"], \"state\": {\"y\": \"from-kid\"}}"
+    },
+    {
+     "readers": [
+      "reader3-c"
+     ],
+     "output": "{\"conflicts\": [], \"order\": [], \"orphans\": [\"kid\", \"orph\"], \"state\": {}}"
+    }
+   ]
+  },
+  "p10-id-whitespace-and-separators": {
+   "ambiguity": "\u00a71 says ids must be free of \\n and :. Is that enforced (reject) or merely documented? The corpus cannot tell, but a port that rejects and a port that accepts will diverge on a hostile input.",
+   "declared_split": "reject vs accept",
+   "groups": [
+    {
+     "readers": [
+      "reader1-py",
+      "reader2-js"
+     ],
+     "output": "{\"conflicts\": [], \"order\": [\"a:b\"], \"orphans\": [], \"state\": {\"x\": 1}}"
+    },
+    {
+     "readers": [
+      "reader3-c"
+     ],
+     "output": "{\"conflicts\": [], \"order\": [], \"orphans\": [], \"state\": {}}"
     }
    ]
   }
