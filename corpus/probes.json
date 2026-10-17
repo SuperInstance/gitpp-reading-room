@@ -427,6 +427,127 @@
     }
    ],
    "split": "accepted-lowest -> z=from-witness ; malformed -> record excluded"
+  },
+  {
+   "id": "p17-cycle-descendant",
+   "ambiguity": "5.5: 'cycle-affected records are orphans'. Does that include a record DOWNSTREAM of a cycle, or only the members? (Clause 2 of the two-clause rule: Kahn non-emission is transitive.)",
+   "records": [
+    {
+     "id": "ca",
+     "kind": "task",
+     "parents": [
+      "cb"
+     ],
+     "effects": {},
+     "reason": null
+    },
+    {
+     "id": "cb",
+     "kind": "task",
+     "parents": [
+      "ca"
+     ],
+     "effects": {},
+     "reason": null
+    },
+    {
+     "id": "down",
+     "kind": "task",
+     "parents": [
+      "cb"
+     ],
+     "effects": {
+      "y": 3
+     },
+     "reason": null
+    }
+   ],
+   "split": "cycle members only -> orphans=[ca,cb], y enters state ; transitive -> orphans=[ca,cb,down]"
+  },
+  {
+   "id": "p18-descendant-of-orphan-vs-descendant-of-cycle",
+   "ambiguity": "The PAIR that proves two clauses are needed. A descendant of a MISSING parent must apply; a descendant of a CYCLE must not. They differ only in whether the parent exists.",
+   "records": [
+    {
+     "id": "orph",
+     "kind": "task",
+     "parents": [
+      "ghost"
+     ],
+     "effects": {
+      "x": 1
+     },
+     "reason": null
+    },
+    {
+     "id": "kid",
+     "kind": "task",
+     "parents": [
+      "orph"
+     ],
+     "effects": {
+      "y": 2
+     },
+     "reason": null
+    },
+    {
+     "id": "ca",
+     "kind": "task",
+     "parents": [
+      "cb"
+     ],
+     "effects": {},
+     "reason": null
+    },
+    {
+     "id": "cb",
+     "kind": "task",
+     "parents": [
+      "ca"
+     ],
+     "effects": {},
+     "reason": null
+    },
+    {
+     "id": "dn",
+     "kind": "task",
+     "parents": [
+      "cb"
+     ],
+     "effects": {
+      "z": 3
+     },
+     "reason": null
+    }
+   ],
+   "split": "both apply -> y AND z in state ; only the cycle branch excluded -> orphans=[ca,cb,dn], state={y:2}"
+  },
+  {
+   "id": "p19-self-loop-descendant",
+   "ambiguity": "A self-parented record: is it a cycle member, and is its child a cycle descendant?",
+   "records": [
+    {
+     "id": "a",
+     "kind": "task",
+     "parents": [
+      "a"
+     ],
+     "effects": {},
+     "reason": null
+    },
+    {
+     "id": "k",
+     "kind": "task",
+     "parents": [
+      "a"
+     ],
+     "effects": {
+      "y": 7
+     },
+     "reason": null
+    }
+   ],
+   "split": "a orphan only -> k applies ; transitive -> orphans=[a,k]"
   }
  ]
 }

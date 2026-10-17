@@ -1,6 +1,6 @@
 {
  "agree": 14,
- "total": 16,
+ "total": 19,
  "disagreements": {
   "p07-orphan-descendant": {
    "ambiguity": "\u00a75.5 'the orphan's descendants are NOT auto-orphaned'. Does the descendant's OWN effects then apply, or is it excluded because its ancestor is missing?",
@@ -37,6 +37,68 @@
       "reader3-c"
      ],
      "output": "{\"conflicts\": [], \"order\": [], \"orphans\": [], \"state\": {}}"
+    }
+   ]
+  },
+  "p17-cycle-descendant": {
+   "ambiguity": "5.5: 'cycle-affected records are orphans'. Does that include a record DOWNSTREAM of a cycle, or only the members? (Clause 2 of the two-clause rule: Kahn non-emission is transitive.)",
+   "declared_split": "cycle members only -> orphans=[ca,cb], y enters state ; transitive -> orphans=[ca,cb,down]",
+   "groups": [
+    {
+     "readers": [
+      "reader1-py",
+      "reader3-c"
+     ],
+     "output": "{\"conflicts\": [], \"order\": [], \"orphans\": [\"ca\", \"cb\", \"down\"], \"state\": {}}"
+    },
+    {
+     "readers": [
+      "reader2-js"
+     ],
+     "output": "{\"conflicts\": [], \"order\": [\"down\"], \"orphans\": [\"ca\", \"cb\"], \"state\": {\"y\": 3}}"
+    }
+   ]
+  },
+  "p18-descendant-of-orphan-vs-descendant-of-cycle": {
+   "ambiguity": "The PAIR that proves two clauses are needed. A descendant of a MISSING parent must apply; a descendant of a CYCLE must not. They differ only in whether the parent exists.",
+   "declared_split": "both apply -> y AND z in state ; only the cycle branch excluded -> orphans=[ca,cb,dn], state={y:2}",
+   "groups": [
+    {
+     "readers": [
+      "reader1-py"
+     ],
+     "output": "{\"conflicts\": [], \"order\": [\"kid\"], \"orphans\": [\"ca\", \"cb\", \"dn\", \"orph\"], \"state\": {\"y\": 2}}"
+    },
+    {
+     "readers": [
+      "reader2-js"
+     ],
+     "output": "{\"conflicts\": [], \"order\": [\"dn\", \"kid\"], \"orphans\": [\"ca\", \"cb\", \"orph\"], \"state\": {\"y\": 2, \"z\": 3}}"
+    },
+    {
+     "readers": [
+      "reader3-c"
+     ],
+     "output": "{\"conflicts\": [], \"order\": [], \"orphans\": [\"ca\", \"cb\", \"dn\", \"kid\", \"orph\"], \"state\": {}}"
+    }
+   ]
+  },
+  "p19-self-loop-descendant": {
+   "ambiguity": "A self-parented record: is it a cycle member, and is its child a cycle descendant?",
+   "declared_split": "a orphan only -> k applies ; transitive -> orphans=[a,k]",
+   "groups": [
+    {
+     "readers": [
+      "reader1-py",
+      "reader3-c"
+     ],
+     "output": "{\"conflicts\": [], \"order\": [], \"orphans\": [\"a\", \"k\"], \"state\": {}}"
+    },
+    {
+     "readers": [
+      "reader2-js"
+     ],
+     "output": "{\"conflicts\": [], \"order\": [\"k\"], \"orphans\": [\"a\"], \"state\": {\"y\": 7}}"
     }
    ]
   }
