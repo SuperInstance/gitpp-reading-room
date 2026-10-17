@@ -97,3 +97,47 @@ agreement here rests on a sample of one.**
 And V3's p07/p10 divergence is currently a 1-vs-2 split where the 2 share
 an author. It is a hypothesis that deserves a second independent reader,
 not a settled result.
+
+---
+
+# Addendum: the experiment produced a spec change (v0.4.6)
+
+Branch `spec/5-1-clarity` on `git.pp-spec` carries all five fixes. Each
+is traceable to a measurement:
+
+| change | evidence |
+|---|---|
+| §5.1 ancestry scope stated | Jev 0.960 vs 0.030; probe set 6→2 disagreements when patched |
+| §5.1 unclassifiable ranks below witness | 3 readers concur; Jev 0.760 that text is *undetermined* |
+| §5.2 equivalence claim completed | 4 hand-checked cases; 1 fails |
+| §5.5 descendant effects stated | Jev 0.790 vs 0.100 |
+| §2.5 digest corrected | 65 hex chars, not a SHA-256 of the bytes above it |
+
+## The bug the experiment found in independent code
+
+`reader3-c` computes orphans as *anything Kahn never emitted*
+(`fold.c:1682`), justified by a comment claiming §5.5 "falls out for
+free" — a missing parent blocks its child forever, so the child is never
+emitted, hence an orphan.
+
+**The implication does not hold.** Kahn-blocking is strictly stronger
+than §5.5, which defines an orphan by a record's *own* parents. A
+descendant of an orphan is blocked transitively and is wrongly orphaned,
+which is the precise thing §5.5's closing sentence forbids.
+
+It is subtle because a record downstream of a *cycle* genuinely should
+be orphaned, and the same expression covers both cases — right for one,
+wrong for the other. Filed as
+[gitpp-rr-reader3#1](https://github.com/SuperInstance/gitpp-rr-reader3/issues/1).
+
+## How the 6 -> 2 reduction happened, and what it is worth
+
+Patching the ancestry-first reader to class-first took the probe set from
+6 disagreements to 2. That is a **real** result: it shows the spec change
+resolves a clause that readers genuinely read differently.
+
+It is not a result about the *other* two. Those persist because reader3's
+orphan rule is wrong, and the harness correctly keeps reporting a
+disagreement it has not yet explained. A fix that had made the number
+look better without fixing the cause would have been the failure mode
+this whole repo was built to detect.

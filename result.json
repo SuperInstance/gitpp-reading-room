@@ -1,45 +1,7 @@
 {
- "agree": 7,
+ "agree": 11,
  "total": 13,
  "disagreements": {
-  "p01-ancestry-vs-class": {
-   "ambiguity": "\u00a75.1 'class precedence is absolute ... even when the witness is a descendant' vs \u00a75.2 'descendant wins' within a class. Does an override that is an ANCESTOR beat a task that is its DESCENDANT?",
-   "declared_split": "class-absolute -> x=override ; ancestry-first -> x=task",
-   "groups": [
-    {
-     "readers": [
-      "reader1-py",
-      "reader3-c"
-     ],
-     "output": "{\"conflicts\": [{\"key\": \"x\", \"losers\": [\"t\"], \"winner\": \"o\"}], \"order\": [\"o\", \"t\"], \"orphans\": [], \"state\": {\"x\": \"override\"}}"
-    },
-    {
-     "readers": [
-      "reader2-js"
-     ],
-     "output": "{\"conflicts\": [{\"key\": \"x\", \"losers\": [\"o\"], \"winner\": \"t\"}], \"order\": [\"o\", \"t\"], \"orphans\": [], \"state\": {\"x\": \"task\"}}"
-    }
-   ]
-  },
-  "p02-witness-descendant-of-task": {
-   "ambiguity": "Same question, the other direction: a witness that DESCENDS from the task. The spec's parenthetical suggests task wins; a naive reading of 'descendant wins' gives the witness.",
-   "declared_split": "class-absolute -> x=task ; ancestry-first -> x=witness",
-   "groups": [
-    {
-     "readers": [
-      "reader1-py",
-      "reader3-c"
-     ],
-     "output": "{\"conflicts\": [{\"key\": \"x\", \"losers\": [\"w\"], \"winner\": \"t\"}], \"order\": [\"t\", \"w\"], \"orphans\": [], \"state\": {\"x\": \"task\"}}"
-    },
-    {
-     "readers": [
-      "reader2-js"
-     ],
-     "output": "{\"conflicts\": [{\"key\": \"x\", \"losers\": [\"t\"], \"winner\": \"w\"}], \"order\": [\"t\", \"w\"], \"orphans\": [], \"state\": {\"x\": \"witness\"}}"
-    }
-   ]
-  },
   "p07-orphan-descendant": {
    "ambiguity": "\u00a75.5 'the orphan's descendants are NOT auto-orphaned'. Does the descendant's OWN effects then apply, or is it excluded because its ancestor is missing?",
    "declared_split": "kid-applies -> y present ; whole-branch-excluded -> y absent",
@@ -75,44 +37,6 @@
       "reader3-c"
      ],
      "output": "{\"conflicts\": [], \"order\": [], \"orphans\": [], \"state\": {}}"
-    }
-   ]
-  },
-  "p12-kind-null": {
-   "ambiguity": "1.1 says kind defaults to null and other values are 'out of scope for the fold'; 5.1 ranks every record by class. What class does a null-kind record have?",
-   "declared_split": "null ranks last -> x=from-override ; null throws ; null inherits witness -> x=from-null",
-   "groups": [
-    {
-     "readers": [
-      "reader1-py",
-      "reader3-c"
-     ],
-     "output": "{\"conflicts\": [{\"key\": \"x\", \"losers\": [\"b\"], \"winner\": \"a\"}], \"order\": [\"a\", \"b\"], \"orphans\": [], \"state\": {\"x\": \"from-override\"}}"
-    },
-    {
-     "readers": [
-      "reader2-js"
-     ],
-     "output": "{\"conflicts\": [{\"key\": \"x\", \"losers\": [\"a\"], \"winner\": \"b\"}], \"order\": [\"a\", \"b\"], \"orphans\": [], \"state\": {\"x\": \"from-null\"}}"
-    }
-   ]
-  },
-  "p13-class-vs-ancestry-inversion": {
-   "ambiguity": "5.1's parenthetical mentions ancestry as an exception. Does that generalise to 'class beats ancestry' everywhere, or is ancestry only a tie-break within a class?",
-   "declared_split": "class-absolute -> x=1 (witness loses despite descending) ; ancestry-first -> x=2",
-   "groups": [
-    {
-     "readers": [
-      "reader1-py",
-      "reader3-c"
-     ],
-     "output": "{\"conflicts\": [{\"key\": \"x\", \"losers\": [\"b\"], \"winner\": \"a\"}], \"order\": [\"a\", \"b\"], \"orphans\": [], \"state\": {\"x\": 1}}"
-    },
-    {
-     "readers": [
-      "reader2-js"
-     ],
-     "output": "{\"conflicts\": [{\"key\": \"x\", \"losers\": [\"a\"], \"winner\": \"b\"}], \"order\": [\"a\", \"b\"], \"orphans\": [], \"state\": {\"x\": 2}}"
     }
    ]
   }

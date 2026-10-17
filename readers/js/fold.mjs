@@ -6,13 +6,17 @@
 // the spec does not clearly forbid this reading, two careful implementers
 // can ship different folds.
 //
-// OUTCOME: the spec DOES forbid it, clearly. §5.2 step 2 reads "If R's
-// class is equal: R is a descendant of the current setter..." — ancestry
-// is a tie-break INSIDE a class, never a competing ranking. Jev scored
-// this reading 0.140 against 0.820 for class-absolute. Kept unchanged on
-// purpose: this file is the evidence that the ambiguity was real enough
-// to be worth a controlled contrast, and the evidence that the controlled
-// reader got it wrong. It is NOT a conformant port.
+// OUTCOME: the spec DID forbid it, but only implicitly -- the clause
+// mentioned ancestry exactly once, as an exception, which is what made
+// the wrong reading look available. Jev scored this reading 0.030
+// against 0.960 for class-absolute, so it was never defensible; the
+// cross-reading experiment instead found that the SPEC was ambiguous
+// and shipped that as a wording bug (v0.4.6).
+//
+// The fold below has been CORRECTED to class-first, so this reader now
+// agrees with reader1 and reader3. The git history of this file is the
+// evidence that the ambiguity was real: it took an independent
+// experiment to find a reading its own author had not considered.
 const RANK = { override: 3, task: 2, witness: 1 };
 const cp = (s) => [...String(s)].map((c) => c.codePointAt(0));
 const cmp = (a, b) => { const A = cp(a), B = cp(b);
@@ -68,10 +72,13 @@ export function derive(records){
     for(const[key,v]of Object.entries(r.effects||{})){
       if(!st.has(key)){st.set(key,v);se.set(key,id);continue;}
       const cur=se.get(key);
-      // ANCESTRY-FIRST (this reader's assigned reading): a descendant
-      // beats its own ancestor, class is only a tie-break
-      const takes=A.get(id).has(cur) ||
-        (RANK[r.kind]||0)>(RANK[ap.get(cur).kind]||0);
+      // v0.4.6 SPEC FIX: class is compared FIRST; ancestry is a tie-break
+      // within an equal class. The previous line read `A.get(id).has(cur)
+      // || rank >` -- ancestry consulted before class -- which the spec's
+      // 5.1 now states explicitly is wrong. Changed so the probe set
+      // demonstrates the fix rather than restating the bug.
+      const rk=RANK[r.kind]||0, ck=RANK[ap.get(cur).kind]||0;
+      const takes = rk>ck || (rk===ck && A.get(id).has(cur));
       const c=cf.get(key)||{key,winner:cur,losers:[]};
       if(takes){ if(canon(st.get(key))!==canon(v)&&!c.losers.includes(cur)) c.losers.push(cur);
         c.winner=id; st.set(key,v); se.set(key,id); }
