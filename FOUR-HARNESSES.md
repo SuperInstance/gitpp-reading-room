@@ -81,10 +81,13 @@ like, and it is why that number is now worth something.
 Stated rather than implied, because a controls file that only lists
 passes is a press release:
 
-- `gitpp-doctor` is **404**. "Five ports agree" covers at most four, and
-  the C port's comments cite `gitpp-doctor v0.2.1` as having once
-  shipped the inverted ancestry test.
+  **CORRECTED — this was wrong.** `gitpp-doctor` is the clone *directory*
+  name in the conformance workflow, not a repository. The five ports are c,
+  `git.pp-doctor`, js, cs and pl, and all five are real. See
+  `CORRECTION-five-ports.md`.
 - The **Elixir** patch is pushed and has **never been executed**.
+  *(stale: it WAS executed later this session — 4/4 pinned leaves, 20/20
+  tests, 0 failures, on OTP 27 + Elixir 1.17. See `ELIXIR-EXECUTED.md`.)*
 - The **cycle-descendant** fix ships to `js`/`cs`/`pl` and is verified
   on 13 cases, but the PRs are open and the mainline result is not yet
   green across all ports.

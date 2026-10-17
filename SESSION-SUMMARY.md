@@ -67,8 +67,13 @@ for the reason I planted it?"* A defect in a no-op path is a decoration.
 - **`gitpp-cs`** — `L1/signed-zero` emits `0.0` where §3 wants `0`, and
   its official runner ignores `expected_order` and
   `expected_orphans_includes`.
-- **`gitpp-doctor` is 404** — it is `git.pp-doctor`. "Five ports" means
-  four.
+  - **`gitpp-doctor` is NOT a 404 repo** — it is the clone *directory* name in the
+  conformance workflow. "Five ports" means
+    four.
+  **CORRECTED — this was wrong.** `gitpp-doctor` is the clone *directory*
+  name in the conformance workflow, not a repository. The five ports
+  are c, `git.pp-doctor`, js, cs and pl, and all five are real. See
+  `CORRECTION-five-ports.md`.
 - **`reader3-c`** — the independent C reader, deliberately left
   diverging. It is the only implementation not authored by the spec's
   author, and conforming it would leave an independent reader that

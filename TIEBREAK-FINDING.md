@@ -82,7 +82,11 @@ candidates are in the same tier.
 
 ## Two further findings from the audit
 
-- **`gitpp-doctor` is 404.** It is not publicly clonable, so the
+- **`gitpp-doctor` is not a repository** — it is the clone *directory* name
+  in the workflow, so the~~
+  **CORRECTED — see `CORRECTION-five-ports.md`: this was wrong.** `gitpp-doctor`
+  is the clone *directory* name, not a repo. The five ports are c,
+  `git.pp-doctor`, js, cs, pl.
   frequently-quoted "five ports agree" claim covers at most four. The C
   port's comments cite `gitpp-doctor v0.2.1` as having once shipped the
   inverted ancestry test, so its absence is not hypothetical. Any

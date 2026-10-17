@@ -97,8 +97,12 @@ return 0.01 cannot adjudicate, and this one can.
 
 Stated rather than implied:
 
-- **`gitpp-doctor` is 404.** Any "five ports agree" claim covers at
-  most four. The C port's comments cite it as having once shipped the
+- **`gitpp-doctor` is not a repository** — it is the clone *directory* name
+  in the workflow. Any "five ports agree" claim covers all five: c,
+  `git.pp-doctor`, js, cs, pl.~~ **CORRECTED — this was wrong.** `gitpp-doctor` is the clone
+  *directory* name in the workflow, not a repository. The five ports are c,
+  `git.pp-doctor`, js, cs and pl, and all five are real. See
+  `CORRECTION-five-ports.md`. The C port's comments cite it as having once shipped the
   inverted ancestry test, so this is not hypothetical.
 - **The Elixir patch is pushed but never executed.** No BEAM toolchain
   in this sandbox.

@@ -50,11 +50,15 @@ the mutation pass never had.
   pass detects it on all 14,611 escape-injection mutants.
 - **`gitpp-c#2`** — an absent or `null` `kind` is promoted to `"task"`,
   so an unclassifiable record outranks a `witness`.
-- **`gitpp-cs` `L1/signed-zero`** — emits `0.0` where §3 wants `0`. Its
-  official runner also ignores `expected_order` and
-  `expected_orphans_includes`, so part of the gap is harness laxity.
-- **`gitpp-doctor` is 404** — it is `git.pp-doctor`. Every "five ports"
-  claim means four.
+- ~~**`gitpp-cs` `L1/signed-zero`** — emits `0.0` where §3 wants `0`.~~ **CORRECTED
+  — this was wrong too.** The C# port's LEAF is byte-identical to the
+  reference's for the same record; only the STATE serialisation differs
+  (`-0` vs `-0.0`), and the spec explicitly does not pin state
+  serialisation. See `CORRECTION-signed-zero.md`.
+  **CORRECTED — this was wrong.** `gitpp-doctor` is the clone *directory*
+  name in the conformance workflow, not a repository. The five ports are c,
+  `git.pp-doctor`, js, cs and pl, and all five are real. See
+  `CORRECTION-five-ports.md`.
 - **`reader3-c`** — the independently written C reader, deliberately left
   implementing the §5.4 tier reading and the wrong §5.5 orphan rule. It
   is the project's only implementation not authored by the spec's
@@ -62,6 +66,17 @@ the mutation pass never had.
   agrees with everything.
 - **The `losers` order fix** is merged in js/cs/pl, but the C port's
   `gitpp-c` still needs it.
+- **`gitpp-pl#3`** — control characters are emitted RAW instead of
+  escaped, so a string containing U+0001 hashes differently from the
+  reference. Found by the all-five-port mutation pass; 14,611 mutants
+  disagree.
+- **`gitpp-c`'s 8 KiB leaf buffer** — `record_leaf` hashes into a fixed
+  `char buf[8192]`, so a canonical form longer than 8 KiB is silently
+  truncated before hashing. Same class as the escape bug and arguably
+  worse, because there is no error at all.
+- The **Elixir** port is now executed and conformant (4/4 pinned leaves,
+  20/20 tests) but is **not yet in either conformance harness**, so it
+  contributes to no cross-port number.
 
 ## The four things this session established
 
