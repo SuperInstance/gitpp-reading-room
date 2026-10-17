@@ -165,7 +165,13 @@ def derive(records):
                   if canonical((applied[l].get("effects") or {})[c["key"]]) != wv]
         if len(vals) < 2 or not losers: continue
         conflicts.append({"key": c["key"], "winner": c["winner"], "losers": losers})
+    # setters is part of the fold CONTRACT (spec 5.6), not an extra. It was
+    # computed here and then never returned, so every case that declares
+    # setters saw `{}` and the port looked like it had dropped the field.
+    # Caught by running the conformance suite against this reader rather
+    # than only against the maintained ports.
     return {"state": state, "order": order, "conflicts": conflicts,
+            "setters": {k: setters[k] for k in sorted(setters, key=cp)},
             "orphans": sorted(orphans, key=cp)}
 
 if __name__ == "__main__":
