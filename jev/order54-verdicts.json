@@ -1,0 +1,10 @@
+{
+ "which-implementation": {
+  "A_sequential": 0.89,
+  "B_wholetier": 0.47
+ },
+ "is-a-heap-kahn-smallest-first": {
+  "A_yes": 0.58,
+  "B_no": 0.26
+ }
+}
