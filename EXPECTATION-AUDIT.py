@@ -29,6 +29,7 @@ READERS = {
     "reader1-py": ["python3", f"{HERE}/readers/py/cli.py"],
     "reader2-js": ["node", f"{HERE}/readers/js/cli.mjs"],
     "reader3-c":  ["python3", f"{HERE}/readers/c/cli.py"],
+    "reader4-pl": ["perl", f"{HERE}/readers/perl/fold.pl", "--cli"],
 }
 FIELDS = ("state", "order", "conflicts", "orphans")
 

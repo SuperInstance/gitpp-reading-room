@@ -26,5 +26,16 @@
   "lens": "unassigned",
   "author": "independent agent",
   "note": "adapter runs ./readers/c/fold <tmpfile>; the binary takes a file arg, not stdin"
+ },
+ "reader4-pl": {
+  "cmd": [
+   "perl",
+   "readers/perl/fold.pl",
+   "--cli"
+  ],
+  "lang": "Perl",
+  "lens": "adversarial on 5.4 order",
+  "author": "written for the expectation audit",
+  "available": true
  }
 }
