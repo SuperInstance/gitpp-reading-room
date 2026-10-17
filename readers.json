@@ -1,5 +1,26 @@
 {
-  "reader1-py": {"cmd": ["python3", "/tmp/rr-reader1/fold_cli.py"], "lang": "Python", "lens": "neutral"},
-  "reader2-js": {"cmd": ["node", "/tmp/rr-reader2/fold_cli.mjs"],  "lang": "JavaScript", "lens": "ancestry-first"},
-  "reader3-c":  {"cmd": ["/tmp/rr-reader3/fold"],                 "lang": "C99", "lens": "type-system-forced"}
+ "reader1-py": {
+  "cmd": [
+   "python3",
+   "/tmp/rr-reader1/fold_cli.py"
+  ],
+  "lang": "Python",
+  "lens": "neutral"
+ },
+ "reader2-js": {
+  "cmd": [
+   "node",
+   "/tmp/rr-reader2/fold_cli.mjs"
+  ],
+  "lang": "JavaScript",
+  "lens": "ancestry-first"
+ },
+ "reader3-c": {
+  "cmd": [
+   "/tmp/rr-reader3/fold"
+  ],
+  "lang": "C99",
+  "lens": "type-system-forced",
+  "available": false
+ }
 }

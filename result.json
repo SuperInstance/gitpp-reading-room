@@ -1,0 +1,42 @@
+{
+ "agree": 8,
+ "total": 10,
+ "disagreements": {
+  "p01-ancestry-vs-class": {
+   "ambiguity": "\u00a75.1 'class precedence is absolute ... even when the witness is a descendant' vs \u00a75.2 'descendant wins' within a class. Does an override that is an ANCESTOR beat a task that is its DESCENDANT?",
+   "declared_split": "class-absolute -> x=override ; ancestry-first -> x=task",
+   "groups": [
+    {
+     "readers": [
+      "reader1-py"
+     ],
+     "output": "{\"conflicts\": [{\"key\": \"x\", \"losers\": [\"t\"], \"winner\": \"o\"}], \"order\": [\"o\", \"t\"], \"orphans\": [], \"state\": {\"x\": \"override\"}}"
+    },
+    {
+     "readers": [
+      "reader2-js"
+     ],
+     "output": "{\"conflicts\": [{\"key\": \"x\", \"losers\": [\"o\"], \"winner\": \"t\"}], \"order\": [\"o\", \"t\"], \"orphans\": [], \"state\": {\"x\": \"task\"}}"
+    }
+   ]
+  },
+  "p02-witness-descendant-of-task": {
+   "ambiguity": "Same question, the other direction: a witness that DESCENDS from the task. The spec's parenthetical suggests task wins; a naive reading of 'descendant wins' gives the witness.",
+   "declared_split": "class-absolute -> x=task ; ancestry-first -> x=witness",
+   "groups": [
+    {
+     "readers": [
+      "reader1-py"
+     ],
+     "output": "{\"conflicts\": [{\"key\": \"x\", \"losers\": [\"w\"], \"winner\": \"t\"}], \"order\": [\"t\", \"w\"], \"orphans\": [], \"state\": {\"x\": \"task\"}}"
+    },
+    {
+     "readers": [
+      "reader2-js"
+     ],
+     "output": "{\"conflicts\": [{\"key\": \"x\", \"losers\": [\"t\"], \"winner\": \"w\"}], \"order\": [\"t\", \"w\"], \"orphans\": [], \"state\": {\"x\": \"witness\"}}"
+    }
+   ]
+  }
+ }
+}
