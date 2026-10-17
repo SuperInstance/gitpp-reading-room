@@ -1,0 +1,151 @@
+{
+ "cases": {
+  "two-roots-same-class": {
+   "records": [
+    {
+     "id": "a",
+     "kind": "task",
+     "parents": [],
+     "effects": {
+      "x": 1
+     },
+     "reason": null
+    },
+    {
+     "id": "b",
+     "kind": "task",
+     "parents": [],
+     "effects": {
+      "x": 2
+     },
+     "reason": null
+    }
+   ],
+   "streaming_winner": null,
+   "streaming_state": {
+    "x": 1
+   },
+   "gather_survivors": [
+    "a",
+    "b"
+   ],
+   "gather_tied": [
+    "a",
+    "b"
+   ],
+   "gather_determines_winner": false
+  },
+  "two-roots-diff-class": {
+   "records": [
+    {
+     "id": "a",
+     "kind": "witness",
+     "parents": [],
+     "effects": {
+      "x": 1
+     },
+     "reason": null
+    },
+    {
+     "id": "b",
+     "kind": "override",
+     "parents": [],
+     "effects": {
+      "x": 2
+     },
+     "reason": null
+    }
+   ],
+   "streaming_winner": null,
+   "streaming_state": {
+    "x": 2
+   },
+   "gather_survivors": [
+    "a",
+    "b"
+   ],
+   "gather_tied": [
+    "b"
+   ],
+   "gather_determines_winner": true
+  },
+  "chain-same-class": {
+   "records": [
+    {
+     "id": "a",
+     "kind": "task",
+     "parents": [],
+     "effects": {
+      "x": 1
+     },
+     "reason": null
+    },
+    {
+     "id": "b",
+     "kind": "task",
+     "parents": [
+      "a"
+     ],
+     "effects": {
+      "x": 2
+     },
+     "reason": null
+    }
+   ],
+   "streaming_winner": null,
+   "streaming_state": {
+    "x": 2
+   },
+   "gather_survivors": [
+    "b"
+   ],
+   "gather_tied": [
+    "b"
+   ],
+   "gather_determines_winner": true
+  },
+  "chain-override-wins": {
+   "records": [
+    {
+     "id": "a",
+     "kind": "task",
+     "parents": [],
+     "effects": {
+      "x": 1
+     },
+     "reason": null
+    },
+    {
+     "id": "b",
+     "kind": "override",
+     "parents": [
+      "a"
+     ],
+     "effects": {
+      "x": 2
+     },
+     "reason": null
+    }
+   ],
+   "streaming_winner": null,
+   "streaming_state": {
+    "x": 2
+   },
+   "gather_survivors": [
+    "b"
+   ],
+   "gather_tied": [
+    "b"
+   ],
+   "gather_determines_winner": true
+  }
+ },
+ "verdicts": {
+  "two-roots-same-class": "UNDETERMINED by the gather model as written",
+  "two-roots-diff-class": "both models agree (class decides)",
+  "chain-same-class": "both models agree (ancestry decides)",
+  "chain-override-wins": "both models agree (class beats ancestry)"
+ },
+ "equivalence_claim_holds": false,
+ "gap": "gather-then-filter does not define a tie-break among equal-class survivors"
+}
