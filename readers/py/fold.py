@@ -83,22 +83,43 @@ def derive(records):
         seen.discard(rid)
         return seen
 
-    # §5.5 — a record with a missing parent is an orphan
-    orphans = {r["id"] for r in by.values() if any(p not in by for p in par(r))}
+    # §5.5 — three clauses, because two are not enough.
+    #   1. a parent id is missing from the applied set
+    #   2. the record cannot be topologically ordered   (cycle member)
+    #   3. a parent cannot be topologically ordered       (cycle DESCENDANT)
+    # Clause 3 is what separates a cycle descendant from a missing-parent
+    # descendant: the former's parent EXISTS but is unorderable, the latter's
+    # does not exist. A rule keyed on ancestry alone gets the first wrong; a
+    # rule keyed on existence alone gets the second wrong.
+    #
+    # `orderable` is Kahn over the full set with in-degree counting only
+    # parents that EXIST -- an absent parent cannot block a record, which is
+    # exactly why a missing-parent's child stays orderable.
+    def orderable_set():
+        indeg0 = {k: sum(1 for p in par(r) if p in by) for k, r in by.items()}
+        done, avail = set(), dict(by)
+        while True:
+            ready = sorted([k for k, d in indeg0.items()
+                            if d == 0 and k in avail and k not in done], key=cp)
+            if not ready:
+                break
+            pick = ready[0]
+            done.add(pick); avail.pop(pick)
+            for k in avail:
+                if pick in par(avail[k]):
+                    indeg0[k] -= 1
+        return done
 
-    color, cyc = {}, set()
-    def dfs(rid, path):
-        st = color.get(rid, 0)
-        if st == 1:
-            cyc.update(path[path.index(rid):]); return
-        if st == 2: return
-        color[rid] = 1
-        for p in par(by.get(rid, {})):
-            if p in by: dfs(p, path + [rid])
-        color[rid] = 2
-    for rid in list(by):
-        if color.get(rid, 0) == 0: dfs(rid, [])
-    orphans |= cyc
+    _ord = orderable_set()
+    orphans = set()
+    for k, r in by.items():
+        ps = par(r)
+        if any(p not in by for p in ps):                    # 1
+            orphans.add(k)
+        elif k not in _ord:                                 # 2
+            orphans.add(k)
+        elif any(p not in _ord for p in ps if p in by):      # 3
+            orphans.add(k)
 
     applied = {k: v for k, v in by.items() if k not in orphans}
 

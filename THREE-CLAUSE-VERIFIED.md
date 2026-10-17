@@ -91,3 +91,84 @@ same shape as the `run.mjs` `cmp` bug: **a runner that does not check a
 field it is given.**
 
 Not fixed here. Worth its own branch.
+
+---
+
+# Second correction: my "clause 3" is redundant, and I sold it as essential
+
+While verifying my own fix I mutation-tested it by deleting clause 3 —
+and **the 13 cases still passed**. That is not a passing mutation; it
+means clause 3 was doing nothing.
+
+## Why
+
+I defined `orderable` as Kahn over the full set with in-degree counting
+only parents that **exist**, and then wrote:
+
+```
+1. some parent id is missing
+2. the record is not orderable            <- catches cycle members
+3. some parent is not orderable           <- what I claimed was essential
+```
+
+Clause 2 already implies clause 3, because Kahn non-emission is
+**transitive**: if `cb` never becomes emitted, then `down` (whose only
+parent is `cb`) never reaches in-degree zero, so `down` is also not
+orderable. The same holds for every descendant, at any depth.
+
+Observed directly:
+
+```
+desc of 2-cycle     orphans=['ca','cb','down']   order=[]
+desc of self-loop   orphans=['a','k']            order=[]
+cycle + branch      orphans=['a','b','leaf','r','t']  order=[]
+desc of missing     orphans=['orph']            order=['kid']
+```
+
+Note the last line: `kid` IS orderable and IS emitted, because its
+parent `orph` is excluded from the *applied* set rather than being
+unorderable. That is clause 1 doing its job.
+
+## So the correct rule is TWO clauses
+
+```
+orphan(r)  ==  some parent is missing from the applied set
+            OR r cannot be topologically ordered
+```
+
+with `orderable` computed by Kahn over the applied set, in-degree
+counting only parents that exist. This is what `gitpp-js`, `gitpp-cs`
+and `gitpp-pl` now implement, and the agent's independent derivation
+reached the same place by a different route.
+
+## Why I got it wrong
+
+I reasoned that a cycle descendant's parent "exists but is unorderable"
+and concluded a separate clause was needed to notice that. True — and
+irrelevant, because the *descendant itself* is equally unorderable, and
+the two-clause rule already checks that. I described a distinction the
+implementation did not need, because I was reasoning clause-by-clause
+instead of asking whether one clause subsumes another.
+
+The empirical tell was available and I did not use it: **a mutation
+that does not change the result is not a mutation.** The same instinct
+that caught the broken `equivalence.py` search — "if the test cannot
+fail, it is not testing the thing" — applied directly to my own rule, and
+I had to be told by my own mutation before I checked.
+
+## The part that was genuinely load-bearing
+
+The rule still needs clause 1 *and* clause 2 together, because they are
+not substitutes:
+
+| | cycle descendant | missing-parent descendant |
+|---|---|---|
+| clause 1 only (any parent missing) | misses it | ✅ |
+| clause 2 only (not orderable) | ✅ | would orphan `kid` too — **wrong** |
+| **both** | ✅ | ✅ |
+
+Clause 2 alone over-orphans: applied to the whole record set, `kid` is
+unorderable precisely *because* its parent was excluded, so it must be
+computed against the **applied** set, not the raw one. That ordering
+dependency is the subtle part, and it is where the earlier failed
+derivations in `gitpp-rr-reader3#1` and `gitpp-c` went wrong.
