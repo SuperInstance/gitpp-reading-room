@@ -1,5 +1,16 @@
 # FINDING-26 — three cell models, one charter
 
+> **[CORRECTED 2026-10-18T15:19Z — [CORRECTION-eight-cell-models](CORRECTION-eight-cell-models.md)]**
+> **There are eight cell models, not three.** `SuperInstance/intercontext-map`
+> measured the corpus the same day: `intercontext.json` (blob `6622a8fe1f16`),
+> `node_kinds: {"cell_model": 8}`, 48 nodes / 70 edges, all eight `verified: true`
+> with per-node `evidence`. **Five were missing: `m.openjev`, `m.qthe`,
+> `m.receipt`, `m.quilt_cells`, `m.corpus`** — and three of those five were
+> *already in this record*, filed under other headings. `FINDING-26` was written
+> against a list partitioned by which document a model appeared in.
+> **The finding's structural conclusion survives and sharpens** (see §5), and its
+> asymmetry finding — the actual point — is untouched. Only the denominator moved.
+
 *2026-10-18. The largest structural finding of the session, and the one
 that connects the writings to the code. Everything here is measured.*
 
@@ -113,7 +124,7 @@ normal and healthy.
 
 **It does mean the charter currently claims something the fleet does
 not have.** "Polyformalism = same model, N languages. Don't fork, port"
-is a *rule about how to build*, and the fleet has three cell models
+is a *rule about how to build*, and the fleet has ~~three cell models~~ **[CORRECTED 2026-10-18T15:19Z — eight; see [CORRECTION-eight-cell-models](CORRECTION-eight-cell-models.md)]**
 built by different routes, with the parity harness on the one that was
 easiest to make four copies of.
 
@@ -158,7 +169,7 @@ face the question of whether it is the same model as anything.
 
 | # | rule |
 |---|---|
-| 86 | **A charter that says "don't fork, port" is a claim about a model, and a model is only one model if it has an address.** Three cell models with three addressing schemes is three models, whatever the vocabulary shares. |
+| 86 | **A charter that says "don't fork, port" is a claim about a model, and a model is only one model if it has an address.** ~~Three cell models with three addressing schemes is three models~~ **[CORRECTED 2026-10-18T15:19Z — [CORRECTION-eight-cell-models](CORRECTION-eight-cell-models.md): eight cell models with five addressing schemes is eight models, and two of the eight have neither axis.]** The rule stands and is now *stronger* than when it was written — `m.quilt_cells` is a cell contract specified in `QUILT.md:48,:145,:153` and never implemented, which is this very rule failing inside the corpus. |
 | 87 | **The parity harness tends to land on the implementation that was easiest to copy, not the one that matters.** The four-port canary covers a teaching substrate; the cell that runs the fleet has no second implementation to disagree with it. |
 | 88 | **"No cross-check" and "checked and equal" look identical from the outside.** A model with no second implementation has no disagreements to find, and that silence is not a passing grade. The git.pp reading-room's premise applies to a substrate with one implementation: *every bug found so far was in code that person wrote.* |
 | 89 | **A dependency root is not automatically the reference model.** `@quilt/core` is what everything reaches for, and it is a yaml/zod spreadsheet cell addressed by a string id — not the FNV-1a-64 cell the parity harness pins. |

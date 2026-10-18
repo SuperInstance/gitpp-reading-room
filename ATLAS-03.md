@@ -10,7 +10,7 @@ is the part that decides what every package should be called.*
 
 | rung | where | repos | created | what lives there |
 |---|---|---|---|---|
-| **sketchbook** | `SuperInstance` (a **user** account) | 5,284 | — | everything, growing ~8–12/day |
+| **sketchbook** | `SuperInstance` (a **user** account) | ~~5,284~~ | — | everything, growing ~8–12/day |
 | **production** | **`patchwork-quilt`** | 6 | 2026-10-03 | `git.pp`, `git.pp-ng`, `git.pp-grid`, `git.pp-desk`, `gitpp-beam`, `cloudflare-next-git-rd` |
 | **hardened** | **`purplepincher`** | 34 | 2026-07-02 | *"Hardened output of the SuperInstance research"* — `deckboss`, `pincher`, `luciddreamer`, `constraint-theory-core`, `vessel-tuner`, `plato-semantic-search`, `exocortex-mcp-ts`, `conservation-guardian`, `git-native-agents`, `intent-directed-compilation`, and a family of real, deployed landing pages |
 | **ready-to-use** | **`si-ready`** | 1 | 2026-10-03 | the org profile only — **the shelf is empty** |
@@ -100,9 +100,25 @@ pages** (`studylog`, `reallog`, `playerlog`, `personallog`, `makerlog`,
 *"Real, honest landing page for X.ai"*). A family of one template
 instantiated ten times, and it is on the rung meant to be *hardened*.
 
-**So the ladder's shape, measured: the sketchbook holds 5,284 repos, the
+**So the ladder's shape, measured: the sketchbook holds ~~5,284~~ repos, the
 production rung holds 6, the hardened rung holds 34 (half of them landing
-pages), and the ready-to-use rung holds nothing.** Whatever the ladder is
+pages), and the ready-to-use rung holds nothing.**
+
+> **[RE-MEASURED 2026-10-18T15:19Z — [CORRECTION-phantom-ladder](CORRECTION-phantom-ladder.md) §5]**
+> `GET /users/SuperInstance` → `"type": "User"`, `"public_repos": **5290**`.
+> **The rung counts for `patchwork-quilt`, `purplepincher` and `si-ready` are
+> unchanged and re-verified**: `si-ready` is an `Organization` with
+> `public_repos: 1`, and its single repo is `si-ready/.github`, **2 bytes**,
+> default branch `master` — the org-profile README and nothing else.
+> **The sketchbook figure is left struck-through rather than renumbered on purpose.**
+> It moved 5,280 → 5,284 → 5,289 → 5,290 across this record's own documents in a
+> single day (`ATLAS-01.md:5` vs `:23`; `CRITIQUE-RESPONSE.md:179` already records
+> the 5,279 → 5,289 catch-up). **A number that changes ~8–12 times a day is a
+> dated measurement, not a fact**, and the claim worth keeping is the *rate* —
+> *"growing ~8–12/day"* — which still holds. The two structural claims in this
+> section are unaffected and both re-verified: **`SuperInstance` is a `User`, not
+> an `Organization`** (stated here, at `ATLAS-01.md:55`, and as its own section at
+> `FINDING-24.md:73`), and **the top rung is empty.** Whatever the ladder is
 for, it is not yet carrying anything to the bottom.
 
 That is not a criticism of the work — the sketchbook is doing its job and

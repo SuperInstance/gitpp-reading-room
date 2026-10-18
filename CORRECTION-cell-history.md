@@ -1,18 +1,19 @@
 # CORRECTION — FINDING-26's opcode and address claims, against the measured history
 
-*2026-10-18. `snowball-scout` traced the three cell models back through
+*2026-10-18. `snowball-scout` traced the ~~three~~ **[CORRECTED 2026-10-18T15:19Z — eight; see [CORRECTION-eight-cell-models](CORRECTION-eight-cell-models.md)]** cell models back through
 git. Two of my claims in [FINDING-26](FINDING-26.md) were wrong, and the
 correction is bigger than the finding was.*
 
 ---
 
-## 1. "There are 11 opcodes" — there are two elevens, and the corpus asserts both
+## 1. "There are 11 opcodes" — ~~there are two elevens, and the corpus asserts both~~ **[CORRECTED 2026-10-18T15:19Z — there are THREE, and the third is executable; see [CORRECTION-the-elevens-remeasured](CORRECTION-the-elevens-remeasured.md)]**
 
 I quoted the game's `docs/DIALECTIC_IN_11_OPCODES.md` as the charter's
 eleven. **It is not the charter's eleven.**
 
-`algebra.md` — the charter's own formal reference, which has **exactly one
-commit, ever** — lists:
+`algebra.md` — the charter's own formal reference, which ~~has **exactly one
+commit, ever**~~ **[CORRECTED 2026-10-18T15:19Z — [CORRECTION-algebra-second-commit](CORRECTION-algebra-second-commit.md)]: has TWO since
+2026-10-18T07:46:49Z** — lists:
 
 > BIND LINK EFFECT VIEW TICK **FORGET PROOF ROUTE CRDT WORLD TIME**
 
@@ -28,20 +29,29 @@ revised**, so the corpus asserts both simultaneously. The game
 implements **ATTEST** — six B's sixth member — which the charter's own
 algebra.md does not list.
 
-**And the implementation is thinner than any of the two elevens:**
+**And the implementation is thinner than any of the two elevens**
+**[CORRECTED 2026-10-18T15:19Z — the table below is measured and correct **per file**, but it was scoped to `cargo-line-tycoon/substrate/` and read as the fleet's count. It is not: `quilt-rust/crates/quilt-polyformalism/src/lib.rs` implements **9 of 11**, and `browser/substrate-sdk.js` implements 4 more. See [CORRECTION-rust-is-nine](CORRECTION-rust-is-nine.md).]**:**
 
 | port | path | opcodes implemented |
 |---|---|---|
 | TypeScript | `substrate/ts/src/index.js` | **6** — BIND LINK EFFECT VIEW TICK ATTEST; `default:` throws `Unknown opcode` |
 | C99 | `substrate/c/cell_algebra.{c,h}` | **5** — BIND LINK EFFECT VIEW TICK |
 | Python | `substrate/py/clt_substrate/__init__.py` | **1** — `TICK = 'tick'` |
-| Rust | `substrate/rust/src/lib.rs` | **0** — no opcode identifiers at all |
+| Rust | `substrate/rust/src/lib.rs` | **0** — no opcode identifiers at all — **CONFIRMED for this file. But the fleet's number is 9; see [CORRECTION-rust-is-nine](CORRECTION-rust-is-nine.md)** |
 
 `CONTEST`, `MERGER`, `REVOKE`, `DELEGATE` and `WITHDRAW` are **never
 implemented in any port** — they appear in one prose doc, marked
 *"6 proposed (R11 derivative)"*. A fleet-wide code search for
 `ATTEST CONTEST MERGER` returns **0 files**; for `ATTEST CONTEST`, 13
 files, **none of them in the three repos**.
+
+> **[PARTIALLY CORRECTED 2026-10-18T15:19Z — [CORRECTION-the-elevens-remeasured](CORRECTION-the-elevens-remeasured.md)]**
+> The "fleet-wide" search was **scoped to `cargo-line-tycoon/substrate/`**. `CONTEST` and `WITHDRAW`
+> are implemented at `cargo-line-tycoon/browser/substrate-sdk.js:242` and `:251` — in `browser/`, one
+> directory over, in a file this search never opened. **`MERGER`, `REVOKE` and `DELEGATE` still
+> survive the claim: 0 occurrences of any of the three in that file, and no measured port implements
+> them under any spelling.** The claim was **2 of 5 wrong**, not 5 of 5, and the surviving 3 of 5 is
+> the part that was load-bearing.
 
 ## 2. "The address is the data" — but the canon's mechanism is a FOURTH scheme
 
@@ -112,8 +122,8 @@ witness-log idiom. **The agent cell never hashed a cell.**
 
 FINDING-26's structural claim survives and sharpens: **the charter
 describes a cell model that never existed.** It welds an agent-cell kind
-roster (25, mislabelled 26) to a canon opcode set (11, of which at most
-6 are implemented anywhere) and to an addressing scheme (FNV-1a-64) that
+roster (25, mislabelled 26) to a canon opcode set (11, of which ~~at most
+6 are implemented anywhere~~ **[CORRECTED 2026-10-18T15:19Z — at most is wrong: **9 of 11** are implemented in `quilt-rust/crates/quilt-polyformalism/src/lib.rs`, plus 4 in `cargo-line-tycoon/browser/substrate-sdk.js`. See [CORRECTION-rust-is-nine](CORRECTION-rust-is-nine.md)]**) and to an addressing scheme (FNV-1a-64) that
 belongs to a *different repository* and that the canon's own mechanism
 does not use.
 
@@ -135,7 +145,7 @@ describes both.
 
 | # | rule |
 |---|---|
-| 90 | **A number in a charter is a claim about a count, and a count drifts.** "26 kinds" is 25 in the repo, 25 in the zoo, 24 in the validator. "11 opcodes" is two different elevens, seven hours apart, one of them never revised. |
-| 91 | **Before quoting a doc as the spec, check the doc and the spec are the same file.** `algebra.md` and the game's dialectic note are different elevens. I quoted the game for the charter. |
-| 92 | **An implementation count is not a documentation count.** 6 of 11 implemented, 11 documented, 0 in Rust. "There are 11 opcodes" is true of a doc and false of every port. |
+| 90 | **A number in a charter is a claim about a count, and a count drifts.** "26 kinds" is 25 in the repo, 25 in the zoo, 24 in the validator. "11 opcodes" is ~~two different elevens, seven hours apart, one of them never revised~~ **[CORRECTED 2026-10-18T15:19Z — THREE elevens, and "never revised" is false as of 07:46:49Z the same day; see [CORRECTION-the-elevens-remeasured](CORRECTION-the-elevens-remeasured.md)]**. The rule is *more* right than when written — the count drifts, the file drifts, and the file's drift is a separate axis from the count's. |
+| 91 | **Before quoting a doc as the spec, check the doc and the spec are the same file.** `algebra.md` and the game's dialectic note are different elevens — and there are **three**, not two, the third being `massive_simulation.js:16`, which is executable. I quoted the game for the charter. |
+| 92 | **An implementation count is not a documentation count.** ~~6 of 11 implemented, 11 documented, 0 in Rust. "There are 11 opcodes" is true of a doc and false of every port.~~ **[CORRECTED 2026-10-18T15:19Z — [CORRECTION-rust-is-nine](CORRECTION-rust-is-nine.md)] → 9 of 11 in `quilt-rust/crates/quilt-polyformalism/src/lib.rs`, plus 4 in `browser/substrate-sdk.js`. "0 in Rust" was true of ONE FILE and generalised to a language.** The rule's first clause stands and is now sharper than when written: the count was right and the scope was wrong. |
 | 93 | **When two things met once and then diverged, the meeting is the artifact.** `_worker.js` welded a 24-kind roster to an 11-opcode whitelist in one file, 41 hours before the charter described both. The models are three portraits of a thing that was written once. |

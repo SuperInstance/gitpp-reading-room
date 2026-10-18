@@ -33,7 +33,7 @@ what everything below is sorted against.
 | `ATLAS-03` | **the ladder**: SuperInstance -> patchwork-quilt (production) -> purplepincher (hardened) -> si-ready (empty shelf) | `gitpp-reading-room` |
 | `FINDING-24` | the npm layer: tarball-only recoveries, the publish trap, the scope collisions | `gitpp-reading-room` |
 | `FINDING-25` | **two ports of one idea, no equivalence check** — `barracks` (Python repo) vs the published JS `src/index.js` | `gitpp-reading-room` |
-| `FINDING-26` + 2 corrections | **three cell models, one charter**; the address is not the hash | `gitpp-reading-room` |
+| `FINDING-26` + 2 corrections | ~~**three cell models**, one charter~~ **[CORRECTED 2026-10-18T15:19Z — eight; see [CORRECTION-eight-cell-models](CORRECTION-eight-cell-models.md)]**; the address is not the hash | `gitpp-reading-room` |
 | `CORRECTION-canon-shape` | the service never changed shape; the client was written against a shape it never had | `gitpp-reading-room` |
 | `CORRECTION-quilt-namespace` | the name "quilt" is held three times over | `gitpp-reading-room` |
 | `CORRECTION-third-party-packages` | 36 published packages are other people's; `motifcode` is `taewooopark`'s | `gitpp-reading-room` |
@@ -171,6 +171,18 @@ on every clause**, and the scout checked it properly:
 generalisation, and the house's own `PRICED-TRAINING.md` ladder the
 thing to build it on.
 
+> **[CORRECTED 2026-10-18T15:19Z — [CORRECTION-phantom-ladder](CORRECTION-phantom-ladder.md)]**
+> **`PRICED-TRAINING.md` is NOT a phantom file. It exists**, at
+> `AI-Writings/situations/arch/PRICED-TRAINING.md`, 17,693 B, blob
+> `68bcaf3d367acebb6562c3f81d0264221ed68344`, one commit `6fc5e5b3325f`
+> (2026-09-30T20:08:40Z) — **on branch `claude/priced-training`, not on `main`.**
+> **The defect is a dangling citation, not a missing document:** `PRICED-STANDARD.md`
+> on `main` links to `PRICED-TRAINING.md` three times by a path that is *correct in
+> the repository* and unreachable from the branch it is read on. The ladder itself is
+> real and its runnable half is on `main` (`labs/priced-training/{priced_training,prereg,nettrain,route_witness}.py`).
+> **Also: the commits API does not return 404 for this path — it returns 200 with `[]`.**
+> The paragraph above is unchanged because it is still right about the ladder.
+
 **What already exists to build it on, and it is the right shape:**
 
 | what | where | what it is |
@@ -263,9 +275,9 @@ correction stands.
 |---|---|---|
 | 1 | `@quilt/core` unpublishable under its own name | **critical path**, §2 |
 | 2 | 55 packages with tarball content no repo has (9 at risk) | named in `ATLAS-01` §3a; 1 recovered |
-| 3 | 3 witness dialects that disagree; the charter's carries no result | **fixed** in `AI-Writings` PR #84 |
+| 3 | ~~3 witness dialects~~ **[CORRECTED 2026-10-18T15:19Z — there are FOUR dialects and one opcode vocabulary; see [CORRECTION-the-elevens-remeasured](CORRECTION-the-elevens-remeasured.md)]** that disagree; ~~the charter's carries no result~~ → **it does now**: `result?: any`, added by `1da6180bb7` at 2026-10-18T07:46:49Z | **fixed** in `AI-Writings` PR #84 — charter half only; the count is still wrong. 2 of 4 dialects carry the result |
 | 4 | the 4D address and the lattice's three projections | **no implementation anywhere** |
-| 5 | the charter's "11 opcodes" = two elevens, 6/5/1/0 implemented | named in `CORRECTION-cell-history` |
+| 5 | the charter's "11 opcodes" = ~~two elevens~~ **[CORRECTED 2026-10-18T15:19Z — THREE elevens; see [CORRECTION-the-elevens-remeasured](CORRECTION-the-elevens-remeasured.md)]**, ~~6/5/1/0 implemented~~ **[→ 9/6/5/4/1/0 — the Rust is 9 in `quilt-rust`; see [CORRECTION-rust-is-nine](CORRECTION-rust-is-nine.md)]** | named in `CORRECTION-cell-history` |
 | 6 | the charter's "26 kinds" = 25/25/24 | same |
 | 7 | `motifcode@0.4.3`'s `main` names a file the tarball does not ship | **fixed** in `Motifcode4quilt` |
 | 8 | the fork's CI has never run on `main`; when it did, 3 of 5 jobs were red | **open** — see §5.4 |
