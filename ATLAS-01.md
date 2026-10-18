@@ -244,7 +244,8 @@ snapshot that has to be regenerated.
   down and corrected in place, because the correction is more useful
   than the error was.
 
-**In progress:** the 301 uncharted repos of §3e are being mapped now.
+**Mapped:** the 301 uncharted repos of §3e are in
+[ATLAS-02.md](ATLAS-02.md).
 
 ---
 
