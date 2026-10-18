@@ -98,6 +98,55 @@ branch.** The job is red because the *dependency* cannot be fetched.
 root cannot install.** That is why two rename PRs are held: their CI is
 red for a cause older than the rename.
 
+### 2a. STEP 1 IS DONE, and it cost four broken versions
+
+`@superinstance/quilt-core` and `@superinstance/quilt-sdk` are both
+published. **Getting them right took four versions and three distinct
+defects, two of them mine:**
+
+| version | what was wrong |
+|---|---|
+| `quilt-core@0.3.0` | **no `files` field**, so npm fell back to `.gitignore` (which lists `dist/`) and the tarball shipped `src/` without the build. `main` named a file that was not in the package and `require()` threw. **The same defect I had fixed in `motifcode` an hour earlier — reproduced on the way to the fix.** Deprecated with the reason. |
+| `quilt-core@0.3.1` | builds and `import()`s cleanly — 20 exports, `yaml` + `zod`, no workspace deps. |
+| `quilt-sdk@0.2.0`, `0.2.1` | the compiled output did `export { default as manifestSchema } from '../../../schemas/manifest.schema.json'` — **a path three levels ABOVE the published package**, so `import()` threw. The schema had to move inside the package. Deprecated with the reason. |
+| `quilt-sdk@0.2.2` | still broken: the SDK's own `dependencies` still said `@quilt/core`. |
+| `quilt-sdk@0.2.3` | right deps in the tarball — **but the REGISTRY METADATA still said `@quilt/core`.** |
+| `quilt-core@0.3.2`, `quilt-sdk@0.2.4` | published from a **clean tree** (no `node_modules`) with the dependency sets written out by hand. |
+
+**THE RULE, and it is the most reusable thing in this section:**
+
+> **npm's publish records the INSTALLED TREE's dependencies, not the ones
+> in your `package.json`.** Publishing from a directory that has
+> `node_modules` in it will inject whatever is installed there as a
+> dependency of the published package.
+
+That is why `quilt-core@0.3.1` carried a dependency on `@quilt/ai` that
+its tarball never mentioned, and why `quilt-sdk@0.2.3` carried
+`@quilt/core` after I had removed it from the file. **The packument and
+the tarball disagreed, and npm installs from the packument.** A package
+can therefore have a manifest that says one thing and a registry that
+says another, and the failure looks exactly like a missing package.
+
+**The cure is unglamorous: publish from a clean copy.** No
+`node_modules`, dependencies written out explicitly, `npm pack`, inspect
+the tarball, publish the tarball, then **re-download it and install it
+from a clean cache** — because a cached packument will keep serving you
+the version you broke.
+
+**And a third trap, for the record:** `latest` on a brand-new package name
+points at a `0.0.0-stage` placeholder until the real versions land, and
+**a consumer who installs during that window gets the placeholder** —
+which is what happened here, and it produced an install that "succeeded"
+and then threw on `require`. There is a fourth: `require()` of an
+ESM-only package (`"type": "module"`, `exports` with only an `import`
+condition) throws `ERR_PACKAGE_PATH_NOT_EXPORTED`, and **that is correct
+ESM behaviour, not a defect.** `import()` is the test.
+
+**Still open after this:** the two held rename PRs (`quilt-nomad#5`,
+`quilt-k3s#4`) need their dependency specs repointed from `@quilt/core`
+to `@superinstance/quilt-core`, and the `quilt` monorepo PR (#40) needs
+the same rename applied to `packages/sdk` and the schema import fixed.
+
 ---
 
 ## 3. IN FLIGHT
