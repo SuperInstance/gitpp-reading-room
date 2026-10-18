@@ -33,17 +33,54 @@ migrated from.
 | commit | date | what it changed |
 |---|---|---|
 | `3c230ebd` | 2026-09-08 | earliest `worker.js` commit — already `{papers:[...]}` |
+| `1babc9b9` | 2026-09-08 | 3 new endpoints (`/api/charter`, `/api/tutorial`, …) |
+| `2a01acc3` | 2026-09-08 | Playground UI + 6 new endpoints + WebSocket rooms |
 | `5c01e517` | 2026-09-08 | 6 new live endpoints |
 | `b9a72fb4` | 2026-09-08 | `/api/vibe`, `/api/quilt/verify` |
+| `dee983ee` | 2026-09-08 | `POST /api/sensor`, `GET /api/sensors` |
+| `51dcab6e` | 2026-09-08 | `/api/voices` (15 entries) + `/api/frontiers` |
+| `0d7922ee` | 2026-09-08 | ZAI-air (`glm-4.5-air`) into `/api/voices` |
+| `8b2a6897` | 2026-09-09 | ZAI-zero into `/api/voices` |
 | `371e07d8` | 2026-09-19 | canon drift closure: bundle the full 71-paper corpus |
 | `3574d577` | 2026-09-24 | restore the node test seam |
 
-The shape is constant across all of them.
+**This is the complete list: all 11 commits that touch `worker.js`**
+(`GET /repos/SuperInstance/quilt-live-canon/commits?path=worker.js`,
+11 of the repository's 25 commits). It previously showed **5 of 11**
+while asserting constancy across all of them.
+
+The shape is constant across all of them, and this is no longer an
+assertion — it was re-measured. All 11 revisions of `worker.js` were
+fetched by blob SHA and grepped:
+
+```
+grep -cE "claim|drill"  ->  0   in every one of the 11 revisions
+```
+
+0 occurrences, 11 revisions, largest 83,989 B, smallest 21,349 B.
 
 ## What the client was written against
 
-`SuperInstance/canon-graph` and `SuperInstance/canon-claim` have exactly
-**two** commits each: `Initial commit` on **2026-09-04**, and my fix.
+`SuperInstance/canon-graph` and `SuperInstance/canon-claim` were
+written on **2026-09-04** (`c18bf99c` and `017ecd4f`, both
+`Initial commit`), and **neither has only two commits.**
+
+> **CORRECTED 2026-10-18. This said "exactly **two** commits each".
+> That was wrong on the day it was written.** Re-measured at
+> 2026-10-18T07:12Z: **`canon-graph` has 7 commits, `canon-claim` has
+> 10.** Only the *initial* commit is 2026-09-04; the rest are
+> `CANON.md` lint/merge commits on 09-18, 09-19 and 09-20, plus the
+> fixes written in response to this very correction on 2026-10-18.
+>
+> A commit count is the wrong invariant for this document and I should
+> not have used one — the claim that survives is *"the only commit that
+> establishes what the client was written against is the 2026-09-04
+> initial commit, and every later commit post-dates the service."*
+> `canon-claim` grew from 9 to 10 commits **during the writing of this
+> note**, which is exactly why the count is not the point.
+>
+> Recording it here rather than silently fixing it, because a correction
+> document that miscounts its own evidence is worth nothing.
 
 **The clients were written four days BEFORE the service existed.** The
 original client read the response with:

@@ -159,7 +159,7 @@ a vendored JS shim inside `cocapn-browser-agent/vendor/`.
 ## 4. What this does to the atlas
 
 The atlas's graduation section is replaced by
-[ADR-001-scoped-or-unscoped.md](ADR-001-scoped-or-unscoped.md), which
+[ADR-001-scoped-or-unscoped.md](adr/ADR-001-scoped-or-unscoped.md), which
 states the decision as **PENDING and owned by Casey**, with the exact
 question to answer:
 
@@ -170,7 +170,7 @@ Every branch of that answer selects a different destination, and the
 interim position is the same in all of them: **no package is published
 under any `@quilt/*` or `quilt-*` name until that question is answered.**
 
-The sequencing, from [INTEGRATION-NOTE.md](INTEGRATION-NOTE.md):
+The sequencing, from [INTEGRATION-NOTE.md](adr/INTEGRATION-NOTE.md):
 
 1. **`file:` instead of `workspace:*`,** in `quilt-claw`, `quilt-ai` and
    `quilt-evolve` — regardless of what the naming decision turns out to
