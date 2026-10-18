@@ -83,29 +83,80 @@ and is published, but under an *unscoped* name, while everything that
 depends on it wants the *scoped* `@quilt/core`.** One naming decision
 separates three graduation tickets from being publishable.
 
-### And two published packages are installable but unloadable
+### One published package is installable, and half of it is unloadable
 
-A separate, smaller class, found by checking what the `files` list
-actually shipped against what `main` points at:
+> **CORRECTED.** This subsection first claimed **two** published packages
+> were "installable but unloadable". One of them was wrong. The
+> correction is more useful than the error was.
+
+Checking what the `files` list actually shipped against what `main`
+points at:
 
 | package | `main` | shipped by `files` | result |
 |---|---|---|---|
-| `motifcode@0.4.3` | `./src/index.ts` | `dist/motif.js`, `dist/build-info.json`, `builtin-plugins` | `require()` → **MODULE_NOT_FOUND** — the named file is not in the tarball |
-| `openroom@0.0.21` | *(absent)* → npm defaults to `index.js` | `dist/`, `README.md`, `LICENSE` | `require()` → **MODULE_NOT_FOUND** — `index.js` is not in the tarball; the package ships `dist/cli.js` |
+| `motifcode@0.4.3` | `./src/index.ts` | `dist/motif.js`, `dist/build-info.json`, `builtin-plugins` | `require()` → **MODULE_NOT_FOUND**; `import()` → **ERR_MODULE_NOT_FOUND** — the named file is not in the tarball |
+| `openroom@0.0.21` | *(absent)* → npm defaults to `index.js` | `dist/`, `README.md`, `LICENSE` | **NOT A DEFECT** — see below |
 
-Both **install cleanly** — `npm i motifcode` reports "added 1 package, 0
-vulnerabilities" — and then fail at the first `require()`. The install
-is the happy path and the use is the failure, which is the worst place
-for it to break.
+**`openroom` was my error.** It is a **CLI** package: `type: "module"`,
+`bin: { "openroom": "./dist/cli.js" }`, no `main`. A CLI package does not
+need a `main`, `require('openroom')` failing is correct behaviour, and
+`npx openroom` works — the `.bin/openroom` shim is created on install.
+I read "no `main`" as "the entry point is missing" when the manifest
+had said all along that the entry point is a *binary*.
 
-Both are one string: `motifcode`'s `main` should be `./dist/motif.js`
-(which it ships), and `openroom` should declare `main` at all.
+**`motifcode` is the real one**, and the shape is sharper than
+"installable but unloadable":
 
-**A correction to my own reading:** these two also carry `workspace:*`
-specs, but in `devDependencies`, where npm correctly ignores them for a
-consumer install. The `workspace:` protocol is **not** what breaks these
-two; the `main` field is. The `workspace:` problem is a *repository*
-problem (§ above), not a *published package* problem.
+```
+npm i motifcode       -> "added 1 package, 0 vulnerabilities"
+npx motifcode         -> the CLI WORKS (dist/motif.js ships)
+require('motifcode')  -> MODULE_NOT_FOUND
+import('motifcode')   -> ERR_MODULE_NOT_FOUND
+```
+
+**A package with two entry points has two things that can break, and the
+obvious smoke test exercises the one that happens to work.** `npm i` plus
+`npx motifcode` is green while the library import throws. The install is
+the happy path and the *use* is the failure.
+
+**Fixed in the repository** (`SuperInstance/Motifcode4quilt`,
+`packages/cli/package.json`): `main` and `exports` now name
+`./dist/motif.js` — which `bin` already pointed at and which the build
+actually produces. The build was run and works:
+
+```
+node scripts/build.mjs
+built packages/cli/dist/motif.js (365 KB)
+```
+
+**And it is not published, for a measured reason.** The published 0.4.3
+ships five built-in plugins — `browser-web-testing`,
+`frontend-quality`, `github-workflow`, `library-docs`, `mcp-builder` —
+and **none of them exists in that repository**; the repo's `packages/`
+has `agents, cli, core, eval, hooks, journal, protocol, replay, skills,
+tools, tui` and no `builtin-plugins` directory anywhere. Publishing
+0.4.4 from the repo would **remove five plugins from the registry**, so
+the manifest fix is committed and the publish is held.
+
+That is the same shape as the luciddreamer recovery, inverted: **the
+published artifact (0.4.3) is AHEAD of the repository (0.3.3), and the
+repository cannot rebuild what it published.**
+
+The build script's own docstring already names the underlying problem:
+
+> *"Every check that passed — typecheck, tests, lint — ran against
+> TypeScript sources through `tsx`, so **nothing anywhere established
+> that the thing users would install actually starts**."*
+
+The same is true of the entry point: every check ran against
+`src/index.ts`, so nothing established that the thing users would
+**import** actually resolves.
+
+**A correction to my own reading, twice over:** these packages carry
+`workspace:*` specs, but in **`devDependencies`**, where npm correctly
+ignores them for a consumer install. The `workspace:` protocol is
+**not** what breaks them; the `main` field is. `workspace:` is a
+*repository* problem, not a *published package* problem.
 
 ---
 
