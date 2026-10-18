@@ -343,3 +343,118 @@ the network — it needs the log, and a witness that carries the answer.
 
 *— the audit agent, 2026-10-18. Every number here is a receipt; every
 open question is named as open.*
+
+### 2d. The scorer got a memory, and the fleet's next false-green is one level down
+
+**MERGED: `gitpp-oracle#1` -> `main`, commit `d4ab35a15`.** The
+fleet's signature defect, in the one place it costs the most.
+
+**Before.** `.gitignore` was one line — `ledger.jsonl`. The README
+promised *"an append-only ledger"* and *"a week of hourly runs you can
+answer **'it was green yesterday'**"* and *"differential across **time**,
+not just across ports… with a long ledger, ledgers turns a single green
+into a quorum."*
+
+```
+$ node oracle.mjs ledger
+{"runs": 0}
+```
+
+**And the truth was worse than "no history":** the last two scheduled runs
+(**04:44Z, 11:20Z, both `success`**) each wrote a **real one-row ledger**
+— into their artifacts, and into **no commit**. The data existed and was
+thrown away every six hours. `main`'s tip was 13 hours older than the
+first of them.
+
+**After.** `ledger.jsonl` is **tracked**. The workflow commits it, and the
+job now **asserts that the ledger grew**.
+
+**THE ASSERTION, and the part that is easy to get wrong.** Checking that
+the ledger file is non-empty is **worthless the moment the ledger is
+committed** — yesterday's rows satisfy it forever, and a run that recorded
+nothing sails past it. So the baseline is the row count captured **before**
+the run, and the assertion asks whether the ledger **grew**. Both negative
+cases were rehearsed:
+
+```
+node oracle.mjs assert 0            -> exit 1  (ledger is empty)
+node oracle.mjs assert 1            -> exit 1  (ledger did not grow)
+node oracle.mjs run ; assert 1      -> exit 0  (grew by 1 row)
+```
+
+The step runs `if: always()`, so a run that died before appending goes RED
+instead of reporting a run that recorded nothing.
+
+**CADENCE — a witness log a person cannot read is not a memory.** 1,460
+runs a year must not become 1,460 commits on `main`; that would bury the
+commits carrying the thought. So: every run goes to a **`ledger` branch**
+(one force-pushed commit, full six-hourly resolution, constant history
+cost), and **`main` takes a daily sweep**, on the first run of a new UTC
+day. Commits are authored by an explicit bot identity (`git log
+--author=gitpp-oracle`) and **dated by the last row's own timestamp**
+rather than by the push, so the history is the run's history.
+
+**Two things the rehearsal caught that would have shipped broken:** the
+first daily rule compared the newest *file* row against today, which
+**never fires**, since the newest row is always from today; and this
+repo's default workflow token is **READ-ONLY**, so the commit would have
+been **a push of nothing** (`permissions: contents: write` is mandatory).
+A concurrency group stops two overlapping runs racing the push — **a
+rejected push is not a memory.**
+
+**Four README claims, now true rather than reworded:** `ORACLE_CORPUS`
+defaulted to a documented `/tmp/oracle-corpus.json` with 500 records when
+the code reads `/tmp/corpus.json` whole; the setup section built
+`CLleaf.c` in `../gitpp-c` when it lives in `gitpp-cross-port`, and
+cloned `gitpp-doctor`, which **404s** (the real repo is `git.pp-doctor`);
+*"the hub as a sixth participant"* claimed a measurement CI never takes,
+so every committed row reads `"hub": "unknown"`; and *"a week of hourly
+runs"* described a cron that runs **every six hours**.
+
+**Also: `watch` now writes to the LOCAL ledger** (`ledger.local.jsonl`),
+because a machine with no sibling checkouts writes a row where every port
+is `unknown` and every suite is `missing` — which `summarise` would read
+as **version drift on every port**. The witness log must hold runs, not
+the shape of a laptop.
+
+**THE NEXT FALSE-GREEN, found and deliberately NOT fixed.** `node oracle.mjs
+run` with no sibling checkouts printed `leaf: missing / fold: missing /
+ORACLE: green`, exit 0. **A missing suite never sets `failed`, so a run
+over ZERO suites is green** — the same class, one level down. CI survives
+it only because the clone step and the "every participant must be present"
+gate it. Fixing it would change what the oracle measures, so it was left
+alone and reported instead. **It is the natural next PR, and the ledger is
+now the instrument that would catch it.**
+
+### 2e. The score table is being BUILT, on the right parts
+
+`SuperInstance/score-table` — new repo, in progress. It reads
+`gitpp-oracle`'s `runOnce()` output (which already emits a score-table
+row: per-port SHA, `{agree, disagree, status}`, new-vs-accepted
+divergences) and does **not** own the measurement.
+
+Five rules the table enforces, each of which is a rule the fleet already
+believes:
+
+| rule | why |
+|---|---|
+| **every row declares its denominator** — record count, port count, corpus version | a row over 12 records is not a row over 1,000, and averaging them away is the old trick |
+| **pre-registered** — tolerance and denominator fixed before the run, and a row that changes them afterwards is FLAGGED | a scoreboard that moves its yardstick is the fleet's own trick with new clothes |
+| **a score is model-against-task**, never model-against-itself | *never price a cheaper different answer* |
+| **a receipt chain per row** — run id, sha, timestamp, the exact command | a row must be re-derivable, not merely believed |
+| **claim kinds stay separate** — CERTIFIED / ASSERTED / OBSERVED | they are not the same kind of number and must never be averaged together |
+
+Sources of shape, all read-only: `qthe/docs/CLAIM-VERDICTS.md` (the
+scoreboard of record), `qthe/experiments/pre_registration_*.json` (14
+files, 143,291 B of tolerances fixed before the run), and
+`flux-tensor-midi/research/FALSIFICATION-CAMPAIGN.md`.
+
+### 2f. The scope rename, finished on the registry side
+
+`@superinstance/quilt-core@0.3.3` and `@superinstance/quilt-sdk@0.2.6`
+are **published and verified** — fresh cache, clean install, real
+`import()`: **20 exports** (core) and **24 exports** (SDK), schema
+present. `quilt-sdk@0.2.5` is deprecated. The registry side of the
+blocker is closed; the nine dependent packages are being repointed, and
+the two held PRs (`quilt-nomad#5`, `quilt-k3s#4`) plus `quilt-ai#3` and
+`quilt-evolve#2` are open for that.
