@@ -1,0 +1,602 @@
+[
+ {
+  "repo": "SuperInstance/AI-Writings",
+  "path": "bots/README.md",
+  "verdict": "ALREADY-CORRECT",
+  "why": "the sweep already fixed this; it teaches the three legs"
+ },
+ {
+  "repo": "SuperInstance/AI-Writings",
+  "path": "seed-canon/stories/story-134.md",
+  "verdict": "LEAVE",
+  "why": "narrative, a story, or a session transcript -- a story is not a claim"
+ },
+ {
+  "repo": "SuperInstance/AI-Writings",
+  "path": "11-the-captains-table.md",
+  "verdict": "LEAVE",
+  "why": "a SITUATION or a retrospective: narrative that quotes the mechanism, but it is not a spec"
+ },
+ {
+  "repo": "SuperInstance/AI-Writings",
+  "path": "labs/examples/match-quilt/README.md",
+  "verdict": "FIX",
+  "why": "the fleet's own artifact, with no signed head published out of band"
+ },
+ {
+  "repo": "SuperInstance/AI-Writings",
+  "path": "playtest-harness/reports/teen-apps.md",
+  "verdict": "LEAVE",
+  "why": "a third-party app review -- the word is about somebody else's app"
+ },
+ {
+  "repo": "SuperInstance/AI-Writings",
+  "path": "playtest-harness/reports/sped-apps.md",
+  "verdict": "LEAVE",
+  "why": "a third-party app review -- the word is about somebody else's app"
+ },
+ {
+  "repo": "SuperInstance/AI-Writings",
+  "path": "prose/11-the-captains-table.md",
+  "verdict": "LEAVE",
+  "why": "narrative, a story, or a session transcript -- a story is not a claim"
+ },
+ {
+  "repo": "SuperInstance/AI-Writings",
+  "path": "playtest-harness/reports/parent-apps.md",
+  "verdict": "LEAVE",
+  "why": "a third-party app review -- the word is about somebody else's app"
+ },
+ {
+  "repo": "SuperInstance/AI-Writings",
+  "path": "playtest-harness/reports/outsider-apps.md",
+  "verdict": "LEAVE",
+  "why": "a third-party app review -- the word is about somebody else's app"
+ },
+ {
+  "repo": "SuperInstance/AI-Writings",
+  "path": "playtest-harness/reports/designer-apps.md",
+  "verdict": "LEAVE",
+  "why": "a third-party app review -- the word is about somebody else's app"
+ },
+ {
+  "repo": "SuperInstance/AI-Writings",
+  "path": "labs/examples/datetime-quilt/README.md",
+  "verdict": "FIX",
+  "why": "the fleet's own artifact, with no signed head published out of band"
+ },
+ {
+  "repo": "SuperInstance/AI-Writings",
+  "path": "labs/dominated-novelty-search/README.md",
+  "verdict": "FIX",
+  "why": "the fleet's own artifact, with no signed head published out of band"
+ },
+ {
+  "repo": "SuperInstance/AI-Writings",
+  "path": "labs/examples/currency-round-quilt/README.md",
+  "verdict": "FIX",
+  "why": "the fleet's own artifact, with no signed head published out of band"
+ },
+ {
+  "repo": "SuperInstance/AI-Writings",
+  "path": "labs/examples/text-normalize-quilt/README.md",
+  "verdict": "FIX",
+  "why": "the fleet's own artifact, with no signed head published out of band"
+ },
+ {
+  "repo": "SuperInstance/AI-Writings",
+  "path": "prose/the_three_layer_doctrine.md",
+  "verdict": "LEAVE",
+  "why": "narrative, a story, or a session transcript -- a story is not a claim"
+ },
+ {
+  "repo": "SuperInstance/AI-Writings",
+  "path": "seed-canon/stories/130-the-rain-and-the-mesh.md",
+  "verdict": "LEAVE",
+  "why": "narrative, a story, or a session transcript -- a story is not a claim"
+ },
+ {
+  "repo": "SuperInstance/AI-Writings",
+  "path": "playtest-harness/reports/curriculum-apps.md",
+  "verdict": "LEAVE",
+  "why": "a third-party app review -- the word is about somebody else's app"
+ },
+ {
+  "repo": "SuperInstance/AI-Writings",
+  "path": "philosophy/cell-as-song.md",
+  "verdict": "LEAVE",
+  "why": "a PRODUCT NAME (\"Tamper-Evident Invoice Pipeline\") in an essay -- a name is not a claim"
+ },
+ {
+  "repo": "SuperInstance/AI-Writings",
+  "path": "seed-canon/papers/paper-129.md",
+  "verdict": "LEAVE",
+  "why": "narrative, a story, or a session transcript -- a story is not a claim"
+ },
+ {
+  "repo": "SuperInstance/AI-Writings",
+  "path": "labs/quilt-kernel/README.md",
+  "verdict": "FIX",
+  "why": "the fleet's own artifact, with no signed head published out of band"
+ },
+ {
+  "repo": "SuperInstance/AI-Writings",
+  "path": "labs/examples/calculator-quilt/README.md",
+  "verdict": "FIX",
+  "why": "the fleet's own artifact, with no signed head published out of band"
+ },
+ {
+  "repo": "SuperInstance/AI-Writings",
+  "path": "qgit-ds.md",
+  "verdict": "LEAVE",
+  "why": "the claim is about GIT, and it is true of git"
+ },
+ {
+  "repo": "SuperInstance/flux-vm-v3",
+  "path": "README.md",
+  "verdict": "READ-SEPARATELY",
+  "why": "a MERKLE ROOT or a feature name. A Merkle root that is PUBLISHED is a genuine commitment -- but \"published to the fleet as the trust anchor\" is a ROADMAP ITEM with a 2-month estimate, not a deployment. Do not touch without checking whether the root is actually published."
+ },
+ {
+  "repo": "SuperInstance/AI-Writings",
+  "path": "seed-canon/papers/paper-311.md",
+  "verdict": "LEAVE",
+  "why": "narrative, a story, or a session transcript -- a story is not a claim"
+ },
+ {
+  "repo": "SuperInstance/AI-Writings",
+  "path": "labs/convo-quilt/README.md",
+  "verdict": "FIX",
+  "why": "the fleet's own artifact, with no signed head published out of band"
+ },
+ {
+  "repo": "SuperInstance/AI-Writings",
+  "path": "2026-09-27-thirty-eight-rounds.md",
+  "verdict": "LEAVE",
+  "why": "a SITUATION or a retrospective: narrative that quotes the mechanism, but it is not a spec"
+ },
+ {
+  "repo": "SuperInstance/AI-Writings",
+  "path": "seed-canon/papers/paper-133.md",
+  "verdict": "LEAVE",
+  "why": "narrative, a story, or a session transcript -- a story is not a claim"
+ },
+ {
+  "repo": "SuperInstance/AI-Writings",
+  "path": "seed-canon/papers/paper-390.md",
+  "verdict": "LEAVE",
+  "why": "narrative, a story, or a session transcript -- a story is not a claim"
+ },
+ {
+  "repo": "SuperInstance/flux-vm-v3",
+  "path": "DEVELOPER.md",
+  "verdict": "READ-SEPARATELY",
+  "why": "a MERKLE ROOT or a feature name. A Merkle root that is PUBLISHED is a genuine commitment -- but \"published to the fleet as the trust anchor\" is a ROADMAP ITEM with a 2-month estimate, not a deployment. Do not touch without checking whether the root is actually published."
+ },
+ {
+  "repo": "SuperInstance/AI-Writings",
+  "path": "seed-canon/papers/paper-423.md",
+  "verdict": "LEAVE",
+  "why": "narrative, a story, or a session transcript -- a story is not a claim"
+ },
+ {
+  "repo": "SuperInstance/AI-Writings",
+  "path": "seed-canon/papers/paper-501.md",
+  "verdict": "LEAVE",
+  "why": "narrative, a story, or a session transcript -- a story is not a claim"
+ },
+ {
+  "repo": "SuperInstance/AI-Writings",
+  "path": "seed-canon/papers/paper-885.md",
+  "verdict": "LEAVE",
+  "why": "narrative, a story, or a session transcript -- a story is not a claim"
+ },
+ {
+  "repo": "SuperInstance/AI-Writings",
+  "path": "labs/examples/calculator-quilt/selftest.py",
+  "verdict": "FIX",
+  "why": "the fleet's own artifact, with no signed head published out of band"
+ },
+ {
+  "repo": "SuperInstance/AI-Writings",
+  "path": "seed-canon/papers/paper-1838.md",
+  "verdict": "LEAVE",
+  "why": "narrative, a story, or a session transcript -- a story is not a claim"
+ },
+ {
+  "repo": "SuperInstance/flux-tensor-midi",
+  "path": "guard-dsl/CERTIFICATES.md",
+  "verdict": "READ-SEPARATELY",
+  "why": "a MERKLE ROOT or a feature name. A Merkle root that is PUBLISHED is a genuine commitment -- but \"published to the fleet as the trust anchor\" is a ROADMAP ITEM with a 2-month estimate, not a deployment. Do not touch without checking whether the root is actually published."
+ },
+ {
+  "repo": "SuperInstance/AI-Writings",
+  "path": "seed-canon/papers/paper-1748.md",
+  "verdict": "LEAVE",
+  "why": "narrative, a story, or a session transcript -- a story is not a claim"
+ },
+ {
+  "repo": "SuperInstance/AI-Writings",
+  "path": "seed-canon/papers/paper-183.md",
+  "verdict": "LEAVE",
+  "why": "narrative, a story, or a session transcript -- a story is not a claim"
+ },
+ {
+  "repo": "SuperInstance/AI-Writings",
+  "path": "seed-canon/papers/paper-1801.md",
+  "verdict": "LEAVE",
+  "why": "narrative, a story, or a session transcript -- a story is not a claim"
+ },
+ {
+  "repo": "SuperInstance/AI-Writings",
+  "path": "seed-canon/papers/paper-476.md",
+  "verdict": "LEAVE",
+  "why": "narrative, a story, or a session transcript -- a story is not a claim"
+ },
+ {
+  "repo": "SuperInstance/AI-Writings",
+  "path": "apps/index.html",
+  "verdict": "LEAVE",
+  "why": "a PRODUCT NAME (\"Tamper-Evident Invoice Pipeline\") -- a name is not a claim"
+ },
+ {
+  "repo": "SuperInstance/AI-Writings",
+  "path": "seed-canon/110-the-witness-log.md",
+  "verdict": "FIX",
+  "why": "the fleet's own artifact, with no signed head published out of band"
+ },
+ {
+  "repo": "SuperInstance/AI-Writings",
+  "path": "labs/docs/using-the-labs.md",
+  "verdict": "FIX",
+  "why": "the fleet's own artifact, with no signed head published out of band"
+ },
+ {
+  "repo": "SuperInstance/SuperInstance-papers",
+  "path": "docs/research/scouts/security-patterns.md",
+  "verdict": "READ-SEPARATELY",
+  "why": "a MERKLE ROOT or a feature name. A Merkle root that is PUBLISHED is a genuine commitment -- but \"published to the fleet as the trust anchor\" is a ROADMAP ITEM with a 2-month estimate, not a deployment. Do not touch without checking whether the root is actually published."
+ },
+ {
+  "repo": "SuperInstance/SuperInstance-papers",
+  "path": "docs/archive/agent-reports/theta-roadmap.md",
+  "verdict": "READ-SEPARATELY",
+  "why": "a MERKLE ROOT or a feature name. A Merkle root that is PUBLISHED is a genuine commitment -- but \"published to the fleet as the trust anchor\" is a ROADMAP ITEM with a 2-month estimate, not a deployment. Do not touch without checking whether the root is actually published."
+ },
+ {
+  "repo": "SuperInstance/AI-Writings",
+  "path": "labs/situation-recorder/README.md",
+  "verdict": "ALREADY-CORRECT",
+  "why": "the sweep already fixed this; it teaches the three legs"
+ },
+ {
+  "repo": "SuperInstance/AI-Writings",
+  "path": "situations/SUPERINSTANCE.md",
+  "verdict": "FIX",
+  "why": "the fleet's own artifact, with no signed head published out of band"
+ },
+ {
+  "repo": "SuperInstance/AI-Writings",
+  "path": "609-the-slot-nothing-is-in.md",
+  "verdict": "LEAVE",
+  "why": "a SITUATION or a retrospective: narrative that quotes the mechanism, but it is not a spec"
+ },
+ {
+  "repo": "SuperInstance/AI-Writings",
+  "path": "labs/examples/convert-quilt/selftest.py",
+  "verdict": "FIX",
+  "why": "the fleet's own artifact, with no signed head published out of band"
+ },
+ {
+  "repo": "SuperInstance/AI-Writings",
+  "path": "philosophy/the-six-apps-and-the-ideation-machine.md",
+  "verdict": "LEAVE",
+  "why": "a PRODUCT NAME (\"Tamper-Evident Invoice Pipeline\") in an essay -- a name is not a claim"
+ },
+ {
+  "repo": "SuperInstance/AI-Writings",
+  "path": "seed-canon/papers/paper-382.md",
+  "verdict": "LEAVE",
+  "why": "narrative, a story, or a session transcript -- a story is not a claim"
+ },
+ {
+  "repo": "SuperInstance/AI-Writings",
+  "path": "seed-canon/papers/paper-331.md",
+  "verdict": "LEAVE",
+  "why": "narrative, a story, or a session transcript -- a story is not a claim"
+ },
+ {
+  "repo": "SuperInstance/AI-Writings",
+  "path": "seed-canon/119-the-math-update.md",
+  "verdict": "FIX",
+  "why": "the fleet's own artifact, with no signed head published out of band"
+ },
+ {
+  "repo": "SuperInstance/AI-Writings",
+  "path": "seed-canon/papers/paper-367.md",
+  "verdict": "LEAVE",
+  "why": "narrative, a story, or a session transcript -- a story is not a claim"
+ },
+ {
+  "repo": "SuperInstance/AI-Writings",
+  "path": "situations/arch/DECOMPOSER-TRAINING-SPEC.md",
+  "verdict": "FIX",
+  "why": "the fleet's own artifact, with no signed head published out of band"
+ },
+ {
+  "repo": "SuperInstance/flux-tensor-midi",
+  "path": "guard-dsl/COMPARISON.md",
+  "verdict": "READ-SEPARATELY",
+  "why": "a MERKLE ROOT or a feature name. A Merkle root that is PUBLISHED is a genuine commitment -- but \"published to the fleet as the trust anchor\" is a ROADMAP ITEM with a 2-month estimate, not a deployment. Do not touch without checking whether the root is actually published."
+ },
+ {
+  "repo": "SuperInstance/AI-Writings",
+  "path": "labs/situation-recorder/draw_local.py",
+  "verdict": "ALREADY-CORRECT",
+  "why": "the sweep already fixed this; it teaches the three legs"
+ },
+ {
+  "repo": "SuperInstance/AI-Writings",
+  "path": "seed-canon/11-the-substrate-spec.md",
+  "verdict": "FIX",
+  "why": "the fleet's own artifact, with no signed head published out of band"
+ },
+ {
+  "repo": "SuperInstance/AI-Writings",
+  "path": "seed-canon/116-the-multi-substrate.md",
+  "verdict": "FIX",
+  "why": "the fleet's own artifact, with no signed head published out of band"
+ },
+ {
+  "repo": "SuperInstance/AI-Writings",
+  "path": "math/index.html",
+  "verdict": "FIX",
+  "why": "the fleet's own artifact, with no signed head published out of band"
+ },
+ {
+  "repo": "SuperInstance/AI-Writings",
+  "path": "labs/situation-recorder/recorder.py",
+  "verdict": "ALREADY-CORRECT",
+  "why": "the sweep already fixed this; it teaches the three legs"
+ },
+ {
+  "repo": "SuperInstance/AI-Writings",
+  "path": "seed-canon/115-the-substrate-privacy.md",
+  "verdict": "FIX",
+  "why": "the fleet's own artifact, with no signed head published out of band"
+ },
+ {
+  "repo": "SuperInstance/flux-tensor-midi",
+  "path": "memory/2026-05-19.md",
+  "verdict": "READ-SEPARATELY",
+  "why": "a MERKLE ROOT or a feature name. A Merkle root that is PUBLISHED is a genuine commitment -- but \"published to the fleet as the trust anchor\" is a ROADMAP ITEM with a 2-month estimate, not a deployment. Do not touch without checking whether the root is actually published."
+ },
+ {
+  "repo": "SuperInstance/SuperInstance-papers",
+  "path": "docs/archive/agent-reports/theta-onboarding.md",
+  "verdict": "LEAVE",
+  "why": "an API function name (appendTamperEvidentLog) -- renaming it is a breaking change"
+ },
+ {
+  "repo": "SuperInstance/AI-Writings",
+  "path": "witnesses/index.html",
+  "verdict": "FIX",
+  "why": "the fleet's own artifact, with no signed head published out of band"
+ },
+ {
+  "repo": "SuperInstance/SuperInstance-papers",
+  "path": "docs/phase9-milestone3-report.md",
+  "verdict": "READ-SEPARATELY",
+  "why": "a MERKLE ROOT or a feature name. A Merkle root that is PUBLISHED is a genuine commitment -- but \"published to the fleet as the trust anchor\" is a ROADMAP ITEM with a 2-month estimate, not a deployment. Do not touch without checking whether the root is actually published."
+ },
+ {
+  "repo": "SuperInstance/AI-Writings",
+  "path": "labs/examples/text-normalize-quilt/selftest.py",
+  "verdict": "FIX",
+  "why": "the fleet's own artifact, with no signed head published out of band"
+ },
+ {
+  "repo": "SuperInstance/SuperInstance-papers",
+  "path": "examples/security-demo.ts",
+  "verdict": "READ-SEPARATELY",
+  "why": "a MERKLE ROOT or a feature name. A Merkle root that is PUBLISHED is a genuine commitment -- but \"published to the fleet as the trust anchor\" is a ROADMAP ITEM with a 2-month estimate, not a deployment. Do not touch without checking whether the root is actually published."
+ },
+ {
+  "repo": "SuperInstance/AI-Writings",
+  "path": "situations/arch/INTER-RELATIONAL-INTELLIGENCE.md",
+  "verdict": "FIX",
+  "why": "the fleet's own artifact, with no signed head published out of band"
+ },
+ {
+  "repo": "SuperInstance/AI-Writings",
+  "path": "computation/index.html",
+  "verdict": "LEAVE",
+  "why": "a demo string"
+ },
+ {
+  "repo": "SuperInstance/AI-Writings",
+  "path": "wisdom-traditions/01-tlingit-haida-potlatch-architecture.md",
+  "verdict": "LEAVE",
+  "why": "narrative, a story, or a session transcript -- a story is not a claim"
+ },
+ {
+  "repo": "SuperInstance/flux-signatures",
+  "path": "signing.py",
+  "verdict": "FIX",
+  "why": "the fleet's own artifact, with no signed head published out of band"
+ },
+ {
+  "repo": "SuperInstance/AI-Writings",
+  "path": "essays/THE_STRATIGRAPHY_OF_VERSION_CONTROL.md",
+  "verdict": "LEAVE",
+  "why": "the claim is about GIT, and it is true of git"
+ },
+ {
+  "repo": "SuperInstance/AI-Writings",
+  "path": "ESSAYS/THE_STRATIGRAPHY_OF_VERSION_CONTROL.md",
+  "verdict": "LEAVE",
+  "why": "the claim is about GIT, and it is true of git"
+ },
+ {
+  "repo": "SuperInstance/AI-Writings",
+  "path": "labs/examples/calculator-quilt/calc_quilt.py",
+  "verdict": "FIX",
+  "why": "the fleet's own artifact, with no signed head published out of band"
+ },
+ {
+  "repo": "SuperInstance/flux-tensor-midi",
+  "path": "research/DISSERTATION-I2I.md",
+  "verdict": "LEAVE",
+  "why": "the claim is about GIT, and it is true of git"
+ },
+ {
+  "repo": "SuperInstance/flux-tensor-midi",
+  "path": "docs/papers/emsoft-flux-rau.md",
+  "verdict": "READ-SEPARATELY",
+  "why": "a MERKLE ROOT or a feature name. A Merkle root that is PUBLISHED is a genuine commitment -- but \"published to the fleet as the trust anchor\" is a ROADMAP ITEM with a 2-month estimate, not a deployment. Do not touch without checking whether the root is actually published."
+ },
+ {
+  "repo": "SuperInstance/SuperInstance-papers",
+  "path": "src/spreadsheet/security/AuditLogger.ts",
+  "verdict": "READ-SEPARATELY",
+  "why": "a MERKLE ROOT or a feature name. A Merkle root that is PUBLISHED is a genuine commitment -- but \"published to the fleet as the trust anchor\" is a ROADMAP ITEM with a 2-month estimate, not a deployment. Do not touch without checking whether the root is actually published."
+ },
+ {
+  "repo": "SuperInstance/SuperInstance-papers",
+  "path": "docs/research/smp-paper/RESEARCH_ROADMAP.md",
+  "verdict": "READ-SEPARATELY",
+  "why": "a MERKLE ROOT or a feature name. A Merkle root that is PUBLISHED is a genuine commitment -- but \"published to the fleet as the trust anchor\" is a ROADMAP ITEM with a 2-month estimate, not a deployment. Do not touch without checking whether the root is actually published."
+ },
+ {
+  "repo": "SuperInstance/SuperInstance-papers",
+  "path": "src/spreadsheet/security/IMPLEMENTATION_SUMMARY.md",
+  "verdict": "READ-SEPARATELY",
+  "why": "a MERKLE ROOT or a feature name. A Merkle root that is PUBLISHED is a genuine commitment -- but \"published to the fleet as the trust anchor\" is a ROADMAP ITEM with a 2-month estimate, not a deployment. Do not touch without checking whether the root is actually published."
+ },
+ {
+  "repo": "SuperInstance/flux-tensor-midi",
+  "path": "research/DISSERTATION-I2I-PART1.md",
+  "verdict": "LEAVE",
+  "why": "the claim is about GIT, and it is true of git"
+ },
+ {
+  "repo": "SuperInstance/flux-tensor-midi",
+  "path": "research/DISSERTATION-I2I-FULL.md",
+  "verdict": "LEAVE",
+  "why": "the claim is about GIT, and it is true of git"
+ },
+ {
+  "repo": "SuperInstance/flux-tensor-midi",
+  "path": "research/DISSERTATION-I2I-FINAL.md",
+  "verdict": "LEAVE",
+  "why": "the claim is about GIT, and it is true of git"
+ },
+ {
+  "repo": "SuperInstance/flux-tensor-midi",
+  "path": "for-fleet/paper-certification-path.md",
+  "verdict": "READ-SEPARATELY",
+  "why": "a MERKLE ROOT or a feature name. A Merkle root that is PUBLISHED is a genuine commitment -- but \"published to the fleet as the trust anchor\" is a ROADMAP ITEM with a 2-month estimate, not a deployment. Do not touch without checking whether the root is actually published."
+ },
+ {
+  "repo": "SuperInstance/flux-tensor-midi",
+  "path": "for-fleet/review-strategic-positioning.md",
+  "verdict": "READ-SEPARATELY",
+  "why": "a MERKLE ROOT or a feature name. A Merkle root that is PUBLISHED is a genuine commitment -- but \"published to the fleet as the trust anchor\" is a ROADMAP ITEM with a 2-month estimate, not a deployment. Do not touch without checking whether the root is actually published."
+ },
+ {
+  "repo": "SuperInstance/SuperInstance-papers",
+  "path": "src/spreadsheet/backend/audit/IMPLEMENTATION_SUMMARY.md",
+  "verdict": "READ-SEPARATELY",
+  "why": "a MERKLE ROOT or a feature name. A Merkle root that is PUBLISHED is a genuine commitment -- but \"published to the fleet as the trust anchor\" is a ROADMAP ITEM with a 2-month estimate, not a deployment. Do not touch without checking whether the root is actually published."
+ },
+ {
+  "repo": "SuperInstance/Lucineer",
+  "path": "download/Round2_Review_AI_Security.md",
+  "verdict": "LEAVE",
+  "why": "hardware OTP / FIPS 140-3 tamper detection -- a different domain, not a log claim"
+ },
+ {
+  "repo": "SuperInstance/SuperInstance-papers",
+  "path": "docs/archive/agent-reports/theta-security-assessment.md",
+  "verdict": "READ-SEPARATELY",
+  "why": "a MERKLE ROOT or a feature name. A Merkle root that is PUBLISHED is a genuine commitment -- but \"published to the fleet as the trust anchor\" is a ROADMAP ITEM with a 2-month estimate, not a deployment. Do not touch without checking whether the root is actually published."
+ },
+ {
+  "repo": "SuperInstance/flux-tensor-midi",
+  "path": "for-fleet/paper-comprehensive-overview.md",
+  "verdict": "READ-SEPARATELY",
+  "why": "a MERKLE ROOT or a feature name. A Merkle root that is PUBLISHED is a genuine commitment -- but \"published to the fleet as the trust anchor\" is a ROADMAP ITEM with a 2-month estimate, not a deployment. Do not touch without checking whether the root is actually published."
+ },
+ {
+  "repo": "SuperInstance/Lucineer",
+  "path": "download/On_Device_Agent_Architecture.md",
+  "verdict": "LEAVE",
+  "why": "hardware OTP / FIPS 140-3 tamper detection -- a different domain, not a log claim"
+ },
+ {
+  "repo": "SuperInstance/Lucineer",
+  "path": "download/DeepResearch_AntiPiracy_Security.md",
+  "verdict": "LEAVE",
+  "why": "hardware OTP / FIPS 140-3 tamper detection -- a different domain, not a log claim"
+ },
+ {
+  "repo": "SuperInstance/SuperInstance-papers",
+  "path": "docs/research/smp-paper/notes/tile-security-hardening.md",
+  "verdict": "READ-SEPARATELY",
+  "why": "a MERKLE ROOT or a feature name. A Merkle root that is PUBLISHED is a genuine commitment -- but \"published to the fleet as the trust anchor\" is a ROADMAP ITEM with a 2-month estimate, not a deployment. Do not touch without checking whether the root is actually published."
+ },
+ {
+  "repo": "SuperInstance/flux-tensor-midi",
+  "path": "for-fleet/paper-reverse-actualization-strategy.md",
+  "verdict": "READ-SEPARATELY",
+  "why": "a MERKLE ROOT or a feature name. A Merkle root that is PUBLISHED is a genuine commitment -- but \"published to the fleet as the trust anchor\" is a ROADMAP ITEM with a 2-month estimate, not a deployment. Do not touch without checking whether the root is actually published."
+ },
+ {
+  "repo": "SuperInstance/flux-tensor-midi",
+  "path": "docs/superpowers/specs/2026-05-03-guard-dsl-design.md",
+  "verdict": "READ-SEPARATELY",
+  "why": "a MERKLE ROOT or a feature name. A Merkle root that is PUBLISHED is a genuine commitment -- but \"published to the fleet as the trust anchor\" is a ROADMAP ITEM with a 2-month estimate, not a deployment. Do not touch without checking whether the root is actually published."
+ },
+ {
+  "repo": "SuperInstance/AI-Writings",
+  "path": "labs/rubric-forge/jev_weights.json",
+  "verdict": "LEAVE",
+  "why": "a RECORDED judge criterion: the text is part of a measurement, and rewriting it rewrites the receipt"
+ },
+ {
+  "repo": "SuperInstance/AI-Writings",
+  "path": "sessions/papers_writers_room.json",
+  "verdict": "LEAVE",
+  "why": "narrative, a story, or a session transcript -- a story is not a claim"
+ },
+ {
+  "repo": "SuperInstance/Lucineer",
+  "path": "public/SuperInstance_ALL_FILES/Round2_Review_AI_Security.md",
+  "verdict": "LEAVE",
+  "why": "hardware OTP / FIPS 140-3 tamper detection -- a different domain, not a log claim"
+ },
+ {
+  "repo": "SuperInstance/AI-Writings",
+  "path": "sessions/stories_writers_room.json",
+  "verdict": "LEAVE",
+  "why": "narrative, a story, or a session transcript -- a story is not a claim"
+ },
+ {
+  "repo": "SuperInstance/AI-Writings",
+  "path": "labs/rubric-forge/fixture.json",
+  "verdict": "LEAVE",
+  "why": "a RECORDED judge criterion: the text is part of a measurement, and rewriting it rewrites the receipt"
+ },
+ {
+  "repo": "SuperInstance/Lucineer",
+  "path": "public/SuperInstance_ALL_FILES/On_Device_Agent_Architecture.md",
+  "verdict": "LEAVE",
+  "why": "hardware OTP / FIPS 140-3 tamper detection -- a different domain, not a log claim"
+ },
+ {
+  "repo": "SuperInstance/Lucineer",
+  "path": "public/SuperInstance_ALL_FILES/DeepResearch_AntiPiracy_Security.md",
+  "verdict": "LEAVE",
+  "why": "hardware OTP / FIPS 140-3 tamper detection -- a different domain, not a log claim"
+ }
+]
