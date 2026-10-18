@@ -1,0 +1,581 @@
+{
+  "schema": "quilt-graduation-graph/1",
+  "title": "Quilt graduation dependency graph — 15 named-scope packages, their roots, the cycle, and the quilt org",
+  "generated_by": "bruno-architect",
+  "generated_at_utc": "2026-10-18",
+  "method": "GitHub REST API (api.github.com/repos/SuperInstance/*/contents/package.json and /git/trees/HEAD?recursive=1) plus npm registry GET https://registry.npmjs.org/<pkg>. Every 'resolvable' value was evaluated against the live npm registry at generation time.",
+  "legend": {
+    "node.kind": "pkg = declares a package name | root = candidate root of the dependency tree | phantom = name referenced but no publishable manifest | foreign = belongs to another party | org = a GitHub organization",
+    "node.published": "true = present on npm at generation time | false = HTTP 404 from registry.npmjs.org | n/a = not a package",
+    "edge.resolvable": "true = npm can satisfy this spec from the registry today | false = npm CANNOT satisfy it today",
+    "edge.unresolved_why": "the concrete mechanical reason npm cannot satisfy the edge"
+  },
+  "nodes": [
+    {
+      "id": "quilt-core",
+      "kind": "foreign",
+      "name": "quilt-core",
+      "version": "0.11.0",
+      "published": true,
+      "repo": "https://github.com/niko-dellic/quilt (packages/core)",
+      "npm": "https://registry.npmjs.org/quilt-core",
+      "owner_maintainer": "niko.dellic <nikodellic@gmail.com>",
+      "published_versions": 18,
+      "license": "MIT",
+      "description": "Framework-independent pane layout model, validation, commands, and subscriptions",
+      "source_files_shipped": [
+        "dist/index.js",
+        "dist/model.js",
+        "dist/controller.js",
+        "dist/join.js",
+        "dist/join-rectangle.js",
+        "dist/types.js"
+      ],
+      "note": "NAME COLLISION / TRAP. This is NOT SuperInstance quilt-core. It is a browser pane-layout library by a third party. SuperInstance/quilt-core-os has never been published under this name and never can be without the owner cooperating. 18 versions 0.1.0..0.11.0 published 2026-09-14..2026-10-15."
+    },
+    {
+      "id": "quilt-core-os",
+      "kind": "root",
+      "name": "quilt-core",
+      "version": "0.4.0",
+      "published": false,
+      "repo": "SuperInstance/quilt-core-os",
+      "description": "Quilt edge runtime — the TypeScript daemon that ships inside the quilt-core snap.",
+      "main": "dist/daemon.js",
+      "files": [
+        "dist/**",
+        "snap/local-bin/**",
+        "snap/hooks/**",
+        "README.md",
+        "LICENSE"
+      ],
+      "license": "Apache-2.0",
+      "repo_size_kb": 6845,
+      "blob_count": 32,
+      "has_workflows": [
+        ".github/workflows/build.yml"
+      ],
+      "has_policy": [
+        "SECURITY.md",
+        ".github/CODEOWNERS",
+        ".github/dependabot.yml"
+      ],
+      "has_docs": [
+        "docs/install-jetson.md",
+        "docs/install-raspberry-pi.md",
+        "docs/recovery.md"
+      ],
+      "runtime_dep": {
+        "better-sqlite3": "^11.3.0"
+      },
+      "note": "THE ACTUAL ROOT of the dependency tree, and the product the three blocked dependents need. It DECLARES the name quilt-core — but that name is already owned on npm by node quilt-core, the third-party pane library. Its own name is therefore unpublishable as written."
+    },
+    {
+      "id": "@quilt/core",
+      "kind": "root",
+      "name": "@quilt/core",
+      "version": "0.3.0",
+      "published": false,
+      "repo": "SuperInstance/quilt (packages/core)",
+      "description": "spreadsheet-cell model monorepo package (deps yaml ^2.9.1, zod ^4.6.5); peerDependencies @quilt/ai * optional",
+      "note": "SECOND IN-ACCOUNT CLAIMANT of the @quilt/core name, and it is a DIFFERENT PRODUCT from quilt-core-os. It lives inside the quilt monorepo, not a quilt-* repo. CORRECTION to the briefing: @quilt/core IS declared on the account, just not by any quilt-* repo."
+    },
+    {
+      "id": "@quilt/sdk",
+      "kind": "root",
+      "name": "@quilt/sdk",
+      "version": "0.2.0",
+      "published": false,
+      "repo": "SuperInstance/quilt (packages/sdk)",
+      "description": "Agent substrate primitives: resolveArtifact, validateManifest, publishArtifact, publishRunTrace, resolveTemplate",
+      "note": "CORRECTION: the briefing lists @quilt/sdk only as a 404. The source DOES exist at SuperInstance/quilt packages/sdk v0.2.0. A real missing node, not a phantom."
+    },
+    {
+      "id": "@quilt/mcp",
+      "kind": "pkg",
+      "name": "@quilt/mcp",
+      "version": "0.3.0",
+      "published": false,
+      "repo": "SuperInstance/quilt (packages/mcp)",
+      "note": "Not in the fifteen. Present because it is a sibling claimant in the same monorepo."
+    },
+    {
+      "id": "@quilt/tui",
+      "kind": "pkg",
+      "name": "@quilt/tui",
+      "version": "0.3.0",
+      "published": false,
+      "repo": "SuperInstance/quilt (packages/tui)",
+      "note": "Not in the fifteen. Depends on @quilt/core via file:../core, which resolves inside the monorepo only."
+    },
+    {
+      "id": "@quilt/cli",
+      "kind": "pkg",
+      "name": "@quilt/cli",
+      "version": "0.3.0",
+      "published": false,
+      "repo": "SuperInstance/quilt (packages/cli)",
+      "note": "Not in the fifteen. Depends on @quilt/core, @quilt/mcp, @quilt/sdk."
+    },
+    {
+      "id": "@quilt/ai",
+      "kind": "pkg",
+      "name": "@quilt/ai",
+      "version": "0.1.0",
+      "published": false,
+      "repo": "SuperInstance/quilt-ai",
+      "repo_size_kb": 88,
+      "note": "Half of the cycle with @quilt/evolve."
+    },
+    {
+      "id": "@quilt/evolve",
+      "kind": "pkg",
+      "name": "@quilt/evolve",
+      "version": "0.1.0",
+      "published": false,
+      "repo": "SuperInstance/quilt-evolve",
+      "repo_size_kb": 6159,
+      "note": "Half of the cycle with @quilt/ai."
+    },
+    {
+      "id": "@quilt/claw",
+      "kind": "pkg",
+      "name": "@quilt/claw",
+      "version": "0.1.0",
+      "published": false,
+      "repo": "SuperInstance/quilt-claw",
+      "repo_size_kb": 210,
+      "test_files": 27,
+      "test_calls": 182,
+      "has_lockfile": false,
+      "note": "The largest verified working artifact in the family: 80 blobs, 27 test/*.test.js files, 182 test() calls. Cannot install because 3 of its dependencies use workspace:*."
+    },
+    {
+      "id": "@quilt/elf",
+      "kind": "pkg",
+      "name": "@quilt/elf",
+      "version": "0.1.0",
+      "published": false,
+      "repo": "SuperInstance/quilt-elf",
+      "repo_size_kb": 2868,
+      "note": "Uses bare * for @quilt/core and @quilt/ai rather than workspace:*. Same unresolvable outcome, different spelling."
+    },
+    {
+      "id": "@quilt/nomad",
+      "kind": "pkg",
+      "name": "@quilt/nomad",
+      "version": "0.1.0",
+      "published": false,
+      "repo": "SuperInstance/quilt-nomad",
+      "repo_size_kb": 2900,
+      "note": "Second consumer of @quilt/sdk."
+    },
+    {
+      "id": "@quilt/rag",
+      "kind": "pkg",
+      "name": "@quilt/rag",
+      "version": "0.1.0",
+      "published": false,
+      "repo": "SuperInstance/quilt-rag",
+      "repo_size_kb": 7147,
+      "note": "Third consumer of @quilt/sdk and third consumer of @quilt/ai. Widest fan-out of any @quilt/* package."
+    },
+    {
+      "id": "@quilt/fleet",
+      "kind": "pkg",
+      "name": "@quilt/fleet",
+      "version": "0.1.0",
+      "published": false,
+      "repo": "SuperInstance/quilt-fleet",
+      "repo_size_kb": 3103,
+      "has_publish_ci": true,
+      "publish_workflow": ".github/workflows/release.yml",
+      "publish_blocker": "none from the dependency graph — all dependencies are third-party and resolvable",
+      "note": "PUBLISHABLE ON THE NAME ALONE. Independent of the entire @quilt/core question."
+    },
+    {
+      "id": "@quilt/k3s",
+      "kind": "pkg",
+      "name": "@quilt/k3s",
+      "version": "0.1.0",
+      "published": false,
+      "repo": "SuperInstance/quilt-k3s",
+      "repo_size_kb": 2355,
+      "note": "Declares @quilt/core as a PEER dependency ^0.1.0, not a normal dependency. Note the floor: 0.1.0. Neither in-account claimant of @quilt/core (0.3.0 scoped, 0.4.0 unscoped) is checked against it."
+    },
+    {
+      "id": "@quilt/pincher",
+      "kind": "pkg",
+      "name": "@quilt/pincher",
+      "version": "0.1.0",
+      "published": false,
+      "repo": "SuperInstance/quilt-pincher",
+      "repo_size_kb": 2803,
+      "has_publish_ci": true,
+      "publish_workflow": ".github/workflows/publish.yml",
+      "publish_blocker": "none from the dependency graph — no dependencies at all",
+      "note": "PUBLISHABLE ON THE NAME ALONE. Zero dependencies; the @quilt/core question does not touch it."
+    },
+    {
+      "id": "@luciddreamer/agent-grid",
+      "kind": "pkg",
+      "name": "@luciddreamer/agent-grid",
+      "version": "1.0.0",
+      "published": false,
+      "repo": "SuperInstance/agent-grid",
+      "repo_size_kb": 42,
+      "has_publish_ci": true,
+      "publish_workflow": ".github/workflows/publish.yml",
+      "runtime_dep": {},
+      "peer_dep": {
+        "react": "^18.0.0 || ^19.0.0",
+        "react-dom": "^18.0.0 || ^19.0.0"
+      },
+      "note": "No runtime dependencies. BLOCKED ONLY BY THE NAME."
+    },
+    {
+      "id": "@luciddreamer/cost-analysis",
+      "kind": "pkg",
+      "name": "@luciddreamer/cost-analysis",
+      "version": "1.0.0",
+      "published": false,
+      "repo": "SuperInstance/cost-analysis",
+      "repo_size_kb": 17,
+      "has_publish_ci": true,
+      "publish_workflow": ".github/workflows/publish.yml",
+      "runtime_dep": {
+        "recharts": "^2.12.0"
+      },
+      "note": "BLOCKED ONLY BY THE NAME."
+    },
+    {
+      "id": "@luciddreamer/monitoring-dashboard",
+      "kind": "pkg",
+      "name": "@luciddreamer/monitoring-dashboard",
+      "version": "1.0.0",
+      "published": false,
+      "repo": "SuperInstance/monitoring-dashboard",
+      "repo_size_kb": 17,
+      "has_publish_ci": true,
+      "publish_workflow": ".github/workflows/publish.yml",
+      "runtime_dep": {
+        "recharts": "^2.12.0"
+      },
+      "note": "BLOCKED ONLY BY THE NAME."
+    },
+    {
+      "id": "@cocapn/cocapn-browser-agent",
+      "kind": "pkg",
+      "name": "@cocapn/cocapn-browser-agent",
+      "version": "0.1.0",
+      "published": false,
+      "repo": "SuperInstance/cocapn-browser-agent",
+      "repo_size_kb": 3424,
+      "runtime_dep": {
+        "@cocapn/fleet-coordinate-js": "file:vendor/fleet-coordinate-js",
+        "@cocapn/plato-client": "file:vendor/plato-client"
+      },
+      "note": "Uses file: protocol for both deps, so its dependency graph is RESOLVABLE, but publishing it inlines and couples both vendored packages into one tarball. Blocked by the name only. Has no publish workflow."
+    },
+    {
+      "id": "@cocapn/fleet-coordinate-js",
+      "kind": "pkg",
+      "name": "@cocapn/fleet-coordinate-js",
+      "version": "0.1.0",
+      "published": false,
+      "repo": "SuperInstance/fleet-coordinate-js",
+      "repo_size_kb": 3431,
+      "runtime_dep": null,
+      "note": "Zero runtime dependencies. Has committed node_modules/typescript, which is why it is 3.4 MB. BLOCKED BY THE NAME ONLY."
+    },
+    {
+      "id": "@cocapn/plato-client",
+      "kind": "phantom",
+      "name": "@cocapn/plato-client",
+      "version": "0.1.0",
+      "published": false,
+      "repo": "SuperInstance/plato-client",
+      "note": "PHANTOM, NOT A PUBLISHABLE PACKAGE. SuperInstance/plato-client (33 KB) contains NO package.json. Its payload is a PYTHON package: src/cocapn/__pycache__/client.cpython-310.pyc and dist/cocapn_plato-0.1.0-py3-none-any.whl. The npm name exists only as a vendored JS shim at cocapn-browser-agent/vendor/plato-client/package.json. CORRECTION to the briefing, which counted this as the 15th package to publish."
+    },
+    {
+      "id": "gh-org-quilt",
+      "kind": "org",
+      "name": "quilt (GitHub organization)",
+      "created_at": "2019-04-03T13:31:09Z",
+      "public_repos": 38,
+      "owned_by": "NOT SuperInstance",
+      "note": "Unrelated Ewasm/crypto project: ewasm-rt, turbo-geth, sheth, pm, kernel, lighthouse, oof, simulation, see, ease, ease-template, cargo-ease, trin, openethereum, go-ethereum, solidity, retesteth, remix-project, EIPs. NONE of the 257 quilt-* repos in the sketchbook are in it. The namespace and this org do NOT correspond."
+    },
+    {
+      "id": "gh-org-quiltdata",
+      "kind": "org",
+      "name": "quiltdata (GitHub organization)",
+      "created_at": "2016-02-07T18:58:41Z",
+      "public_repos": 87,
+      "owned_by": "NOT SuperInstance",
+      "note": "Quilt Data, Inc., the open-source data catalog. Repos: quilt, open-data-registry, jupyterlab-quilt, notebooks, reproducible-ml. This is the org that corresponds to the npm @quilt scope. THIRD distinct quilt."
+    },
+    {
+      "id": "@quilt/quilt",
+      "kind": "foreign",
+      "name": "@quilt/quilt",
+      "version": "0.4.2",
+      "published": true,
+      "repo": "https://github.com/quiltdata/quilt",
+      "npm": "https://registry.npmjs.org/@quilt/quilt",
+      "owner_maintainer": "kevinklin <kevin@quilt.io>",
+      "note": "PROOF THAT THE npm @quilt SCOPE IS ALREADY OCCUPIED BY A THIRD PARTY. Publishing anything under @quilt/* requires write access to a scope this organization appears to control."
+    }
+  ],
+  "edges": [
+    {
+      "from": "@quilt/ai",
+      "to": "@quilt/evolve",
+      "spec": "workspace:*",
+      "resolvable": false,
+      "unresolved_why": "workspace: is a monorepo-internal protocol; npm cannot resolve it outside a workspace root (EUNSUPPORTEDPROTOCOL, reproduced). Also forms a cycle with @quilt/evolve -> @quilt/ai."
+    },
+    {
+      "from": "@quilt/ai",
+      "to": "@quilt/core",
+      "spec": "workspace:*",
+      "resolvable": false,
+      "unresolved_why": "EUNSUPPORTEDPROTOCOL. Target additionally ambiguous: two in-account packages claim @quilt/core."
+    },
+    {
+      "from": "@quilt/evolve",
+      "to": "@quilt/ai",
+      "spec": "workspace:*",
+      "resolvable": false,
+      "unresolved_why": "EUNSUPPORTEDPROTOCOL. Closes the @quilt/ai <-> @quilt/evolve cycle."
+    },
+    {
+      "from": "@quilt/evolve",
+      "to": "@quilt/core",
+      "spec": "workspace:*",
+      "resolvable": false,
+      "unresolved_why": "EUNSUPPORTEDPROTOCOL. Target ambiguous as above."
+    },
+    {
+      "from": "@quilt/claw",
+      "to": "@quilt/core",
+      "spec": "workspace:*",
+      "resolvable": false,
+      "unresolved_why": "EUNSUPPORTEDPROTOCOL. This is the edge that makes quilt-claw uninstallable."
+    },
+    {
+      "from": "@quilt/claw",
+      "to": "@quilt/ai",
+      "spec": "workspace:*",
+      "resolvable": false,
+      "unresolved_why": "EUNSUPPORTEDPROTOCOL."
+    },
+    {
+      "from": "@quilt/claw",
+      "to": "@quilt/evolve",
+      "spec": "workspace:*",
+      "resolvable": false,
+      "unresolved_why": "EUNSUPPORTEDPROTOCOL."
+    },
+    {
+      "from": "@quilt/elf",
+      "to": "@quilt/core",
+      "spec": "*",
+      "resolvable": false,
+      "unresolved_why": "HTTP 404, @quilt/core is not on npm."
+    },
+    {
+      "from": "@quilt/elf",
+      "to": "@quilt/ai",
+      "spec": "*",
+      "resolvable": false,
+      "unresolved_why": "HTTP 404, @quilt/ai is not on npm."
+    },
+    {
+      "from": "@quilt/nomad",
+      "to": "@quilt/core",
+      "spec": "*",
+      "resolvable": false,
+      "unresolved_why": "HTTP 404."
+    },
+    {
+      "from": "@quilt/nomad",
+      "to": "@quilt/sdk",
+      "spec": "*",
+      "resolvable": false,
+      "unresolved_why": "HTTP 404. Source exists at SuperInstance/quilt packages/sdk 0.2.0."
+    },
+    {
+      "from": "@quilt/rag",
+      "to": "@quilt/core",
+      "spec": "*",
+      "resolvable": false,
+      "unresolved_why": "HTTP 404."
+    },
+    {
+      "from": "@quilt/rag",
+      "to": "@quilt/sdk",
+      "spec": "*",
+      "resolvable": false,
+      "unresolved_why": "HTTP 404."
+    },
+    {
+      "from": "@quilt/rag",
+      "to": "@quilt/ai",
+      "spec": "*",
+      "resolvable": false,
+      "unresolved_why": "HTTP 404."
+    },
+    {
+      "from": "@quilt/k3s",
+      "to": "@quilt/core",
+      "spec": "^0.1.0 (peerDependency)",
+      "resolvable": false,
+      "unresolved_why": "HTTP 404, and the 0.1.0 floor does not match either in-account claimant (0.3.0 scoped, 0.4.0 unscoped)."
+    },
+    {
+      "from": "@quilt/sdk",
+      "to": "@quilt/core",
+      "spec": "* (peerDependency)",
+      "resolvable": false,
+      "unresolved_why": "HTTP 404."
+    },
+    {
+      "from": "@quilt/mcp",
+      "to": "@quilt/core",
+      "spec": "*",
+      "resolvable": false,
+      "unresolved_why": "HTTP 404."
+    },
+    {
+      "from": "@quilt/cli",
+      "to": "@quilt/core",
+      "spec": "*",
+      "resolvable": false,
+      "unresolved_why": "HTTP 404."
+    },
+    {
+      "from": "@quilt/cli",
+      "to": "@quilt/mcp",
+      "spec": "*",
+      "resolvable": false,
+      "unresolved_why": "HTTP 404."
+    },
+    {
+      "from": "@quilt/cli",
+      "to": "@quilt/sdk",
+      "spec": "*",
+      "resolvable": false,
+      "unresolved_why": "HTTP 404."
+    },
+    {
+      "from": "@quilt/tui",
+      "to": "@quilt/core",
+      "spec": "file:../core",
+      "resolvable": true,
+      "unresolved_why": null,
+      "note": "Resolves inside the quilt monorepo only. npm rewrites file: deps at publish time, which is exactly the mechanism the three blocked packages need."
+    },
+    {
+      "from": "@cocapn/cocapn-browser-agent",
+      "to": "@cocapn/fleet-coordinate-js",
+      "spec": "file:vendor/fleet-coordinate-js",
+      "resolvable": true,
+      "unresolved_why": null,
+      "note": "Vendored copy inside the consumer repo. Couples the two packages into one publishable unit."
+    },
+    {
+      "from": "@cocapn/cocapn-browser-agent",
+      "to": "@cocapn/plato-client",
+      "spec": "file:vendor/plato-client",
+      "resolvable": true,
+      "unresolved_why": null,
+      "note": "Vendored JS shim. The upstream repo is Python and has no package.json."
+    },
+    {
+      "from": "quilt-core",
+      "to": "quilt-core-os",
+      "spec": "NAME CLAIM",
+      "resolvable": false,
+      "unresolved_why": "SUPPLY-CHAIN HAZARD. npm quilt-core@0.11.0 is a third-party pane-layout library. Any manifest declaring quilt-core as * or ^0.11.0 WILL install the third party code and run its lifecycle scripts. Edge marked TRAP. Must never be followed."
+    },
+    {
+      "from": "@quilt/core",
+      "to": "quilt-core-os",
+      "spec": "NAME CLAIM (same product?)",
+      "resolvable": false,
+      "unresolved_why": "DIFFERENT PRODUCTS wanting the same name. quilt-core-os is an edge-runtime snap daemon (better-sqlite3, Apache-2.0, TypeScript daemon). quilt packages/core is a yaml+zod spreadsheet-cell model. Unifying them is a product decision, not a packaging one."
+    },
+    {
+      "from": "gh-org-quiltdata",
+      "to": "@quilt/quilt",
+      "spec": "OWNERSHIP",
+      "resolvable": true,
+      "unresolved_why": null,
+      "note": "The only strong evidence available on who holds the npm @quilt scope: @quilt/quilt is published and its sole maintainer is kevin@quilt.io, matching this org. npm publishes no scope-ownership endpoint and the local token cannot read /-/org/* (403 even for its own profile), so this remains TO BE VERIFIED before any publish."
+    },
+    {
+      "from": "gh-org-quilt",
+      "to": "@quilt/core",
+      "spec": "NAMESPACE COLLISION",
+      "resolvable": false,
+      "unresolved_why": "The quilt GitHub org (2019-04-03, 38 Ewasm/crypto repos) has no packages/core and no relationship to this account. It grants no npm scope and must not be treated as a destination without Casey asserting ownership."
+    }
+  ],
+  "cycles": [
+    {
+      "members": [
+        "@quilt/ai",
+        "@quilt/evolve"
+      ],
+      "edges": [
+        "@quilt/ai -> @quilt/evolve",
+        "@quilt/evolve -> @quilt/ai"
+      ],
+      "is_npm_fatal": false,
+      "note": "npm does not forbid cyclic dependencies between two separately published packages. The cycle becomes fatal only under a single-monorepo workspace layout (npm run -ws build deadlocks on topological order) or a naive publish-order script. It is NOT the reason publish currently fails. The reason is workspace:*."
+    }
+  ],
+  "counts": {
+    "packages_naming_a_scope_in_the_briefing": 15,
+    "of_those_with_a_publishable_manifest": 14,
+    "of_those_on_npm": 0,
+    "phantom_nodes": 1,
+    "unresolvable_edges": 23,
+    "resolvable_edges": 4,
+    "repos_with_npm_publish_workflow": 5,
+    "in_account_claimants_of_the_name_core": 2,
+    "distinct_third_parties_controlling_the_name_quilt": 3,
+    "total_edges": 27,
+    "total_nodes": 25
+  },
+  "verified_facts_not_in_the_briefing": [
+    "The unscoped quilt-core on npm is NOT SuperInstance's. It is niko-dellic/quilt packages/core, a MIT pane-layout library with zero dependencies, 18 versions.",
+    "@quilt/core v0.3.0 IS declared on the account, at SuperInstance/quilt packages/core, and is a different product from quilt-core-os.",
+    "@quilt/sdk v0.2.0 IS declared on the account, at SuperInstance/quilt packages/sdk.",
+    "The npm @quilt scope is occupied: @quilt/quilt@0.4.2, maintainer kevin@quilt.io, matching the quiltdata GitHub org.",
+    "GitHub user luciddreamer EXISTS (type User, created 2023-04-26, 0 public repos). The org does not. The briefing's 404 holds only for /orgs/luciddreamer.",
+    "@cocapn/plato-client has no package.json anywhere; the repo is a Python package.",
+    "The quilt-* family in the sketchbook measures 257 repos, not 259.",
+    "The seven shared-core repos (quilt-arcade, quilt-arena, quilt-quant, quilt-dba, quilt-mesh, quilt-learn, loom-core) ship a byte-identical engine/engine.js of 28,145 bytes. The briefed 97,486-byte JS + 71,216-byte TS pair does NOT reproduce at HEAD of any of the seven (single 'main' branch each) and is marked UNVERIFIED."
+  ],
+  "measured_family": {
+    "quilt_dash_repos": 257,
+    "total_repos_in_account": 5280,
+    "archived_among_quilt_dash": 0,
+    "pushed_last_three_months": {
+      "2026-08": 47,
+      "2026-09": 145,
+      "2026-10": 65
+    },
+    "shared_core_engine_js_bytes": 28145,
+    "shared_core_engine_js_map_bytes": 17339,
+    "briefed_shared_core_pair": "97486-byte JS + 71216-byte TS — UNVERIFIED, not reproduced at HEAD",
+    "quilt_claw": {
+      "repo_size_kb": 210,
+      "test_files": 27,
+      "test_calls": 182,
+      "has_lockfile": false
+    }
+  }
+}
