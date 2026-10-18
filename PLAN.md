@@ -147,6 +147,81 @@ ESM behaviour, not a defect.** `import()` is the test.
 to `@superinstance/quilt-core`, and the `quilt` monorepo PR (#40) needs
 the same rename applied to `packages/sdk` and the schema import fixed.
 
+### 2b. THE SCORE TABLE: THERE ISN'T ONE, AND THE CLAIM THAT THERE WAS IS FALSE
+
+A claim in this session's own reporting — repeated to Casey — was that
+`quilt-live-canon` "scores models on a 0–1 scale with declared
+denominators and score-stable campaigns" and has a ledger. **It is false
+on every clause**, and the scout checked it properly:
+
+- `quilt-live-canon`'s 23 `score` hits in `worker.js` are **cosine
+  similarity for search ranking** (`0.50*cos + 0.20*fProx + …`). Zero
+  hits for `ledger`, `denomin`, `campaign` or `stable`. Its "ledger" is
+  `CANON.md:14` -> `ledger: git-log`.
+- **Account-wide, `"score table"` -> 0 results and `"planned
+  denominator"` -> 0, across all 5,289 repositories.**
+- **`quilt-claw/packages/eval/` does not exist on any of its 3
+  branches.** The "Immutable benchmark manifests, planned denominators,
+  trust…" description in this session's own notes describes a directory
+  that is not in the repository.
+- `cargo-line-tycoon` has no `toolkit/` and no `packages/eval/`.
+
+**So the score table has to be BUILT, not generalised.** Which makes
+`PRICED-STANDARD.md` the first measurement of its kind rather than a
+generalisation, and the house's own `PRICED-TRAINING.md` ladder the
+thing to build it on.
+
+**What already exists to build it on, and it is the right shape:**
+
+| what | where | what it is |
+|---|---|---|
+| **a live scorer** | `SuperInstance/gitpp-oracle` | cron `17 */6 * * *`, last run 2026-10-18T04:44, **success**, declared >=1000-record floor. Its `runOnce()` already emits a score-table row: per-port SHA, `{agree, disagree, status}`, new-vs-accepted divergences. |
+| static scoreboards | `qthe/docs/CLAIM-VERDICTS.md`, `flux-tensor-midi/research/FALSIFICATION-CAMPAIGN.md` | 7 and 10 claims with denominators and receipt-chain tips |
+| **pre-registration** | `qthe/experiments/pre_registration_*.json` | 14 files, 143,291 B — the tolerances fixed before the run |
+
+**THE DEFECT THAT MATTERS MOST, and it is the fleet's signature one:**
+
+`gitpp-oracle/.gitignore` is **one line**: `ledger.jsonl`.
+
+Its README promises *"an append-only ledger"* and *"a week of hourly runs
+you can answer **'it was green yesterday'**"* and *"differential across
+**time**, not just across ports… with a long ledger, ledgers turns a
+single green into a quorum."*
+
+**Run it:**
+
+```
+$ node oracle.mjs ledger
+{"runs": 0}
+```
+
+**The ledger is gitignored, the cron never commits it, the history does
+not exist, and the fleet's only continuous cross-port check goes GREEN
+while holding no memory of a single previous run.** Everything the README
+promises about time is unreachable. The witness-log idiom exists in this
+very repo — and this repo's own witness is thrown away every six hours.
+
+**That is the whole fleet's signature defect in the one place it costs
+the most, and it is a one-line fix plus a CI assertion.**
+
+## 2c. What the fleet's own READMEs claim, measured
+
+The scout ranked README misdescriptions by **consequence**, not by how
+wrong the text is:
+
+| repo | the claim | reality |
+|---|---|---|
+| **`gitpp-oracle`** | an append-only ledger; *"it was green yesterday"* | `.gitignore` is one line: `ledger.jsonl`. `node oracle.mjs ledger` -> `{"runs": 0}`. **The only live scorer has no memory, and goes green while having none.** |
+| **`quilt-ai`** | `npm test` (README:217) | `"@quilt/core": "workspace:*"` in a non-monorepo; `@quilt/core` does not exist. Proved: `EUNSUPPORTEDPROTOCOL`, exit 1. **(The root is now published as `@superinstance/quilt-core`; the spec still has to be repointed.)** |
+| **`quilt-evolve`** | the same, reciprocally | forms a **dependency cycle** with `quilt-ai`; neither can build or test |
+| **`plato-room-deployment-approval`** | a CI badge for `ci.yml` | the repo has **no `.github/workflows/` at all**. A badge for a workflow that does not exist. |
+| **`gitpp-cross-port`** | "4 ports" at lines 3, 7, 17, 96 | "5 ports" at line 31 |
+
+**And the `plato-*` npm-shim claim did not reproduce** — 0 of 283 repos have both
+`Cargo.toml` and `package.json`; `"module.exports = {}"` returns 2 hits, both in
+test files. That section of the atlas is already corrected, and the
+correction stands.
+
 ---
 
 ## 3. IN FLIGHT
