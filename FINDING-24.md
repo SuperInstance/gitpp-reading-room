@@ -24,9 +24,9 @@ once:
 
 And two things that were *live and healthy* turned out to be measured wrong:
 
-4. **The canon service changed the SHAPE of its response** — not the data —
-   and four published clients broke silently, reporting an outage that was
-   not happening.
+4. **A canon client was written against a response shape the service
+   never had** — and its self-test, which would have said so, was never
+   run by any CI, because the repository had none.
 5. **A directory publish shipped a different directory's bytes.** The
    version was perfect. The code was from a stale staging tree. Both
    versions were installable. Only one of them was the fix.
@@ -35,6 +35,12 @@ The theme is the same one this series keeps arriving at, in a new register:
 
 > **The registry is a claim. The tarball is the artifact. A version number
 > proves nothing about the bytes.**
+
+And the correction that sharpened it:
+
+> **The broken artifact is not the witness.** When a client disagrees
+> with a service, the client is under suspicion until history says
+> otherwise — and history is a commit log, not a vibe.
 
 ---
 
@@ -214,37 +220,54 @@ because a consumer's security review reads the *name*.
 
 ---
 
-## 7. A live service changed its response **SHAPE**
+## 7. A client was written against a shape the service never had
 
-`/api/canon` used to return a **map** of papers keyed by id:
+> **CORRECTED 2026-10-18 — see [CORRECTION-canon-shape.md](CORRECTION-canon-shape.md).**
+> The first version of this section said the service *changed* its shape.
+> It did not. The client was wrong from the day it was written.
 
-```json
-{ "paper-470.md": { "id": "...", "number": 470, "title": "..." } }
-```
-
-It now returns a **list** under a key:
+`/api/canon` returns a **list** under a key:
 
 ```json
-{ "papers": [ { "id": "...", "number": 470, "title": "..." } ] }
+{ "papers": [ { "id": "...", "number": 470, "title": "..." } ], "count": 71 }
 ```
 
-The data did not change. The **shape** did. And four published clients
-read the response with:
+**and it has returned that shape since the worker's earliest commit**,
+`3c230ebd` on 2026-09-08. There is no earlier map-shaped response to
+have migrated from.
+
+The clients were written on **2026-09-04 — four days before the service
+existed** — and read the response with:
 
 ```js
 Object.keys(payload).length
 ```
 
-which counts **top-level keys**, not papers. On the new shape that is `2`.
-So `canon-graph`'s self-test reported:
+which counts the response's **top-level keys** — `papers` and `count`,
+so 2 — and not its papers. So `canon-graph`'s self-test reported:
 
 ```
 expected at least 70 papers, got 2
 ```
 
-**while all 71 papers were sitting there in `payload.papers`.** The
-self-test was reporting an outage that was not happening, and it was
-reporting it in the exact words an outage would use.
+**while all 71 papers were sitting there in `payload.papers`.** It has
+said that since the day it was written.
+
+**The reason it went unnoticed for 44 days is the cheapest defect in
+the fleet: neither repository had a CI workflow.** The test existed,
+the failure was real, and nothing ran it.
+
+And while checking the route table, a second and larger finding:
+**`/api/canon/claim` and `/api/canon/drill` have never existed.**
+`grep -cE "claim|drill" worker.js` is 0. So `@superinstance/canon-claim`'s
+two headline functions — the ones the package is named for — have never
+worked against the live service, and its old self-test expected
+`claim('trust ladder')` to return F168.
+
+> **Two artifacts written four days apart, on two different
+> repositories, with no shared test and no CI, were never checked
+> against each other. A relationship between two artifacts does not
+> exist until something tests it.**
 
 Measured today, three consecutive calls:
 
