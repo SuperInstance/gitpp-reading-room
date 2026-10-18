@@ -1,7 +1,27 @@
-# NPM-AUDIT — the fleet's published surface, measured
+# NPM-AUDIT — the published surface, measured
 
 *2026-10-18. Companion to [FINDING-24.md](FINDING-24.md), which tells the
 story; this file is the data.*
+
+> **REFRAMED 2026-10-18 — see [ATLAS-01.md](ATLAS-01.md).**
+> `SuperInstance` is a sketchbook, not a production fleet, and this audit
+> was first written against the wrong model. Two consequences:
+>
+> 1. **"248 packages are declared publishable and absent from the
+>    registry" is not a defect list.** A sketch that was never published
+>    is a sketch. What §2 actually produced is a *map* of the published
+>    boundary, and the atlas is the right shape for it.
+> 2. **"The 19 whose CI runs `npm publish`" are not broken publish
+>    paths.** They are **graduation attempts** — the scope names the
+>    destination organization, the publish step is the attempt to leave
+>    the sketchbook, and the package never arrives because the
+>    destination org is not ready. Five of them are `@quilt/*` and
+>    `@luciddreamer/*`; the `quilt` org exists but holds an unrelated
+>    2019 Ewasm project. That is a naming and org-access decision, not
+>    a code defect. See ATLAS-01 §3c.
+>
+> The **data** below is unchanged and is the measurement. The **frame**
+> was wrong, and the frame is what turned a map into a backlog.
 
 Method: the package list came from two independent sources, because
 neither is complete on its own.
