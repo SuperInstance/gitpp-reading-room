@@ -282,6 +282,24 @@ Two more measured traps:
 
 ---
 
+## 6a. Correction: the canon shape narrative
+
+`FINDING-24.md` §7 originally said the Live Canon service *changed* the
+shape of `/api/canon`'s response. **It did not.** The service has
+returned `{papers:[...], count:N}` since its earliest commit
+(`3c230ebd`, 2026-09-08), and the clients were written on 2026-09-04 —
+four days before the service existed — against a shape it never had.
+
+The fix that shipped is still correct; the *reason* changed. And the
+correction turned up something larger: **`/api/canon/claim` and
+`/api/canon/drill` have never existed either**
+(`grep -cE "claim|drill" worker.js` → 0), so `@superinstance/canon-claim`'s
+two headline functions — the ones the package is named for — have never
+worked against the live service, and its old self-test expected
+`claim('trust ladder')` to return F168.
+
+Full write-up: [CORRECTION-canon-shape.md](CORRECTION-canon-shape.md).
+
 ## 7. What this audit did NOT do
 
 - It did not publish any of the 248 declared-publishable packages. That
