@@ -1,4 +1,14 @@
-# CELL-HISTORY — a trace of the three (and four) cell models in `SuperInstance`
+# CELL-HISTORY — a trace of the cell models in `SuperInstance`
+
+> **[CORRECTED 2026-10-18T15:19Z — [CORRECTION-eight-cell-models](CORRECTION-eight-cell-models.md)]**
+> The title said *"three (and four) cell models."* **There are eight.**
+> `SuperInstance/intercontext-map` measured the corpus the same day and found
+> `node_kinds: {"cell_model": 8}` over `intercontext.json` (blob `6622a8fe1f16`,
+> 48 nodes / 70 edges, all eight `verified: true`, each with per-node `evidence`).
+> **Three of the five this title was missing were already in this document under
+> other headings** — `openjev` (rows 9, 10), `qthe`, and the `labs` receipt cell.
+> The title is kept above in the correction marker rather than rewritten, so the
+> count that was believed stays visible.
 
 *Scout report. Read-only. Everything below is measured from git objects and the GitHub REST/GraphQL API.
 `/tmp` only. Nothing was written to `/workspace`, nothing was pushed, published or deleted.*
@@ -40,9 +50,9 @@ All dates UTC. "First commit" = oldest commit reachable from any branch/ref in t
 | 8 | **2026-09-20T03:50:50Z** (in the filename; committed 2026-09-21T15:36:26Z) | **canon "11 opcodes" is grown here** | `AI-Writings/lab/brew/` | 113 dated brew notes, 2026-09-19T23:12 → 2026-09-21. This is where the opcode set is *grown*, not designed. | `lab/brew/20260920-035050-when-the-substrate-has-11-opcodes--bind-link-effec.md`; commits `6d5f729a`, `995b4842` |
 | 9 | 2026-09-21T00:08:03Z | **5. the ancestor `Cell`** | `AI-Writings/cellular-first-design/00_MASTER_VISION.md` | 7-layer thesis. Cell = **State + Type + Hooks + Drops + JEV confidence**. Spreadsheet-addressed as `A1`/`B2`. No 14-tuple, no opcodes, no kinds, no hash. | `34cc1534` "cellular-first-design + agent-harness + ideation-genres: real work begins" (only 2 blobs in the tree) |
 | 10 | **2026-09-21T00:14:35Z** | **5. the ancestor `Cell`** | `AI-Writings/cellular-first-design/code/openjev/cell.py` | The first real `Cell` class. **Identity is random: `self.id = id or f"cell-{uuid.uuid4().hex[:8]}"`.** Fields: `id, state, schema, witness_log, proof_chain, scars, hooks, drops, jev_confidence, bound_cells, created_at`. Opcodes observed as `opcode:` strings `WITNESS`, `PROOF`. | `afe2ed2f`; expanded at `41a3c772` (00:23:53Z) |
-| 10b | 2026-09-21T00:23:53Z | 5. ancestor | `.../code/spreadsheet/spreadsheet_plugin.py` | The cell↔spreadsheet bridge: `address` = `Sheet1!C3` regex, `parse_address`. **The address is a coordinate, not a hash.** | `41a3c772` |
+| 10b | 2026-09-21T00:23:53Z | 5. ancestor | `.../code/spreadsheet/spreadsheet_plugin.py` | The cell↔spreadsheet bridge: `address` = `Sheet1!C3` regex, `parse_address`. **The address is a coordinate, not a hash.** | `41a3c772` — **re-verified 2026-10-18T15:19Z:** `parse_address` is defined at `spreadsheet_plugin.py:23` (blob `139059f5ca5c`), called at `:48`, and `openjev/cell.py` (blob `dbdda303d456`) has **zero** occurrences of it. This is the only mention of `parse_address` in the room and it was already right — see [CORRECTION-phantom-ladder](CORRECTION-phantom-ladder.md) §4 |
 | 11 | 2026-09-21T11:10:50Z | canon, playable | `AI-Writings/cellular-first-design/algebra/index.html` | "Substrate Algebra — 11-opcode playground". `OPCODES` array = BIND LINK EFFECT VIEW TICK **FORGET PROOF ROUTE CRDT WORLD TIME**. Cells hashed `'0x'+fnv1a64(...).padStart(8,'0')`; state hash `padStart(16,'0')`. | `b194bef8` "feat: substrate-algebra demo — 11-opcode playground" |
-| 12 | **2026-09-21T14:46:45Z** | **THE CHARTER** | `AI-Writings` root | **`algebra.md`, `ENGINEERING.md`, `AGENTS.md` land together.** This is the source of "A cell is a 14-tuple. There are 11 opcodes. There are 26 kinds." and "The address is the data." | `3807557a` "WIP: cellular-first-design + selected canon content". `algebra.md` has **exactly one commit, ever** |
+| 12 | **2026-09-21T14:46:45Z** | **THE CHARTER** | `AI-Writings` root | **`algebra.md`, `ENGINEERING.md`, `AGENTS.md` land together.** This is the source of "A cell is a 14-tuple. There are 11 opcodes. There are 26 kinds." and "The address is the data." | `3807557a` "WIP: cellular-first-design + selected canon content". ~~`algebra.md` has **exactly one commit, ever**~~ **[CORRECTED 2026-10-18T15:19Z — [CORRECTION-algebra-second-commit](CORRECTION-algebra-second-commit.md)]: it now has 2.** The second is `1da6180bb77a`, 2026-10-18T07:46:49Z, *"Make the witness carry the answer, and witness what the tick adopts"*, adding `result?: any` to the `Witness` type (+13/−0 in `algebra.md`, +48/−0 in `_worker.js`). **This row was written before 07:46:49Z the same day and was true when written.** `algebra.md` still lists eleven A — the opcode drift finding survives |
 | 13 | **2026-09-21T22:01:18Z** | canon mutates | `AI-Writings/cellular-first-design/reports/wr-obs13-missing-opcodes.md` | **The six are replaced, ~7h after the charter.** Names `ATTEST`, `CONTEST`, `REVOKE`, `WITHDRAW`, and (as "a fifth shadow") `MERGE` + `DELEGATE`. Ends: *"Run the numbers: eleven plus four is fifteen."* | `46766b56` "feat: Observation-Primitive Reverse Engineering Rounds 1-3 (15 pieces)" |
 | 14 | **2026-09-22T03:12:44Z** | **1. game's substrate** | `SuperInstance/cargo-line-tycoon` | Repo's oldest commit — a **docs-only** kimi1 branch tip. `POLYFORMALISM.md` already pins the FNV canary `0x024a555471370b18d` over `"café Δ 日本語"`. **No `substrate/` code yet.** | `7782f0e` on `rescue/kimi1-recommendations-20260922`; 609 files, 0 under `substrate/` |
 | 15 | **2026-09-27T08:14:21Z** | **1. game's substrate** | `cargo-line-tycoon` | **The substrate lands.** `class Cell { state, witness_log, behavior, type }`; `computeAddress() = fnv1a64(JSON.stringify({s,t,b})).toString(16).padStart(16,'0')`; `apply()` implements **6** opcodes. | `011736b` "feat: Phase 0 world-model + Phase 1 playable tycoon toy" — an **orphan root commit** (0 parents); 832 files, 515 under `substrate/` |
@@ -74,12 +84,28 @@ It is a **prose claim**. Measured implementation:
 | TypeScript | `substrate/ts/src/index.js` `apply()` | **6** — BIND LINK EFFECT VIEW TICK **ATTEST**; `default:` throws `Unknown opcode` |
 | C99 | `substrate/c/cell_algebra.{c,h}` | **5** — BIND LINK EFFECT VIEW TICK |
 | Python | `substrate/py/clt_substrate/__init__.py` | **1** — `TICK = 'tick'` |
-| Rust | `substrate/rust/src/lib.rs` | **0** (no opcode identifiers; `Tick` is a signal-chain type, not an opcode) |
+| Rust | `substrate/rust/src/lib.rs` | **0** (no opcode identifiers; `Tick` is a signal-chain type, not an opcode) — **CONFIRMED for this file, 2026-10-18T15:19Z**, blob `90841acce4ed`, 11,494 B: 0 occurrences of all 17 opcode names; `Tick` at `:102,:105`. **But "0 Rust" is not the fleet's number — see [CORRECTION-rust-is-nine](CORRECTION-rust-is-nine.md):** `quilt-rust/crates/quilt-polyformalism/src/lib.rs` implements **9 of 11** (`COUNT = 9` at `:85`, `ALL_OPS: [Op; 9]` at `:195`, `struct Engine` at `:131`, six `law_` fns at `:212-250`) |
 
 `CONTEST`, `MERGER`, `REVOKE`, `DELEGATE`, `WITHDRAW` are **never implemented** — they appear in
 `docs/DIALECTIC_IN_11_OPCODES.md` as "6 proposed (R11 derivative)" and nowhere else in code.
+**[PARTIALLY CORRECTED 2026-10-18T15:19Z — [CORRECTION-the-elevens-remeasured](CORRECTION-the-elevens-remeasured.md)]**
+The claim is **falsified for two of the five**. `CONTEST` and `WITHDRAW` *are* implemented, in
+`cargo-line-tycoon/browser/substrate-sdk.js` — **`CONTEST` at `:242`**, **`WITHDRAW` at `:251`**
+(alongside `BIND` `:217` and `ATTEST` `:229`), 11,375 B, blob `c94654e3520d`, duplicated identically
+at `browser-deploy/` and `substrate-bundle/`. **Why the original search missed it: that file is in
+`browser/`, not under `substrate/`, and the search was scoped to `substrate/`.**
+**`MERGER`, `REVOKE` and `DELEGATE` survive the claim** — 0 occurrences of any of the three strings
+in that file, and no measured port implements them under any spelling.
 
-**Worse: the canon's eleven is not stable.** There are **two different elevens**, seven hours apart:
+**Worse: the canon's eleven is not stable.** There are ~~**two different elevens**, seven hours
+apart~~ **[CORRECTED 2026-10-18T15:19Z — [CORRECTION-the-elevens-remeasured](CORRECTION-the-elevens-remeasured.md)]: there are THREE.**
+A and B are still 7 h 14 m 33 s apart as described. **C is a third list, three weeks later, and it is
+in running code:** `cargo-line-tycoon/tests/sim/massive_simulation.js:16`
+`const OPCODES = ['ATTEST','CONTEST','MERGER','REVOKE','WITHDRAW','DELEGATE','BIND','LINK','EFFECT','VIEW','TICK']`
+(`595f6f32`, 2026-10-03) — **`MERGER`, not B's `MERGE`**, one letter, two vocabularies, and an eleven
+that is neither A nor B. **Eleven C is stated a second time in prose at
+`cargo-line-tycoon/POLYFORMALISM.md:58`.** No adoption commit exists for any of the three. The two
+original elevens, seven hours apart:
 
 * **six A** (`algebra.md`, 2026-09-21T14:46:45Z; `_worker.js:16,22` `CANON` + `OP_WHITELIST`; the playable
   playground `cellular-first-design/algebra/index.html:81`):
@@ -88,6 +114,12 @@ It is a **prose claim**. Measured implementation:
   `BIND LINK EFFECT VIEW TICK` + **`ATTEST CONTEST REVOKE WITHDRAW MERGE DELEGATE`**
 
 `algebra.md` was **never revised** (1 commit, ever). So the corpus simultaneously asserts both.
+**[CORRECTED 2026-10-18T15:19Z — [CORRECTION-algebra-second-commit](CORRECTION-algebra-second-commit.md)]**
+"Never revised" is now **false**: `1da6180bb77a`, 2026-10-18T07:46:49Z, added `result?: any` to the
+`Witness` type. **But `algebra.md:76` still reads
+`op: 'BIND' | 'LINK' | 'EFFECT' | 'VIEW' | 'TICK' | 'FORGET' | 'PROOF' | 'ROUTE' | 'CRDT' | 'WORLD' | 'TIME'`**
+— eleven A, untouched, **verified inside the patch that proves the file moved.** So the opcode-drift
+finding survives its own falsification: *the file was revised, and the opcode list was not.*
 
 **Map:** nearest of the three = **1 (game substrate)**, where 6/11 run. `quilt-claw` has the words
 BIND/LINK/EFFECT/VIEW/TICK only in comments and test descriptions (116 hits, zero as an implemented
@@ -346,9 +378,14 @@ measured gap, see §6.**
    so I cannot say whether `quilt-foundation`'s VM shares `cargo-line-tycoon`'s `computeAddress`
    formula, or only its FNV primitive. This is the single biggest hole left, because it is the most
    plausible home of a **pre-game address**.
-5. **Whether the 6 lifecycle opcodes were ever formally adopted.** `algebra.md` has exactly one
-   commit and still lists six A; `wr-obs13` names six B; `DIALECTIC_IN_11_OPCODES.md` ships six B
-   (with `MERGE`→`MERGER`). **No adoption commit exists.** The corpus asserts both elevens forever.
+5. **Whether the 6 lifecycle opcodes were ever formally adopted.** ~~`algebra.md` has exactly one
+   commit~~ **[CORRECTED 2026-10-18T15:19Z — [CORRECTION-algebra-second-commit](CORRECTION-algebra-second-commit.md)] → 2 commits
+   (`1da6180bb77a`, 2026-10-18T07:46:49Z, added `result?: any`) and still lists six A**; `wr-obs13`
+   names six B; `DIALECTIC_IN_11_OPCODES.md` ships six B (with `MERGE`→`MERGER`). **No adoption
+   commit exists.** **The corpus asserts THREE elevens, not both — and the third is executable:**
+   `cargo-line-tycoon/tests/sim/massive_simulation.js:16` carries eleven C with `MERGER`, and
+   `POLYFORMALISM.md:58` states the same list in prose. See
+   [CORRECTION-the-elevens-remeasured](CORRECTION-the-elevens-remeasured.md).**
 6. **Whether the account's other ~5,285 repos contain further cell cores.** GitHub code search covers
    default branches only and does not index every repo; `path:packages/core/src/types.ts` returned
    **0** account-wide, which I read as "indexing gap", not as proof of uniqueness. I did not enumerate

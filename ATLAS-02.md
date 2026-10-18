@@ -148,6 +148,34 @@ files, 1,460 lines of test code, all wired into `npm test`.
 and C99**, cross-checked by an **FNV-1a 64-bit canary pin
 `0x024a555471370b18d`** for byte-exact parity:
 
+> **[CORRECTED 2026-10-18T15:19Z — [CORRECTION-rust-is-nine](CORRECTION-rust-is-nine.md)]**
+> **This sentence is half true, and the half that is true is the half that
+> mattered — so the sentence was load-bearing on a false conjunction.**
+> The **canary parity is real**: `substrate/rust/src/lib.rs:17-18` pins
+> `FLEET_CANARY_INPUT = "café Δ 日本語"` → `FLEET_CANARY_HASH = 0x024a555471370b18d`,
+> and its header says it exists to produce *"identical FNV-1a 64-bit hashes,
+> identical signal-chain behavior, and identical cell-graph semantics."*
+> **The "same 11-opcode cell algebra in four languages" is FALSE.** Measured from
+> the contents API on `main`, 2026-10-18:
+>
+> | port | path | bytes | blob | opcodes |
+> |---|---|---|---|---|
+> | TypeScript | `substrate/ts/src/index.js` | 13,917 | `90f04ea95eee` | **6** BIND LINK EFFECT VIEW TICK ATTEST |
+> | TypeScript (SDK) | `browser/substrate-sdk.js` | 11,375 | `c94654e3520d` | **4** BIND ATTEST CONTEST WITHDRAW |
+> | C99 | `substrate/c/cell_algebra.{c,h}` | 1,570 / 44 ln | `549b8ddea82c` | **5** BIND LINK EFFECT VIEW TICK |
+> | Python | `substrate/py/clt_substrate/__init__.py` | 9,935 | `55d889b53dcd` | **1** TICK |
+> | Rust (this port) | `substrate/rust/src/lib.rs` | 11,494 | `90841acce4ed` | **0** |
+> | **Rust (`quilt-rust`)** | `crates/quilt-polyformalism/src/lib.rs` | 44,728 | `e629bb908e45` | **9** |
+>
+> **Four ports of a *hash* is not four ports of an *algebra*, and this entry used
+> the former to underwrite the latter.** The repo's own doc disagrees with this
+> atlas: `cargo-line-tycoon/POLYFORMALISM.md:96-98` lists all three substrate
+> ports as **unchecked checkboxes** — `- [ ] substrate/rust/ — signal-chain Rust
+> port` — *signal-chain* twice, *unchecked*. **The repository describes its own
+> ports as signal-chain parity with the algebra still to do. This atlas read the
+> checkboxes as done.** The claim survives in a different form: the hash parity
+> is four-port, real, and independently arrived at.
+
 ```
 substrate/c/cell_algebra.c        substrate/c/test_algebra.c
 substrate/rust/src/lib.rs         substrate/py/clt_substrate/__init__.py
@@ -156,7 +184,22 @@ substrate/rust/src/lib.rs         substrate/py/clt_substrate/__init__.py
 **That is the git.pp cross-port byte-equivalence invariant — the
 load-bearing claim of the whole spec series — independently implemented
 inside a game repo, in four languages, with a pinned canary, and nobody
-had looked at it.** Seven locale trees (`ar, en, es, ja, pt, vi, zh`) —
+had looked at it.**
+
+> **[CORRECTED 2026-10-18T15:19Z — [CORRECTION-rust-is-nine](CORRECTION-rust-is-nine.md)]**
+> **"independently implemented … in four languages" is overstated: four languages
+> implement the *canary*, not the algebra (6/5/1/0).** And "independently" is the
+> weakest word here: all four ports pin the **same literal**, `0x024a555471370b18d`,
+> and `substrate/rust/src/lib.rs:4` names the goal as *"identical … as the
+> TypeScript, Python, C, and Go ports"* — **a port of a port, by the same author,
+> which is exactly the condition this reading room exists to distrust** (README:
+> *"the spec, the corpus, the reference and the test runner were written by the same
+> person"*). **The parity is real and it is weaker evidence than this entry claimed:**
+> it is evidence that four copies of one constant agree, not that four
+> implementations agree. The genuinely independent check on a cell model in this
+> fleet remains `quilt-rust`'s 9/11 port against the game's 6/11 — **two different
+> opcode sets in two different repositories**, which is the first cross-model check
+> the substrate has ever had. Seven locale trees (`ar, en, es, ja, pt, vi, zh`) —
 pedagogy as a first-class code path.
 
 **`Scrapcraft`** is the other half: 4,611 lines across 16 test files —

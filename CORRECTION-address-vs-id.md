@@ -9,7 +9,8 @@ I read the charter's formal reference too late.*
 ## 1. What I got wrong
 
 `AI-Writings/algebra.md` — the charter's formal reference, 5,294 bytes,
-**exactly one commit, ever** — says:
+~~**exactly one commit, ever**~~ **[CORRECTED 2026-10-18T15:19Z — [CORRECTION-algebra-second-commit](CORRECTION-algebra-second-commit.md)]: two commits since
+2026-10-18T07:46:49Z** — says:
 
 > ```
 > ## The Address Is the Data
@@ -65,12 +66,17 @@ history is a *hand-off*: the place-address was there first, the
 content-hash arrived later in one repository, and the agent cell — the
 one that does the actual work — got neither.
 
-**And every clause of the charter is under-implemented, each in a
-different way:**
+**And ~~every clause of the charter is under-implemented, each in a
+different way~~ [CORRECTED 2026-10-18T15:19Z — [CORRECTION-rust-is-nine](CORRECTION-rust-is-nine.md): THIS CONCLUSION IS NOW WRONG for the
+operational clauses, and survives only for the addressing ones. The fleet has a
+**9/11** opcode port with an `Engine` and six law functions
+(`quilt-rust/crates/quilt-polyformalism/src/lib.rs`). The clauses with **no**
+implementation are `Address = (x, y, t, sig)` and the three projections — the
+addressing, not the operations. What is left under-implemented is:**
 
 | charter clause | documented | implemented |
 |---|---|---|
-| 11 opcodes | 11 (two elevens, one never revised) | **6** TS / **5** C99 / **1** Python / **0** Rust |
+| 11 opcodes | 11 (~~two elevens, one never revised~~ **CORRECTED 2026-10-18T15:19Z → THREE elevens, and "never revised" is false**) | **9** Rust (`quilt-rust`) / **6** TS / **5** C99 / **4** SDK / **1** Python / **0** Rust *(game port only — see [CORRECTION-rust-is-nine](CORRECTION-rust-is-nine.md))* |
 | 26 kinds | 26 | **25** dirs / **25** zoo cards / **24** validator |
 | `Address = (x, y, t, sig)` | yes | **nowhere** — no repo has it |
 | 4D lattice, **three projections** TOP(x,y) / FRONT(signal) / SIDE(time) | yes | **nowhere** |
@@ -179,7 +185,7 @@ and the device.
 
 | # | rule |
 |---|---|
-| 95 | **Read the formal reference before writing about the formal reference.** `algebra.md` is 5 KB, one commit, and it is the only document in the fleet that states the model. I built two findings and a correction on a second-hand summary of a game doc instead. |
+| 95 | **Read the formal reference before writing about the formal reference.** `algebra.md` is 5 KB, ~~one commit~~ **[CORRECTED 2026-10-18T15:19Z: two commits since 07:46:49Z the same day — [CORRECTION-algebra-second-commit](CORRECTION-algebra-second-commit.md)]**, and it is the only document in the fleet that states the model. I built two findings and a correction on a second-hand summary of a game doc instead. |
 | 96 | **A content hash is an ID, not an address.** "Address = (x, y, t, sig) — 4D navigation without a map" is a place. `computeAddress()` in the game computes a hash and is misnamed; the misnomer is what misled me. |
 | 97 | **A hash is O(payload) and a place is O(1).** That difference decides which addressing survives on a 512 KB device, and it is the whole reason the charter says "4D navigation without a map." |
 | 98 | **When a constant is declared dead, read the null before believing it.** σ = log₂(3) is the bit budget of a ternary weight — the arithmetic that puts a 0.5B model on seven $3 boards. "Not magical about bridge formation" is not "not load-bearing." |
