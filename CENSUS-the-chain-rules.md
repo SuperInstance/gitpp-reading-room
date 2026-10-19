@@ -165,3 +165,77 @@ publishing meaningful rather than a formality.
 * `CENSUS-the-chain-rules.md` — this document.
 * `CHAIN-RULE-CENSUS.json` — the machine-readable form: the repos, the trees
   fetched, the rule-shaped files, and the fingerprints.
+
+---
+
+## 6. FOLLOW-ON: the "one kernel, many languages" claim, measured
+
+The census found `quilt-rust` — a **50 KB Rust ledger with a Go and a Python
+binding of the same rule**. The house's own rule says cross-port
+byte-equivalence is the leaf invariant. So: **do the three ports agree?**
+
+### What they actually do
+
+| tier | golden | status |
+|---|---|---|
+| Rust | `compat/golden.json` + `compat/conformance_test.rs` | normative |
+| Python | **the same** `compat/golden.json` | **YES — genuinely differential-tested** |
+| Go | **its own** `bindings/go/golden.json` — a different spec (`quilt-go-golden/1`), a different sheet, and a **different chain envelope** (`sha256_hex(chain_prev + ":" + provenance)` vs the Rust's `sha256(canonical_json(entry minus hash))`) | **NO — asserted, not checked** |
+| TypeScript | — | **DOES NOT EXIST** — quilt-rust has two `.ts` files and both are demo sheets |
+
+**Verified here:** `bindings/python/tests/test_compat.py` **PASSES** and
+reproduces the Rust golden's three sealed hashes and its `chain_hash`
+exactly. So **Rust ↔ Python is byte-equivalent and genuinely
+differential-tested.** The Go port's `internal/value` implements the same
+canonical rules — its `CanonicalFloat` normalises the exponent form
+identically to Python's `fmt_float` — **but nothing checks it.**
+
+### And the divergence that IS waiting
+
+**`docs/cell-ledger.md` names the hazard itself:**
+
+> *"Known hazard: JavaScript renders `40.0` as `40`; ports must preserve
+> float-vs-int distinction to stay on-chain."*
+
+**A plain `json.Unmarshal` into `any` does the same thing to a Go port** —
+every number becomes a `float64` and the distinction is destroyed SILENTLY.
+It fails as a **mystery**: every ordinary case passes and the ones that
+matter do not.
+
+**AND IT IS NOT ONLY A THEORETICAL HAZARD.** Measured against the Rust
+golden:
+
+```
+the genesis commit, with genesis_ts as the FLOAT the golden transcript carries:
+    11f6bdb7b0c42d2f02036fcb7615...      <- what a JSON-driven port computes
+the genesis commit, with genesis_ts as the INTEGER the Rust u64 hashes:
+    470bc52774d2c173c46c5b0a8733676500...  <- the golden's value
+```
+
+**THE DIFFERENCE IS ONE BIT OF TYPE INFORMATION.** The Rust's
+`genesis_ts` is a `u64`; the golden's transcript renders it as `1000.0`.
+**And the golden's `op_e_chain.entries` is a REDUCED VIEW** — each entry is
+`{seq, prev_hash, hash}` with the full serialised body (`input`, `output`,
+`provenance`, `delta`, `expected`, `imbalance`) absent.
+
+> **SO THE GOLDEN CANNOT CERTIFY THE CHAIN.** The `chain_hash` in it is not
+> re-derivable from the golden, because the entries' bodies are not in it.
+> It is a receipt of a result, not a vector that produces one.
+
+### The fix, and it is small
+
+**THE CANONICAL FORM IS THE PART ALL THE TIERS MUST AGREE ON, AND IT IS THE
+PART THAT IS SMALL AND CHECKABLE.** So it gets its own vector file:
+`compat/canonical-vectors.json` — **21 cases**, each with the input, the
+exact expected canonical bytes, and the sha256 of those bytes. A port
+conforms by reproducing every `canonical` string in it. One check, no engine,
+no sheet, no chain.
+
+Shipped in **`SuperInstance/quilt-rust#15`**, with a test in the Python tier
+(**run here: 21/21 PASS**), a test in the Rust tier, and a test in the Go
+tier that carries a **negative control** asserting a decoder *without*
+`UseNumber()` fails the int/float vectors.
+
+**The Rust and Go tests were written but NOT EXECUTED** — this environment
+has no Rust or Go toolchain. **Marked unproven rather than quietly
+assumed.**
