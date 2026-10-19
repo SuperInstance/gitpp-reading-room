@@ -1,0 +1,86 @@
+{
+ "at": "2026-10-19",
+ "fleet_repos": 5314,
+ "method": "The unit is the CHAIN RULE, not the chain file: a new rule is a new dialect. GitHub code search is UNRELIABLE for this account (row_hash returns 1 hit when six repos use it), so the census enumerates the 5,314 repos and fetches every tree.",
+ "name_candidates": 587,
+ "trees_fetched": 587,
+ "tree_errors": 0,
+ "repos_with_rule_shaped_source": 112,
+ "rule_shaped_source_files": 604,
+ "repos_with_jsonl": 68,
+ "jsonl_files": 915,
+ "known_dialects": [
+  "fnv1a64-fleet",
+  "sha256-canonical",
+  "fnv1a64-rawpipe",
+  "fnv1a64-quant",
+  "fnv1a64-tidepool",
+  "fnv1a64-utf8-pyjson",
+  "witness-chain/1",
+  "stone-v1"
+ ],
+ "rules_beyond_the_known_eight": [
+  {
+   "repo": "quilt-chrono",
+   "file": "src/seal.js",
+   "hash": "sha256 + Ed25519",
+   "canon": "canonicalJson",
+   "note": "signed checkpoint; a SECOND law in quilt-jev-toolkit verifies it"
+  },
+  {
+   "repo": "quilt-chrono",
+   "file": "src/ledger.js",
+   "hash": "sha256",
+   "canon": "JSON.stringify"
+  },
+  {
+   "repo": "jev-quilt",
+   "file": "jev_quilt/signed_receipts.py",
+   "hash": "blake3 + Ed25519",
+   "canon": "json.dumps(sort_keys=True)"
+  },
+  {
+   "repo": "quilt-gpu-lab",
+   "file": "experiments/d21_perception_ledger.py",
+   "hash": "sha256",
+   "canon": "json.dumps(sort_keys=True)"
+  },
+  {
+   "repo": "quilt-rust",
+   "file": "packages/core/src/ledger.rs",
+   "hash": "sha256",
+   "note": "50 KB, with a Go and a Python binding of the same rule -- a THREE-PORT byte-equivalence obligation nobody has stated"
+  },
+  {
+   "repo": "moth-ledger",
+   "file": "src/moth_ledger/merkle.py",
+   "hash": "sha256",
+   "note": "plus fnv1a64 hashes.py and a merkle.py"
+  },
+  {
+   "repo": "quilt-arcade",
+   "file": "shared/receipts.mjs",
+   "hash": "fnv1a64",
+   "canon": "JSON.stringify"
+  },
+  {
+   "repo": "quilt-crabbox",
+   "file": "internal/cli/receipt.go",
+   "hash": "sha256"
+  },
+  {
+   "repo": "quilt-research-canons",
+   "file": "projects/chain-lint/chain_lint.py",
+   "note": "A CHAIN LINTER -- the fleet's closest thing to a shared notion of what a chain is, and it is not the one the verifier uses"
+  },
+  {
+   "repo": "pong-quilt",
+   "file": "tests/coev-birth-seal.test.js",
+   "canon": "canonicalJSON"
+  }
+ ],
+ "leg2b": {
+  "question": "can the signature still be checked tomorrow?",
+  "finding": "quilt-chrono mints a RUNTIME-ONLY Ed25519 identity: the private key never leaves the process and re-runs mint a fresh one. The committed receipt therefore CANNOT be re-verified by anyone. A signature by a key you no longer hold is not a signature you can check, and the three-leg vocabulary has no word for it. The best key hygiene and the best receipts are in TENSION: a runtime-only key cannot be stolen, and a seal made with it can never be re-checked."
+ }
+}
